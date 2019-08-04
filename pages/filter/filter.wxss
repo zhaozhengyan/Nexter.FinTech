@@ -1,0 +1,16 @@
+/* pages/filter/filter.wxss */
+@import '../icons-template/icons-template.wxss';
+.category_subtitle {
+	font-size: 28rpx;
+	padding: 20rpx 40rpx;
+	border-bottom: 1px solid #ebebeb;
+}
+.border_top {
+	border-top: 15rpx solid #ebebeb;
+}
+.iconfont_container:active {
+	background-color: #116cc5;
+}
+.iconfont_container:active .iconfont {
+	color: #fff;
+}

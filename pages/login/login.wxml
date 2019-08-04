@@ -1,0 +1,11 @@
+<!--pages/login/login.wxml-->
+<view class='container'>
+	<image class='logo' src='/images/logo.png'></image>
+	<view class='app_title'>一起来记账吧！</view>
+	<view class='content'>
+        <text class='content_title'>每天记账申请获取以下权限</text>
+        <text class='content_info'>· 获得您的公开信息(昵称，头像等)</text>
+		<button size='default' type='primary' open-type='getUserInfo' class='login_btn' bindgetuserinfo='onGetUserInfo'>{{buttonText}}</button>
+    </view>
+</view>
+

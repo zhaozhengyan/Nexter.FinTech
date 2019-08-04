@@ -1,0 +1,50 @@
+<!--pages/tally/tally.wxml-->
+<import src='../icons-template/icons-template.wxml' />
+<view class='tally_container'>
+    <view class='tally_box'>
+        <view class='tally_tab' catchtap='onTextTab'>
+            <text class='{{currentTallyType==="支出"?"active":""}}' data-text='支出'>支出</text>
+            <text class='{{currentTallyType==="收入"?"active":""}}' data-text='收入'>收入</text>
+            <text class='{{currentTallyType==="转账"?"active":""}}' data-text='转账'>转账</text>
+        </view>
+        <view class='digit_container'>
+            <input type='digit' class='tally_digit' placeholder='0.00' />
+        </view>
+    </view>
+    <view wx:if='{{currentTallyType!=="转账"}}' class='iconsTemplate_container'>
+        <view class='subtitle'>选择类别</view>
+        <template is='iconsTemplate' data='{{currentCategoryId: currentCategoryId,categoryArray: categoryArray}}' />
+    </view>
+    <view wx:if='{{currentTallyType==="转账"}}' class='transfer_box'>
+        <view class='item' catchtap='onAccountOut'>
+            <image src='{{accountOut.iconPath}}' class='transfer_icon'></image>
+            <view class='transfer_name'>{{accountOut.accountName}}</view>
+        </view>
+        <view class='item'>
+            <image src='../../images/transfer.png' class='transfer_img'></image>
+            <view class='transfer_name'>转至</view>
+        </view>
+        <view class='item' catchtap='onAccountIn'>
+            <image src='{{accountIn.iconPath}}' class='transfer_icon'></image>
+            <view class='transfer_name'>{{accountIn.accountName}}</view>
+        </view>
+    </view>
+    <view class='tally_select_row'>
+        <picker class='tally_picker' mode="date" value="{{date}}" start="2017-01-01" end="{{toDayDate}}" bindchange="OnDateChange">
+            <view class="picker">日期：{{date}}</view>
+        </picker>
+        <view wx:if='{{currentTallyType!=="转账"}}' class='tally_account' catchtap='selectAccountTap'>
+            <image src='{{selectedAccount.iconPath}}' class='tally_account_icon'></image>
+            <text class='tally_account_name'>{{selectedAccount.accountName}}</text>
+        </view>
+    </view>
+    <view class='tally_note'>
+        <view class='tally_note_name'>备注：</view>
+        <view class='text_container'>
+            <input type='text' confirm-type='done' placeholder='这里可以填写账单备注哦' placeholder-class='text_placeholder' />
+        </view>
+    </view>
+    <view class='tally_btn'>
+        <button type='default'>确定</button>
+    </view>
+</view>

@@ -1,0 +1,13 @@
+<!--pages/icons-template/icons-template.wxml-->
+<template name='iconsTemplate'>
+    <view class='iconfont_list'>
+        <block wx:for='{{categoryArray}}' wx:key=''>
+            <view class='iconfont_item' data-category-id='{{item.categoryId}}' bindtap='onSelectIconFontTap'>
+                <view class='iconfont_container {{ currentCategoryId == item.categoryId?"active":"" }}'>
+                    <i class="iconfont {{item.categoryIcon}}"></i>
+                </view>
+                <view class='icon_name'>{{item.categoryName}}</view>
+            </view>
+        </block>
+    </view>
+</template>

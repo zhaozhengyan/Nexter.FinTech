@@ -1,0 +1,10 @@
+var toFix = function (num){
+	num = parseFloat(num);
+	if (typeof num === 'number'){
+		return num.toFixed(2); //保留两位小数
+	}
+}
+
+module.exports = {
+	toFix: toFix
+}

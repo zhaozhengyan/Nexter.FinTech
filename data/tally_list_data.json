@@ -1,0 +1,212 @@
+{
+	"dateMonth": "2018-12",
+	"MonthTotalMoneys": [902.8,15000],
+	"lists": [
+		{
+			"date": "2018-12-07",
+			"totalMoney": [
+				630,
+				0,
+				0
+			],
+			"list": [
+				{
+					"id": "1544241045826",
+					"date": "2018-12-07",
+					"money": 600.00,
+					"type": "支出",
+					"categoryName": "住房",
+					"categoryIcon": "icon-zhufang",
+					"accountName": [
+						"现金钱包"
+					],
+					"createTime": "2018-12-07 20:00:05",
+					"note": "1963年2月15日出生于上海，1978年考入复旦大学。1980年赴德国柏林自由大学留学，1983年获硕士学位。后赴美国纽约州立大学石溪分校深造，1987年获博士学位。后在加州大学圣芭芭拉分校从事博士后研究。后前往IBM担任高级研究人员。"
+				},
+				{
+					"id": "1544241078106",
+					"date": "2018-12-07",
+					"money": 30,
+					"type": "支出",
+					"categoryName": "餐饮",
+					"categoryIcon": "icon-canyin",
+					"accountName": [
+						"微信账户"
+					],
+					"createTime": "2018-12-07 20:10:05",
+					"note": "后前往IBM担任高级研究人员。"
+				}
+			]
+		},
+		{
+			"date": "2018-12-05",
+			"totalMoney": [
+				32,
+				0,
+				0
+			],
+			"list": [
+				{
+					"id": "1544241078336",
+					"date": "2018-12-05",
+					"money": 32,
+					"type": "支出",
+					"categoryName": "餐饮",
+					"categoryIcon": "icon-canyin",
+					"accountName": [
+						"微信账户"
+					],
+					"createTime": "2018-12-05 20:10:05",
+					"note": ""
+				}
+			]
+		},
+		{
+			"date": "2018-12-04",
+			"totalMoney": [
+				123.8,
+				0,
+				0
+			],
+			"list": [
+				{
+					"id": "1544255078106",
+					"date": "2018-12-04",
+					"money": 100,
+					"type": "支出",
+					"categoryName": "服饰",
+					"categoryIcon": "icon-fushi",
+					"accountName": [
+						"支付宝账户"
+					],
+					"createTime": "2018-12-04 20:00:05",
+					"note": "后赴美国纽约州立大学石溪分校深造，1987年获博士学位。后在加州大学圣芭芭拉分校从事博士后研究。后前往IBM担任高级研究人员。"
+				},
+				{
+					"id": "1565641078106",
+					"date": "2018-12-04",
+					"money": 5,
+					"type": "支出",
+					"categoryName": "餐饮",
+					"categoryIcon": "icon-canyin",
+					"accountName": [
+						"微信账户"
+					],
+					"createTime": "2018-12-05 10:10:05",
+					"note": "这是备注"
+				},
+				{
+					"id": "1544243238106",
+					"date": "2018-12-04",
+					"money": 6.8,
+					"type": "支出",
+					"categoryName": "餐饮",
+					"categoryIcon": "icon-canyin",
+					"accountName": [
+						"现金钱包"
+					],
+					"createTime": "2018-12-04 10:10:00",
+					"note": "国纽约州立"
+				},
+				{
+					"id": "1254241078106",
+					"date": "2018-12-04",
+					"money": 12,
+					"type": "支出",
+					"categoryName": "交通",
+					"categoryIcon": "icon-jiaotong",
+					"accountName": [
+						"现金钱包"
+					],
+					"createTime": "2018-12-04 10:10:00",
+					"note": "451"
+				}
+			]
+		},
+		{
+			"date": "2018-12-02",
+			"totalMoney": [
+				0,
+				0,
+				8000
+			],
+			"list": [
+				{
+					"id": "1544361078106",
+					"date": "2018-12-02",
+					"money": 8000,
+					"type": "转账",
+					"categoryName": "转账",
+					"categoryIcon": "icon-zhuanzhang",
+					"accountName": [
+						"银行账户","支付宝账户"
+					],
+					"createTime": "2018-12-02 10:10:00",
+					"note": "银行卡提现至支付宝"
+				}
+			]
+		},
+		{
+			"date": "2018-12-01",
+			"totalMoney": [
+				105,
+				15000,
+				3000
+			],
+			"list": [
+				{
+					"id": "1544241668106",
+					"date": "2018-12-01",
+					"money": 15000,
+					"type": "收入",
+					"categoryName": "工资",
+					"categoryIcon": "icon-gongzi",
+					"accountName": [
+						"银行账户"
+					],
+					"createTime": "2018-12-01 22:10:00",
+					"note": "发工资了！"
+				},
+				{
+					"id": "1523241078106",
+					"date": "2018-12-01",
+					"money": 5,
+					"type": "支出",
+					"categoryName": "餐饮",
+					"categoryIcon": "icon-canyin",
+					"accountName": [
+						"微信账户"
+					],
+					"createTime": "2018-12-01 10:10:05",
+					"note": "这是备注"
+				},
+				{
+					"id": "1544241076906",
+					"date": "2018-12-01",
+					"money": 100,
+					"type": "支出",
+					"categoryName": "服饰",
+					"categoryIcon": "icon-fushi",
+					"accountName": [
+						"支付宝账户"
+					],
+					"createTime": "2018-12-01 20:00:05",
+					"note": "后赴美国纽约州立大学石溪分校深造，1987年获博士学位。后在加州大学圣芭芭拉分校从事博士后研究。IBM担任高级研究人员。"
+				},
+				{
+					"id": "1544296078106",
+					"date": "2018-12-01",
+					"money": 3000,
+					"type": "转账",
+					"categoryName": "转账",
+					"categoryIcon": "icon-zhuanzhang",
+					"accountName": [
+						"银行账户","微信账户"
+					],
+					"createTime": "2018-12-01 10:10:00",
+					"note": "银行卡提现至微信账户"
+				}
+			]
+		}
+	]
+}

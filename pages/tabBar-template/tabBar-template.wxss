@@ -1,0 +1,55 @@
+.tabBar_container {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 97rpx;
+	padding-top: 30rpx;
+	width: 100%;
+}
+.tabBar {
+	border-top: 1px solid #e1e1e1;
+	height: 96rpx;
+	background-color: #fff;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+}
+.tabBar_item {
+	flex: 1;
+	height: 86rpx;
+	position: relative;
+	text-align: center;
+	padding-top: 10rpx;
+}
+.tabBar_icon {
+	width: 50rpx;
+	height: 50rpx;
+	display: block;
+	margin: 0 auto;
+}
+.tabBar_title {
+	font-size: 24rpx;
+	text-align: center;
+	color: #666;
+}
+
+.tabBar_add {
+	position: absolute;
+	left: 50%;
+	top: -30rpx;
+	width: 46rpx;
+	height: 46rpx;
+	padding: 32rpx;
+	border-radius: 50%;
+	margin-left: -55rpx;
+	background-color: #116cc5;
+	box-shadow: 0px 1px 10px 1px #116cc5;
+}
+.tabBar_icon_add {
+	display: block;
+	width: 46rpx;
+	height: 46rpx;
+}
+.tabBar_title_selected {
+	color: #116cc5;
+}

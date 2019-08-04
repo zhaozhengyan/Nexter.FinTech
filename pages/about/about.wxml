@@ -1,0 +1,6 @@
+<!--pages/about/about.wxml-->
+<view class='about'>
+	<image src='../../images/logo.png' class='about_logo'></image>
+	<view class='slogan'>一起来记账吧</view>
+	<view class='version'>@每天笔记 v1.0.0</view>
+</view>

@@ -1,0 +1,36 @@
+{
+	"totalIncome": "15000.00",
+	"totalSpending": "902.80",
+	"account": [
+		{
+			"accountId": 1,
+			"accountName": "现金钱包",
+			"iconPath": "/images/account/account_01.png",
+			"money": 600.00
+		},
+		{
+			"accountId": 2,
+			"accountName": "支付宝账户",
+			"iconPath": "/images/account/account_02.png",
+			"money": 3000.00
+		},
+		{
+			"accountId": 3,
+			"accountName": "微信账户",
+			"iconPath": "/images/account/account_03.png",
+			"money": 2000.00
+		},
+		{
+			"accountId": 4,
+			"accountName": "银行账户",
+			"iconPath": "/images/account/account_04.png",
+			"money": 7797.20
+		},
+		{
+			"accountId": 5,
+			"accountName": "其他账户",
+			"iconPath": "/images/account/account_05.png",
+			"money": 700.00
+		}
+	]
+}

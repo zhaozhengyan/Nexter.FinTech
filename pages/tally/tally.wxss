@@ -1,0 +1,144 @@
+/* pages/tally/tally.wxss */
+@import '../icons-template/icons-template.wxss';
+
+page {
+	background-color: #fff;
+}
+.tally_box {
+	background-color: #fff;
+	border-bottom: 15rpx solid #f5f5f5;
+}
+.tally_tab {
+	border-bottom: 1px solid #f2f2f2;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+.tally_tab text {
+	font-size: 32rpx;
+	color: #999;
+	font-weight: bold;
+	display: block;
+	flex: 1;
+	padding: 45rpx 0 15rpx;
+	text-align: center;
+}
+.tally_tab text.active {
+	color: #116cc5;
+}
+.digit_container {
+	padding: 36rpx 20rpx;
+}
+.tally_digit {
+	text-align: center;
+	height: 54rpx;
+	line-height: 54rpx;
+	font-size: 48rpx;
+}
+.iconsTemplate_container {
+	background-color: #fff;
+}
+.iconsTemplate_container .subtitle {
+	padding:10px 20rpx;
+	font-size: 26rpx;
+	color:#666;
+	border-bottom: 1px solid #f2f2f2;
+}
+.tally_select_row {
+	background-color: #fff;
+	border-top: 1px solid #f2f2f2;
+	padding: 30rpx 20rpx;
+	overflow: hidden;
+}
+.tally_picker {
+	float: left;
+	height: 40rpx;
+	line-height: 40rpx;
+}
+.picker {
+	color: #666;
+	font-size: 28rpx;
+}
+.tally_account {
+	float: right;
+	height: 40rpx;
+	display: flex;
+	flex-direction: row;
+}
+.tally_account_icon {
+	width: 40rpx;
+	height: 40rpx;
+	margin-right: 10rpx;
+	vertical-align: middle;
+}
+.tally_account_name {
+	font-size: 28rpx;
+	color: #666;
+	vertical-align: middle;
+}
+.tally_note {
+	background-color: #fff;
+	border-top: 1px solid #f2f2f2;
+	padding: 30rpx 20rpx;
+	display: flex;
+	flex-direction: row;
+}
+.tally_note_name {
+	width: 90rpx;
+	font-size: 28rpx;
+	color: #666;
+	height: 52rpx;
+	line-height: 52rpx;
+}
+.text_container {
+	flex: 1;
+}
+.text_placeholder {
+	font-size: 28rpx;
+	color: #999;
+}
+.text_container input {
+	width: 100%;
+	font-size: 28rpx;
+	color: #333;
+	height: 52rpx;
+	line-height: 52rpx;
+}
+
+.tally_btn {
+	padding: 30rpx 20rpx;
+	background-color: #fff;
+	border-top: 1px solid #f2f2f2;
+}
+.tally_btn button {
+	background-color: #116cc5;
+	color: #fff;
+}
+
+.transfer_box {
+	background-color: #fff;
+	display: flex;
+	flex-direction: row;
+	padding: 20rpx;
+}
+.transfer_box .item {
+	flex: 1;
+	padding: 80rpx 0;
+	text-align: center;
+}
+.transfer_icon {
+	width: 80rpx;
+	height: 80rpx;
+	display: block;
+	margin: 10rpx auto;
+}
+.transfer_name {
+	font-size: 26rpx;
+	color: #666;
+	text-align: center;
+}
+.transfer_img {
+	width: 60rpx;
+	height: 60rpx;
+	margin-top: 20rpx;
+}

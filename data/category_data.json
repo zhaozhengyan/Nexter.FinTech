@@ -1,0 +1,150 @@
+{
+	"categorys":[
+		{
+			"tallyType": "支出",
+			"category": [
+				{
+					"categoryId": 1,
+					"categoryName": "餐饮",
+					"categoryIcon": "icon-canyin"
+				},
+				{
+					"categoryId": 2,
+					"categoryName": "交通",
+					"categoryIcon": "icon-jiaotong"
+				},
+				{
+					"categoryId": 32,
+					"categoryName": "住房",
+					"categoryIcon": "icon-zhufang"
+				},
+				{
+					"categoryId": 4,
+					"categoryName": "服饰",
+					"categoryIcon": "icon-fushi"
+				},
+				{
+					"categoryId": 5,
+					"categoryName": "美妆",
+					"categoryIcon": "icon-meizhuang"
+				},
+				{
+					"categoryId": 6,
+					"categoryName": "日用品",
+					"categoryIcon": "icon-riyongpin"
+				},
+				{
+					"categoryId": 7,
+					"categoryName": "发红包",
+					"categoryIcon": "icon-hongbao"
+				},
+				{
+					"categoryId": 8,
+					"categoryName": "医疗",
+					"categoryIcon": "icon-yiliao"
+				},
+				{
+					"categoryId": 9,
+					"categoryName": "话费",
+					"categoryIcon": "icon-huafei"
+				},
+				{
+					"categoryId": 10,
+					"categoryName": "数码",
+					"categoryIcon": "icon-shuma"
+				},
+				{
+					"categoryId": 11,
+					"categoryName": "娱乐",
+					"categoryIcon": "icon-yule"
+				},
+				{
+					"categoryId": 12,
+					"categoryName": "学习",
+					"categoryIcon": "icon-xuexi"
+				},
+				{
+					"categoryId": 13,
+					"categoryName": "运动",
+					"categoryIcon": "icon-yundong"
+				},
+				{
+					"categoryId": 14,
+					"categoryName": "宠物",
+					"categoryIcon": "icon-chongwu"
+				},
+				{
+					"categoryId": 15,
+					"categoryName": "借出",
+					"categoryIcon": "icon-jie"
+				},
+				{
+					"categoryId": 16,
+					"categoryName": "汽车",
+					"categoryIcon": "icon-qiche"
+				},
+				{
+					"categoryId": 17,
+					"categoryName": "还款",
+					"categoryIcon": "icon-repay"
+				},
+				{
+					"categoryId": 18,
+					"categoryName": "其他",
+					"categoryIcon": "icon-qita"
+				}
+			]
+		},
+		{
+			"tallyType": "收入",
+			"category": [
+				{
+					"categoryId": 19,
+					"categoryName": "工资",
+					"categoryIcon": "icon-gongzi"
+				},
+				{
+					"categoryId": 20,
+					"categoryName": "收红包",
+					"categoryIcon": "icon-hongbao"
+				},
+				{
+					"categoryId": 21,
+					"categoryName": "兼职",
+					"categoryIcon": "icon-jianzhi"
+				},
+				{
+					"categoryId": 22,
+					"categoryName": "奖金",
+					"categoryIcon": "icon-jiangzhang"
+				},
+				{
+					"categoryId": 23,
+					"categoryName": "借入",
+					"categoryIcon": "icon-jie"
+				},
+				{
+					"categoryId": 24,
+					"categoryName": "收款",
+					"categoryIcon": "icon-shoukuan"
+				},
+				{
+					"categoryId": 25,
+					"categoryName": "其他",
+					"categoryIcon": "icon-qita"
+				}
+			]
+		},
+		{
+			"tallyType": "转账",
+			"category": [
+				{
+					"categoryId": 26,
+					"categoryName": "转账",
+					"categoryIcon": "icon-zhuanzhang"
+				}
+			]
+		}
+	]
+		
+}

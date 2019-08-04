@@ -1,0 +1,83 @@
+/* pages/personal/personal.wxss */
+@import '../tabBar-template/tabBar-template.wxss';
+page {
+	background-color: #f5f5f5;
+}
+.personal_header {
+	background-color: #fff;
+	padding: 0 28rpx;
+}
+.personal_info {
+	padding: 40rpx 0 44rpx 0;
+	border-bottom: 1px solid #ebebeb;
+	display: flex;
+	flex-direction: row;
+}
+.personal_info .avatar {
+	width: 120rpx;
+	height: 120rpx;
+	border-radius: 50%;
+	margin-right: 24rpx;
+}
+.personal_info .nickName {
+	font-size: 40rpx;
+	font-weight: bold;
+	color: #000;
+	height: 72rpx;
+	line-height: 72rpx;
+}
+.personal_info .time {
+	font-size: 25rpx;
+	color: #b1b1b1;
+	font-weight: lighter;
+	height: 42rpx;
+	line-height: 42rpx;
+}
+.personal_count {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	padding: 22rpx 0 15rpx 0;
+}
+.personal_count_item {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+.personal_count_item .number {
+	font-size: 30rpx;
+	color: #000;
+	line-height: 48rpx;
+}
+.personal_count_item .text {
+	font-size: 24rpx;
+	color: #b7b7b7;
+	font-weight: lighter;
+	line-height: 42rpx;
+}
+.personal_list {
+	background-color: #fff;
+	padding: 0 28rpx;
+	margin-top: 22rpx;
+}
+.personal_item {
+	border-bottom: 1px solid #ebebeb;
+	padding: 28rpx 0;
+	position: relative;
+}
+.personal_list .personal_item:last-child {
+	border-bottom: none;	
+}
+.personal_item text {
+	font-size: 30rpx;
+	color: #000;
+	font-weight: bold;
+}
+.personal_item .right_arrow {
+	width: 14rpx;
+	height: 25rpx;
+	position: absolute;
+	right: 10rpx;
+	top: 50%;
+	margin-top: -12rpx;
+}

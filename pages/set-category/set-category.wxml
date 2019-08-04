@@ -1,0 +1,12 @@
+<!--pages/set-category/set-category.wxml-->
+<import src='../icons-template/icons-template.wxml' />
+<view class='set_category'>
+	<view class='set_category_subtitle'>支出分类</view>
+	<view class='set_category_content'>
+		<template is='iconsTemplate' data='{{categoryArray: outCategorys}}' />
+	</view>
+	<view class='set_category_subtitle border_top'>收入分类</view>
+	<view class='set_category_content'>
+		<template is='iconsTemplate' data='{{categoryArray: inCategorys}}' />
+	</view>
+</view>

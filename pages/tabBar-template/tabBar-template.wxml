@@ -1,0 +1,19 @@
+<template name='tabBarTemplate'>
+	<view class='tabBar_container'>
+		<view class='tabBar'>
+			<navigator url='/pages/index/index' class='tabBar_item' hover-class="none" open-type='switchTab'>
+				<image src='{{tabBarIndexSelected?"/images/list_h.png":"/images/list.png"}}' class='tabBar_icon'></image>
+				<view class='tabBar_title {{tabBarIndexSelected?"tabBar_title_selected":""}}'>账单</view>
+			</navigator>
+			<navigator url='/pages/tally/tally' hover-class="none" class='tabBar_item'>
+				<view class='tabBar_add'>
+					<image src='/images/add.png' class='tabBar_icon_add'></image>
+				</view>
+			</navigator>
+			<navigator url='/pages/personal/personal' class='tabBar_item' hover-class="none" open-type='switchTab'>
+				<image src='{{tabBarPersonalSelected?"/images/personal_h.png":"/images/personal.png"}}' class='tabBar_icon'></image>
+				<view class='tabBar_title {{tabBarPersonalSelected?"tabBar_title_selected":""}}'>我的</view>
+			</navigator>
+		</view>
+	</view>
+</template>

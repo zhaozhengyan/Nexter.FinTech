@@ -1,21 +1,159 @@
-/**index.wxss**/
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* pages/index/index.wxss */
+@import '/iconfont/iconfont.wxss';
+@import '../tabBar-template/tabBar-template.wxss';
+page {
+	background-color: #f5f5f5;
+	width: 100%;
+	height: 100%;
+}
+.index {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.index_header {
+	background-color: #116cc5;
+	padding: 30rpx;
+
+}
+.index_filter {
+	overflow: hidden;
+}
+.picker_filter {
+	float: left;
+}
+.picker_filter .picker text {
+	color: #fff;
+	font-size: 44rpx;
+	vertical-align: middle;
+}
+.picker_filter .date_arrow {
+	width: 32rpx;
+	height: 32rpx;
+	vertical-align: middle;
+	margin-left: 15rpx;
+}
+.filter_btn {
+	width: 50rpx;
+	height: 50rpx;
+	float: right;
+}
+.index_header .text {
+	color: #fff;
+	margin-top: 42rpx;
+}
+.index_header .text text {
+	color: #fcfefb;
+	font-size: 30rpx;
+}
+.index_header .text text.large {
+	font-size: 54rpx;
+	color: #fff;
+}
+.index_header .text text.margin_right {
+	margin-right: 42rpx;
 }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.tally_book_list {
+	background-color: #fff;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 324rpx;
+	bottom: 98rpx;
+	width: 100%;
+}
+.tally_book_date {
+	padding: 0 30rpx;
+	background-color: #ececec;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	height: 58rpx;
+	line-height: 58rpx;
+}
+.tally_book_date text {
+	color: #7d807f;
+	font-size: 28rpx;
+}
+.tally_book_item {
+	border-top: 1px solid #ececec;
+	background-color: #fff;
+	overflow: hidden;
+	padding: 23rpx 30rpx;
+}
+.tally_book_item .iconfont_container {
+	float: left;
+}
+.tally_book_item .text_wrap {
+	float: left;
+	padding-left: 36rpx;
+}
+.tally_book_item .text_wrap .icon_title {
+	font-size: 32rpx;
+	color: #333;
+}
+.tally_book_item .text_wrap .text {
+	font-size: 22rpx;
+	color: #999;
+}
+.tally_book_item .money {
+	float: right;
+	font-size: 30rpx;
+	font-weight: bold;
+	margin-top: 18rpx;
+}
+.tally_book_item .money.black {
+	color: #333;
+}
+.tally_book_item .money.blue {
+	color: #116cc5;
+}
+.tally_book_item .money.red {
+	color: red;
 }
 
-.userinfo-nickname {
-  color: #aaa;
+.filter_module_bg {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background-color: rgba(0,0,0,0.1);
 }
-
-.usermotto {
-  margin-top: 200px;
+.filter_module {
+	width: 100%;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	background-color: #e8e9eb;
+	transform: translateY(100%);
+	transition: 0.3s;
+}
+.filter_module.show {
+	transform: translateY(0);
+}
+.filter_module_title {
+	width: 100%;
+	height: 108rpx;
+	line-height: 108rpx;
+	text-align: center;
+	color: #000;
+	font-size: 32rpx;
+	background-color: #fff;
+	border-bottom: 1px solid #ededed;
+}
+.filter_module_content {
+	background-color: #fff;
+	height: 500rpx;
+}
+.filter_module_cancle {
+	width: 100%;
+	height: 104rpx;
+	line-height: 104rpx;
+	text-align: center;
+	color: #000;
+	font-size: 32rpx;
+	background-color: #fff;
+	margin-top: 14rpx;
 }

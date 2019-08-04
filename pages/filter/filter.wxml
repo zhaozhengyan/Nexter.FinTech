@@ -1,0 +1,16 @@
+<!--pages/filter/filter.wxml-->
+<import src='../icons-template/icons-template.wxml' />
+<view class='category'>
+	<view class='category_subtitle'>支出类别</view>
+	<view class='category_content'>
+		<template is='iconsTemplate' data='{{currentCategoryId: currentCategoryId, categoryArray: outCategorys}}' />
+	</view>
+	<view class='category_subtitle border_top'>收入类别</view>
+	<view class='category_content'>
+		<template is='iconsTemplate' data='{{currentCategoryId: currentCategoryId, categoryArray: inCategorys}}' />
+	</view>
+	<view class='category_subtitle border_top'>转账</view>
+	<view class='category_content'>
+		<template is='iconsTemplate' data='{{currentCategoryId: currentCategoryId, categoryArray: transferCategorys}}' />
+	</view>
+</view>

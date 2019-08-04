@@ -1,0 +1,30 @@
+<!--pages/detail/detail.wxml-->
+<wxs src='../../utils/filters.wxs' module='filters'></wxs>
+<view class='detail_container'>
+    <view class='iconfont_container'>
+        <i class="iconfont {{details.categoryIcon}}"></i>
+    </view>
+    <view class='icon_name'>{{details.categoryName}}</view>
+	<view class='money'>{{details.type !== '转账' ? details.type === '支出' ? '-' + filters.toFix(details.money) : '+' + filters.toFix(details.money) : filters.toFix(details.money)}}</view>
+	<view class='detail'>
+		<view class='detail_row'>
+			<view class='detail_title'>账单日期</view>
+			<view class='detail_content'>{{details.date}}</view>
+		</view>
+		<view class='detail_row'>
+			<view class='detail_title'>交易账户</view>
+			<view class='detail_content'>{{details.accountName.length === 1 ? details.accountName[0] : details.accountName[0] + '、' + details.accountName[1]}}</view>
+		</view>
+		<view class='detail_row'>
+			<view class='detail_title'>创建时间</view>
+			<view class='detail_content'>{{details.createTime}}</view>
+		</view>
+		<view class='detail_row'>
+			<view class='detail_title'>账单备注</view>
+			<view class='detail_content'>{{details.note}}</view>
+		</view>
+	</view>
+	<view class='detail_remove'>
+		<button type='warn'>删除</button>
+	</view>
+</view>

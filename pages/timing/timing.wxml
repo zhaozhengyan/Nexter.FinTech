@@ -1,0 +1,14 @@
+<!--pages/timing/timing.wxml-->
+<view class='timing_container'>
+    <view class='timing'>
+		<view class='timing_item'>
+			 <picker mode="time" value="{{time}}" bindchange="onTimeChange" class='timing_picker'>
+				<view class="picker">
+				<text>提醒时间：{{time}}</text>
+				<icon type='waiting' size='14' color='#999'></icon>
+				</view>
+			</picker>
+			<switch checked class='timing_switch' color='#116cc5' bindchange='onTimingSwitch' />
+		</view>
+	</view>
+</view>

@@ -1,0 +1,18 @@
+/* pages/icons-template/icons-template.wxss */
+@import '../../iconfont/iconfont.wxss';
+
+.iconfont_list {
+	display: flex;
+	flex-flow: row wrap;
+	padding: 16rpx 0; 
+}
+.iconfont_item {
+	width: 80rpx;
+	padding: 18rpx 35rpx;
+}
+.iconfont_item .icon_name {
+	font-size: 26rpx;
+	text-align: center;
+	color: #666;
+	padding-top: 10rpx;
+}

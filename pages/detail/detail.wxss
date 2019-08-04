@@ -1,0 +1,51 @@
+/* pages/detail/detail.wxss */
+@import '/iconfont/iconfont.wxss';
+.detail_container {
+	padding: 50rpx 62rpx;
+}
+.detail_container .iconfont_container {
+	margin: 0 auto;
+	width: 110rpx;
+	height: 110rpx;
+	line-height: 110rpx;
+}
+.detail_container .iconfont_container .iconfont {
+	font-size: 70rpx;
+}
+.detail_container .icon_name {
+	text-align: center;
+	font-size: 28rpx;
+	color: #666;
+	padding: 15rpx 0 20rpx;
+}
+.detail_container .money {
+	text-align: center;
+	color: #333;
+	font-size: 36rpx;
+	font-weight: bold;
+	padding-bottom: 90rpx;
+}
+.detail_container .detail {
+	border-top: 1px solid #f2f2f2;
+	border-bottom: 1px solid #f2f2f2;
+	padding: 32rpx 0;
+}
+.detail_container .detail_row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	padding: 24rpx 0;
+}
+.detail_container .detail_title {
+	font-size: 30rpx;
+	color: #848484;
+	flex: 1;
+}
+.detail_container .detail_content {
+	font-size: 30rpx;
+	color: #000;
+	flex: 3;
+}
+.detail_container .detail_remove {
+	padding-top: 30rpx;
+}

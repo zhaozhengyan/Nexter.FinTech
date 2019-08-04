@@ -1,0 +1,50 @@
+<!--pages/personal/personal.wxml-->
+<import src='../tabBar-template/tabBar-template.wxml' />
+<view class='personal_container'>
+	<view class='personal_header'>
+		<view class='personal_info'>
+			<image src='{{userInfos.avatarUrl}}' class='avatar'></image>
+			<view>
+				<view class='nickName'>{{userInfos.nickName}}</view>
+				<view class='time'>{{userInfos.joinTime}} 加入</view>
+			</view>
+		</view>
+		<view class='personal_count'>
+			<view class='personal_count_item'>
+				<text class='number'>{{userInfos.totalMoney}}</text>
+				<text class='text'>账户总余额(元)</text>
+			</view>
+			<view class='personal_count_item'>
+				<text class='number'>1000</text>
+				<text class='text'>记账总天数</text>
+			</view>
+			<view class='personal_count_item'>
+				<text class='number'>{{userInfos.count}}</text>
+				<text class='text'>记账总笔数</text>
+			</view>
+		</view>
+	</view>
+	<view class='personal_list'>
+		<view class='personal_item' data-page-url='../account/account' catchtap='onOpenPageTap'>
+			<text>资产账户</text>
+			<image class='right_arrow' src='../../images/right_arrow.png'></image>
+		</view>
+		<view class='personal_item' data-page-url='../timing/timing' catchtap='onOpenPageTap'>
+			<text>定时提醒</text>
+			<image class='right_arrow' src='../../images/right_arrow.png'></image>
+		</view>
+		<view class='personal_item' data-page-url='../set-category/set-category' catchtap='onOpenPageTap'>
+			<text>设置类别</text>
+			<image class='right_arrow' src='../../images/right_arrow.png'></image>
+		</view>
+		<view class='personal_item'>
+			<text>问题反馈</text>
+			<image class='right_arrow' src='../../images/right_arrow.png'></image>
+		</view>
+		<view class='personal_item' data-page-url='../about/about' catchtap='onOpenPageTap'>
+			<text>关于每天记账</text>
+			<image class='right_arrow' src='../../images/right_arrow.png'></image>
+		</view>
+	</view>
+</view>
+<template is='tabBarTemplate' data='{{...tabBarSelected}}' />
