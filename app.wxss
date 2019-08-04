@@ -1,10 +1,15 @@
 /**app.wxss**/
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
-} 
+@font-face {font-family: 'webfont';
+  src: url('//at.alicdn.com/t/webfont_90gubukex5o.eot'); /* IE9*/
+  src: url('//at.alicdn.com/t/webfont_90gubukex5o.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/webfont_90gubukex5o.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/webfont_90gubukex5o.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/webfont_90gubukex5o.svg#思源黑体-极细') format('svg'); /* iOS 4.1- */
+}
+
+
+text {
+    font-size: 26rpx;
+    color: #333;
+    font-family: 'webfont';
+}

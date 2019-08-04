@@ -1,19 +1,41 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
-
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+// 格式化日期
+function formatDate(date){
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+	var day = date.getDate();
+	return year + '-' + filZero(month) + '-' + filZero(day);
+}
+function filZero(num){
+	//补0
+	return num.toString().length === 2 ? num : '0' + num;
 }
 
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
+// 选择分类
+function SelectIconFont(event,callBack) {
+	var categoryId = event.currentTarget.dataset.categoryId;
+	callBack(categoryId);
 }
+
+function http_get(url, callback, text){
+	wx.request({
+		url: url,  
+		header: {'content-type':'application/json'},
+		dataType: 'json',
+		method: 'GET',
+		success: function (res){
+			callback(res.data)
+		},
+		fail: function (){
+			wx.showToast({
+				title: text ? text : '数据获取失败'
+			})
+		}
+	})
+}
+
 
 module.exports = {
-  formatTime: formatTime
+	formatDate: formatDate,
+	SelectIconFont: SelectIconFont,
+	http_get: http_get
 }
