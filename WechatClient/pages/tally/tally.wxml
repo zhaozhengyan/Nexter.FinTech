@@ -5,7 +5,6 @@
         <view class='tally_tab' catchtap='onTextTab'>
             <text class='{{currentTallyType==="支出"?"active":""}}' data-text='支出'>支出</text>
             <text class='{{currentTallyType==="收入"?"active":""}}' data-text='收入'>收入</text>
-            <text class='{{currentTallyType==="转账"?"active":""}}' data-text='转账'>转账</text>
         </view>
         <view class='digit_container'>
             <input type='digit' class='tally_digit' placeholder='0.00' />

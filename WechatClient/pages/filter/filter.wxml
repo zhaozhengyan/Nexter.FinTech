@@ -9,8 +9,4 @@
 	<view class='category_content'>
 		<template is='iconsTemplate' data='{{currentCategoryId: currentCategoryId, categoryArray: inCategorys}}' />
 	</view>
-	<view class='category_subtitle border_top'>转账</view>
-	<view class='category_content'>
-		<template is='iconsTemplate' data='{{currentCategoryId: currentCategoryId, categoryArray: transferCategorys}}' />
-	</view>
 </view>

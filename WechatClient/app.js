@@ -2,7 +2,7 @@
 App({
 	globalData: {
 		userInfos : null,
-    httpGetUrl: 'http://fintech-api.zhaoblogs.com/data/'
+    httpGetUrl: 'https://fintech-api.zhaoblogs.com/'
 	},
 	onLaunch: function (){
 		

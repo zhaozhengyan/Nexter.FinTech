@@ -29,7 +29,6 @@ Page({
 		var categorys = res.categorys;
 		var outCategorys = [];//支出类别
 		var inCategorys = [];//收入类别
-		var transferCategorys = [];//转账
 		var outCategoryAll = {
 			'categoryId': -1,
 			'categoryName': '全部',
@@ -47,14 +46,11 @@ Page({
 			} else if (categorys[p].tallyType === '收入'){
 				inCategorys = categorys[p].category;
 				inCategorys.unshift(inCategoryAll);
-			}else{
-				transferCategorys = categorys[p].category;
 			};
 		}
 		this.setData({
 			outCategorys: outCategorys,
-			inCategorys: inCategorys,
-			transferCategorys: transferCategorys
+			inCategorys: inCategorys
 		});
 	},
 
