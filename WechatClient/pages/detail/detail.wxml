@@ -25,6 +25,6 @@
 		</view>
 	</view>
 	<view class='detail_remove'>
-		<button type='warn'>删除</button>
+		<button type='warn'  bindtap='DeleteTally'>删除</button>
 	</view>
 </view>

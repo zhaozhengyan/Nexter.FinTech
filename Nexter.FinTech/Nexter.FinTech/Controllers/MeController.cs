@@ -24,9 +24,25 @@ namespace Nexter.FinTech.Controllers
         public async Task<Result> GetAsync()
         {
             var session = this.GetSession();
-            var result = await Store.AsQueryable<Member>()
-                .FirstOrDefaultAsync(e => e.Id == session.Id);
-            return Result.Complete(result);
+            var queryable = from e in Store.AsQueryable<Member>()
+                join account in Store.AsQueryable<Account>() on e.Id equals account.MemberId
+                join transaction in Store.AsQueryable<Transaction>()
+                    on e.Id equals transaction.MemberId into transactions
+                from subTransaction in transactions.DefaultIfEmpty()
+                select new { e, transactions };
+            var result = await queryable.FirstOrDefaultAsync();
+
+            return Result.Complete(new
+            {
+                totalIncome = result.transactions.Sum(e => e.Income),
+                totalSpending = result.transactions.Sum(e => e.Spending),
+                totalMoney = result.transactions.Sum(e => e.Income ?? 0 - e.Spending ?? 0),
+                joinTime = result.e.CreatedAt,
+                accountId = result.e.Id,
+                accountName = result.e.NickName,
+                openId = result.e.AccountCode,
+                count = 100
+            });
         }
     }
 }

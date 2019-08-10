@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FinTech.Domain;
+﻿using FinTech.Domain;
 using FinTech.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nexter.Domain;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using FinTech.Infrastructure.Validation;
 
 namespace Nexter.FinTech.Controllers
 {
@@ -20,30 +21,43 @@ namespace Nexter.FinTech.Controllers
         }
 
         protected IRepository Store { get; }
+        public class TransactionQuery
+        {
+            public long AccountId { get; set; }
+            public long CategoryId { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public int Take => 10;
+            public int Skip => 0;
+
+        }
 
         [HttpGet]
-        public async Task<Result> GetAsync(int skip = 0, int take = 10)
+        public async Task<Result> GetAsync([FromQuery] TransactionQuery query)
         {
             var session = this.GetSession();
+            var selectCategory = await Store.AsQueryable<Category>()
+                .FirstOrDefaultAsync(e => e.Id == query.CategoryId);
             var queryable = from e in Store.AsQueryable<Transaction>()
                             join category in Store.AsQueryable<Category>() on e.CategoryId equals category.Id
                             join account in Store.AsQueryable<Account>() on e.AccountId equals account.Id
                             //where e.MemberId == session.Id
                             select new { e, category, account };
-            var result = await queryable.Skip(skip).Take(take).ToListAsync();
+            if (selectCategory != null)
+                queryable = queryable.Where(e => e.e.CategoryId == selectCategory.Id);
+            var result = await queryable.Skip(query.Skip).Take(query.Take).ToListAsync();
             return Result.Complete(new
             {
                 DateMonth = result.FirstOrDefault()?.e.Date.ToString("yyyy-MM"),
                 MonthTotalMoneys = new[]
                 {
-                   result.Sum(t => t.e.Income),
                    result.Sum(t => t.e.Spending),
+                   result.Sum(t => t.e.Income)
                 },
-                @Lists = result.GroupBy(e => e.e.Date).Select(c => new
+                @Lists = result.OrderByDescending(e => e.e.CreatedAt).GroupBy(e => e.e.Date).Select(c => new
                 {
-                    DateMonth = result.FirstOrDefault()?.e.Date.ToString("yyyy-MM-dd"),
+                    Date = c.Key.ToString("yyyy-MM-dd"),
                     totalMoney = new[]
-                     {
+                       {
                         c.Where(e => e.e.Date == c.Key).Sum(t => t.e.Income),
                         c.Where(e => e.e.Date == c.Key).Sum(t => t.e.Spending),
                         0
@@ -51,9 +65,8 @@ namespace Nexter.FinTech.Controllers
                     @List = c.Where(e => e.e.Date == c.Key).Select(s => new
                     {
                         s.e.Id,
-                        s.e.Date,
-                        s.e.Income,
-                        s.e.Spending,
+                        Date = s.e.Date.ToString("yyyy-MM-dd"),
+                        Money = s.category.Type == CategoryType.Spending ? s.e.Spending : s.e.Income,
                         type = s.category.Type.GetDescription(),
                         categoryName = s.category.Name,
                         categoryIcon = s.category.Icon,
@@ -63,6 +76,81 @@ namespace Nexter.FinTech.Controllers
                     })
                 })
             });
+        }
+
+        [HttpGet]
+        [Route("Detail")]
+        public async Task<Result> GetAsync([FromQuery]long id)
+        {
+            var session = this.GetSession();
+            var queryable = from e in Store.AsQueryable<Transaction>()
+                            join category in Store.AsQueryable<Category>() on e.CategoryId equals category.Id
+                            join account in Store.AsQueryable<Account>() on e.AccountId equals account.Id
+                            //where e.MemberId == session.Id
+                            where e.Id == id
+                            select new { e, category, account };
+            var s = await queryable.FirstOrDefaultAsync();
+            return Result.Complete(new
+            {
+                s.e.Id,
+                Date = s.e.Date.ToString("yyyy-MM-dd"),
+                Money = s.category.Type == CategoryType.Spending ? s.e.Spending : s.e.Income,
+                type = s.category.Type.GetDescription(),
+                categoryName = s.category.Name,
+                categoryIcon = s.category.Icon,
+                accountName = new string[] { s.account.Name },
+                createTime = s.e.CreatedAt,
+                note = s.e.Memo
+            });
+        }
+
+        public class TransactionRequest
+        {
+            public long MemberId { get; set; }
+            public long AccountId { get; set; }
+            public long CategoryId { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public decimal Money { get; set; }
+            public string Memo { get; set; }
+        }
+        [HttpPost]
+        public async Task<Result> PostAsync([FromBody] TransactionRequest request)
+        {
+            var session = this.GetSession();
+            var category = await Store.AsQueryable<Category>()
+                .FirstOrDefaultAsync(e => e.Id == request.CategoryId);
+            var account = await Store.AsQueryable<Account>()
+                .FirstOrDefaultAsync(e => e.Id == request.AccountId);
+            decimal? income = null, spending = null;
+            Rule.For(category).NotFound();
+            Rule.For(account).NotFound();
+            if (category.Type == CategoryType.Income)
+            {
+                income = request.Money;
+            }
+            else
+            {
+                spending = request.Money;
+            }
+            var trade = new Transaction(request.Memo, category.Id, request.AccountId, 10000, 0, spending, income, request.CreatedAt);
+            await Store.AddAsync(trade);
+            await Store.CommitAsync();
+            return Result.Complete();
+        }
+
+        [HttpDelete]
+        public async Task<Result> DeleteAsync([FromQuery]long id)
+        {
+            var session = this.GetSession();
+            var queryable = from e in Store.AsQueryable<Transaction>()
+                                //where e.MemberId == session.Id
+                            where e.Id == id
+                            select e;
+            var transaction = await queryable.FirstOrDefaultAsync();
+            if (transaction == null) return Result.Complete();
+            await Store.RemoveAsync(transaction);
+            await Store.CommitAsync();
+            return Result.Complete();
         }
     }
 }

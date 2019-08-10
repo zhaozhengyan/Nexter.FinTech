@@ -36,6 +36,17 @@ namespace FinTech.Infrastructure
         {
             return type?.GetField(fieldName)?.GetCustomAttribute<DisplayAttribute>()?.Name;
         }
+        public static string GetDescription(this Type me)
+        {
+            if (me == null) throw new ArgumentNullException(nameof(me));
+            var type = me;
+
+            var attributes = type.GetCustomAttributes(typeof(DescriptionAttribute), false);
+            if (attributes.Length == 0) return me.Name;
+            var description = ((DescriptionAttribute)attributes[0]).Description;
+
+            return description;
+        }
 
         public static string GetDescription(this Type type, string fieldName)
         {

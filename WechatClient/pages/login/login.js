@@ -52,6 +52,7 @@ Page({
 		wx.getUserInfo({
 			success: function (res) {
 				var userInfo = res.userInfo;
+        console.log(userInfo)
 				var userInfos = {
 					nickName: userInfo.nickName,
 					gender: userInfo.gender,

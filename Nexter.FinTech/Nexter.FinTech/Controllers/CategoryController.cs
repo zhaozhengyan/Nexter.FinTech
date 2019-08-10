@@ -31,11 +31,24 @@ namespace Nexter.FinTech.Controllers
                 {
                     new {
                         tallyType = "支出",
-                        category = result.Where(e => e.Type == CategoryType.Spending).ToList()
+                        category = result.Where(e => e.Type == CategoryType.Spending)
+                        .Select(e=>new
+                        {
+                            categoryId=e.Id,
+                            categoryName=e.Name,
+                            categoryIcon=e.Icon
+                        })
+                        .ToList()
                     },
                     new {
                         tallyType = "收入",
-                        category = result.Where(e => e.Type == CategoryType.Income).ToList()
+                        category = result.Where(e => e.Type == CategoryType.Income).Select(e=>new
+                        {
+                            categoryId=e.Id,
+                            categoryName=e.Name,
+                            categoryIcon=e.Icon
+                        })
+                        .ToList()
                     }
                 }
 

@@ -7,7 +7,7 @@
             <text class='{{currentTallyType==="收入"?"active":""}}' data-text='收入'>收入</text>
         </view>
         <view class='digit_container'>
-            <input type='digit' class='tally_digit' placeholder='0.00' />
+            <input name='money' bindinput='moneyInput' type='digit' class='tally_digit' placeholder='0.00' />
         </view>
     </view>
     <view wx:if='{{currentTallyType!=="转账"}}' class='iconsTemplate_container'>
@@ -40,10 +40,10 @@
     <view class='tally_note'>
         <view class='tally_note_name'>备注：</view>
         <view class='text_container'>
-            <input type='text' confirm-type='done' placeholder='这里可以填写账单备注哦' placeholder-class='text_placeholder' />
+            <input name='note' bindinput='noteInput' type='text' confirm-type='done' placeholder='这里可以填写账单备注哦' placeholder-class='text_placeholder' />
         </view>
     </view>
     <view class='tally_btn'>
-        <button type='default'>确定</button>
+        <button type='default'  bindtap='AddTally' >确定</button>
     </view>
 </view>

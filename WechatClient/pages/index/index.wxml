@@ -14,11 +14,11 @@
         </view>
         <view class='text'>
             <text>{{month}}月结余：</text>
-            <text class='large'>{{filters.toFix(tallyData.MonthTotalMoneys[1] - tallyData.MonthTotalMoneys[0])}}</text>
+            <text class='large'>{{filters.toFix(tallyData.monthTotalMoneys[1] - tallyData.monthTotalMoneys[0])}}</text>
         </view>
         <view class='text'>
-            <text class='margin_right'>{{month}}月收入：{{filters.toFix(tallyData.MonthTotalMoneys[1])}}</text>
-            <text>{{month}}月支出：{{filters.toFix(tallyData.MonthTotalMoneys[0])}}</text>
+            <text class='margin_right'>{{month}}月收入：{{filters.toFix(tallyData.monthTotalMoneys[1])}}</text>
+            <text>{{month}}月支出：{{filters.toFix(tallyData.monthTotalMoneys[0])}}</text>
         </view>
     </view>
     <scroll-view class='tally_book_list' scroll-y='true'>
@@ -28,7 +28,7 @@
 				<text>收入:{{filters.toFix(items.totalMoney[0])}} 支出:{{filters.toFix(items.totalMoney[1])}}</text>
 			</view>
 			<block wx:for='{{items.list}}' wx:for-index='idx' wx:for-item='item' wx:key=''>
-				<view class='tally_book_item' data-idx='{{index + "," + idx}}' catchtap='onOpenTallyDetailTap'>
+				<view class='tally_book_item' data-idx='{{index + "," + idx}}' data-id='{{item.id}}' catchtap='onOpenTallyDetailTap'>
 					<view class='iconfont_container'>
 						<i class="iconfont {{item.categoryIcon}}"></i>
 					</view>

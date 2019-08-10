@@ -1,4 +1,6 @@
 
+using System;
+
 namespace FinTech.Domain
 {
     public class Transaction : IAggregateRoot
@@ -13,16 +15,19 @@ namespace FinTech.Domain
         /// <param name="bookId">账本</param>
         /// <param name="spending">花销</param>
         /// <param name="income">收入</param>
-        public Transaction(string memo, long categoryId, long accountId, long memberId, long bookId, decimal? spending, decimal income)
+        /// <param name="createdAt"></param>
+        public Transaction(string memo, long categoryId, long accountId, long memberId, long bookId, decimal? spending, decimal? income, DateTime createdAt)
         {
             Memo = memo;
             AccountId = accountId;
             MemberId = memberId;
             BookId = bookId;
-            CategoryId = bookId;
+            CategoryId = categoryId;
             Spending = spending;
             Income = income;
+            CreatedAt = createdAt;
             Date = CreatedAt.Date;
+            LastModifiedAt = System.DateTime.Now;
         }
 
         public long Id { get; set; } // Id (Primary key)
@@ -52,12 +57,6 @@ namespace FinTech.Domain
         public System.DateTime Date { get; set; } // Date
         public System.DateTime CreatedAt { get; set; } // CreatedAt
         public System.DateTime LastModifiedAt { get; set; } // LastModifiedAt
-
-        public Transaction()
-        {
-            CreatedAt = System.DateTime.Now;
-            LastModifiedAt = System.DateTime.Now;
-        }
     }
 
 }

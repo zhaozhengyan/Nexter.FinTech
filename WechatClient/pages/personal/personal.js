@@ -22,7 +22,7 @@ Page({
 			aniamtion: false
 		});
 		
-		var url = app.globalData.httpGetUrl + 'personal_data.json';
+		var url = app.globalData.httpGetUrl + 'me';
 		utils.http_get(url, this.showPageData);
 	},
 

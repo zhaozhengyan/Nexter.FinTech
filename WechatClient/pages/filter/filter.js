@@ -17,7 +17,7 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		var categoryUrl = app.globalData.httpGetUrl + 'category_data.json';
+		var categoryUrl = app.globalData.httpGetUrl + 'category';
 		utils.http_get(categoryUrl, this.getCategorys);
 
 		this.setData({
