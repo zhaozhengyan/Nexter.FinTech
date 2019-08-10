@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Converters;
 using Nexter.Domain;
+using Nexter.FinTech.Infrastructure;
 using Nexter.Infrastructure;
 
 namespace Nexter.FinTech
@@ -39,7 +40,7 @@ namespace Nexter.FinTech
             });
             services.AddMvc(options =>
                 {
-                    //options.Filters.Add<SessionFilter>();
+                    options.Filters.Add<SessionFilter>();
                     //options.Filters.Add<ExceptionFilter>();
                     options.ValueProviderFactories.Add(new JQueryQueryStringValueProviderFactory());
                 })

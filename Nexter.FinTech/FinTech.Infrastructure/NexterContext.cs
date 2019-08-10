@@ -21,6 +21,12 @@ namespace FinTech.Infrastructure
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Category>().ToTable("Categories");
+            modelBuilder.Entity<Transaction>(eb =>
+            {
+                eb.Property(i => i.Id).ForSqlServerUseSequenceHiLo(Ids);
+                eb.Property(x => x.Spending).HasColumnType("decimal(18, 4)");
+                eb.Property(x => x.Income).HasColumnType("decimal(18, 4)");
+            });
             modelBuilder.Entity<Account>(eb =>
             {
                 eb.Property(i => i.Id).ForSqlServerUseSequenceHiLo(Ids);
