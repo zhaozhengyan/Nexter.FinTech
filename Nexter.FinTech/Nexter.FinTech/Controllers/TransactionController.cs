@@ -25,7 +25,7 @@ namespace Nexter.FinTech.Controllers
         {
             public long AccountId { get; set; }
             public long CategoryId { get; set; }
-            public DateTime CreatedAt { get; set; }
+            public DateTime? Date { get; set; }
             public int Take => 10;
             public int Skip => 0;
 
@@ -35,12 +35,20 @@ namespace Nexter.FinTech.Controllers
         public async Task<Result> GetAsync([FromQuery] TransactionQuery query)
         {
             var session = this.GetSession();
+            var startDate = DateTime.Now.FirstDayOfThisMonth();
+            var endDate = DateTime.Now.LastDayOfThisMonth();
+            if (query.Date.HasValue)
+            {
+                startDate = query.Date.Value.FirstDayOfThisMonth();
+                endDate = query.Date.Value.LastDayOfThisMonth();
+            }
             var selectCategory = await Store.AsQueryable<Category>()
                 .FirstOrDefaultAsync(e => e.Id == query.CategoryId);
             var queryable = from e in Store.AsQueryable<Transaction>()
                             join category in Store.AsQueryable<Category>() on e.CategoryId equals category.Id
                             join account in Store.AsQueryable<Account>() on e.AccountId equals account.Id
                             where e.MemberId == session.Id
+                            && e.Date >= startDate && e.Date <= endDate
                             select new { e, category, account };
             if (selectCategory != null)
                 queryable = queryable.Where(e => e.e.CategoryId == selectCategory.Id);
@@ -70,7 +78,7 @@ namespace Nexter.FinTech.Controllers
                         type = s.category.Type.GetDescription(),
                         categoryName = s.category.Name,
                         categoryIcon = s.category.Icon,
-                        accountName = new string[] { s.account.Name },
+                        accountName = new[] { s.account.Name },
                         createTime = s.e.CreatedAt,
                         note = s.e.Memo
                     })

@@ -38,10 +38,6 @@ Page({
       month: month,
       endDate: toDayDate
     });
-
-    //输出账单列表
-    var url = app.globalData.httpGetUrl + 'transaction';
-    utils.http_get(url, this.outPutList);
   },
 
   outPutList: function(res) {
@@ -58,6 +54,7 @@ Page({
       date: date,
       dateValue: e.detail.value
     });
+    this.queryTransaction();
   },
 
   onOpenFilterTap: function(event) {
@@ -70,8 +67,6 @@ Page({
 
   onOpenTallyDetailTap: function(event) {
     //查看账单详情
-    console.log(event);
-    // var idx = event.currentTarget.dataset.idx;
     var id = event.currentTarget.dataset.id;
     wx.navigateTo({
       url: '../detail/detail?id=' + id,
@@ -82,12 +77,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.queryTransaction();
+  },
+   /**
+   * 筛选账单主函数
+   */
+  queryTransaction:function(){
     var pages = getCurrentPages();
     var currentPage = pages[pages.length - 1];
-    var url = app.globalData.httpGetUrl + 'transaction';
+    var url = app.globalData.httpGetUrl + 'transaction?date=' + this.data.dateValue;
     if (this.data.categoryId !== this.data.categoryIdChange) {
-      url = url + '?categoryId=' + this.data.categoryIdChange;
-      //如果重新选择了筛选类型
+      url = url + '&categoryId=' + this.data.categoryIdChange;
       console.log('筛选成功');
       this.setData({
         categoryId: this.data.categoryIdChange
