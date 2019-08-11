@@ -6,6 +6,8 @@ using FinTech.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Internal;
+using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -62,6 +64,20 @@ namespace Nexter.FinTech
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+            app.UseCors(builder => builder.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials());
+            //app.Use(next => context =>
+            //{
+            //    context.Request.EnableRewind();
+            //    //context.Response.EnableRewind();
+            //    return next(context);
+            //});
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -28,7 +28,6 @@ function http_get(url, callback, text) {
     dataType: 'json',
     method: 'GET',
     success: function(res) {
-      console.log('request:success')
       callback(res.data.data)
     },
     fail: function() {
@@ -51,7 +50,6 @@ function http_post(url, data, callback, text) {
     dataType: 'json',
     method: 'POST',
     success: function(res) {
-      console.log('request:success')
       callback(res.data.data)
     },
     fail: function() {
@@ -74,7 +72,6 @@ function http_delete(url, data, callback, text) {
     dataType: 'json',
     method: 'DELETE',
     success: function(res) {
-      console.log('request:success')
       callback(res.data.data)
     },
     fail: function() {

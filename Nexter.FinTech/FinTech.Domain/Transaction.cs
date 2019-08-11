@@ -25,9 +25,9 @@ namespace FinTech.Domain
             CategoryId = categoryId;
             Spending = spending;
             Income = income;
-            CreatedAt = createdAt;
-            Date = CreatedAt.Date;
-            LastModifiedAt = System.DateTime.Now;
+            Date = createdAt.Date;
+            CreatedAt = DateTime.Now;
+            LastModifiedAt = DateTime.Now;
         }
 
         public long Id { get; set; } // Id (Primary key)

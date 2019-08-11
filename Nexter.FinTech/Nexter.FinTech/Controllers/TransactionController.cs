@@ -86,7 +86,7 @@ namespace Nexter.FinTech.Controllers
             var queryable = from e in Store.AsQueryable<Transaction>()
                             join category in Store.AsQueryable<Category>() on e.CategoryId equals category.Id
                             join account in Store.AsQueryable<Account>() on e.AccountId equals account.Id
-                            //where e.MemberId == session.Id
+                            where e.MemberId == session.Id
                             where e.Id == id
                             select new { e, category, account };
             var s = await queryable.FirstOrDefaultAsync();
@@ -98,7 +98,7 @@ namespace Nexter.FinTech.Controllers
                 type = s.category.Type.GetDescription(),
                 categoryName = s.category.Name,
                 categoryIcon = s.category.Icon,
-                accountName = new string[] { s.account.Name },
+                accountName = new[] { s.account.Name },
                 createTime = s.e.CreatedAt,
                 note = s.e.Memo
             });
@@ -106,7 +106,6 @@ namespace Nexter.FinTech.Controllers
 
         public class TransactionRequest
         {
-            public long MemberId { get; set; }
             public long AccountId { get; set; }
             public long CategoryId { get; set; }
             public DateTime CreatedAt { get; set; }
@@ -132,7 +131,7 @@ namespace Nexter.FinTech.Controllers
             {
                 spending = request.Money;
             }
-            var trade = new Transaction(request.Memo, category.Id, request.AccountId, 10000, 0, spending, income, request.CreatedAt);
+            var trade = new Transaction(request.Memo, category.Id, request.AccountId, session.Id, 0, spending, income, request.CreatedAt);
             await Store.AddAsync(trade);
             await Store.CommitAsync();
             return Result.Complete();
@@ -143,7 +142,7 @@ namespace Nexter.FinTech.Controllers
         {
             var session = this.GetSession();
             var queryable = from e in Store.AsQueryable<Transaction>()
-                                //where e.MemberId == session.Id
+                            where e.MemberId == session.Id
                             where e.Id == id
                             select e;
             var transaction = await queryable.FirstOrDefaultAsync();
