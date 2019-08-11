@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using FinTech.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 
 namespace FinTech.Infrastructure
 {
@@ -31,6 +32,27 @@ namespace FinTech.Infrastructure
             return Dns.GetHostEntry(Dns.GetHostName())
                 .AddressList
                 .First(x => x.AddressFamily == AddressFamily.InterNetwork);
+        }
+
+        public static string ToJson(this object obj, bool camelCase = true, bool indented = false)
+        {
+            if (obj == null)
+                return string.Empty;
+
+            var options = new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+            if (camelCase)
+            {
+                options.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
+            }
+            if (indented)
+            {
+                options.Formatting = Formatting.Indented;
+            }
+            return JsonConvert.SerializeObject(obj, options);
         }
 
         public static T GetHeaderValueAs<T>(HttpContext httpContext, string headerName)

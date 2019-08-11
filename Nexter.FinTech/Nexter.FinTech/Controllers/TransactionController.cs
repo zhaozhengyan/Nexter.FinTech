@@ -40,7 +40,7 @@ namespace Nexter.FinTech.Controllers
             var queryable = from e in Store.AsQueryable<Transaction>()
                             join category in Store.AsQueryable<Category>() on e.CategoryId equals category.Id
                             join account in Store.AsQueryable<Account>() on e.AccountId equals account.Id
-                            //where e.MemberId == session.Id
+                            where e.MemberId == session.Id
                             select new { e, category, account };
             if (selectCategory != null)
                 queryable = queryable.Where(e => e.e.CategoryId == selectCategory.Id);

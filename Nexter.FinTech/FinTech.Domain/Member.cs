@@ -7,6 +7,14 @@ namespace FinTech.Domain
     // Member
     public class Member
     {
+        public Member(long groupId, string nickName, string accountCode)
+        {
+            GroupId = groupId;
+            NickName = nickName;
+            AccountCode = accountCode;
+            CreatedAt = DateTime.Now;
+        }
+
         public long Id { get; set; } // Id (Primary key)
         public long GroupId { get; set; } // GroupId
 

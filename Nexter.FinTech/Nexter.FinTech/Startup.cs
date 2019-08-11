@@ -41,7 +41,7 @@ namespace Nexter.FinTech
             services.AddMvc(options =>
                 {
                     options.Filters.Add<SessionFilter>();
-                    //options.Filters.Add<ExceptionFilter>();
+                    options.Filters.Add<ExceptionFilter>();
                     options.ValueProviderFactories.Add(new JQueryQueryStringValueProviderFactory());
                 })
             .AddJsonOptions(opts =>

@@ -18,10 +18,12 @@ function SelectIconFont(event, callBack) {
 }
 
 function http_get(url, callback, text) {
+  var token = wx.getStorageSync('token');
   wx.request({
     url: url,
     header: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
+      'token': token
     },
     dataType: 'json',
     method: 'GET',
@@ -38,11 +40,13 @@ function http_get(url, callback, text) {
 }
 
 function http_post(url, data, callback, text) {
+  var token = wx.getStorageSync('token');
   wx.request({
     url: url,
     data: data,
     header: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
+      'token': token
     },
     dataType: 'json',
     method: 'POST',
@@ -59,19 +63,21 @@ function http_post(url, data, callback, text) {
 }
 
 function http_delete(url, data, callback, text) {
+  var token = wx.getStorageSync('token');
   wx.request({
     url: url,
     data: data,
     header: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
+      'token': token
     },
     dataType: 'json',
     method: 'DELETE',
-    success: function (res) {
+    success: function(res) {
       console.log('request:success')
       callback(res.data.data)
     },
-    fail: function () {
+    fail: function() {
       wx.showToast({
         title: text ? text : 'O.O 删除失败了呢！'
       })

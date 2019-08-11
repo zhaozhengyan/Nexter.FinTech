@@ -42,9 +42,9 @@ namespace Nexter.FinTech.Infrastructure
                 var sessionId = context.HttpContext.Request.Query["Token"];
                 if (string.IsNullOrWhiteSpace(sessionId))
                     sessionId = context.HttpContext.Request.Headers["Token"];
-                var session = await Store.AsQueryable<Member>().FirstOrDefaultAsync(e => e.AccountCode == sessionId);
-
-                context.HttpContext.Items["Session"] = session;
+                var session = await Store.AsQueryable<Member>()
+                    .FirstOrDefaultAsync(e => e.AccountCode == sessionId);
+                context.HttpContext.Items["Session"] = new Session(session);
             }
             catch (BusinessViolation violation)
             {
