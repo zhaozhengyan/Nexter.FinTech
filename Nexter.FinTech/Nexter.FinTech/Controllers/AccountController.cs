@@ -26,21 +26,19 @@ namespace Nexter.FinTech.Controllers
         {
             var session = this.GetSession();
             var queryable = from e in Store.AsQueryable<Member>()
-                            join account in Store.AsQueryable<Account>()
-                                on e.Id equals account.MemberId into accounts
-                            from subAccount in accounts.DefaultIfEmpty()
                             join transaction in Store.AsQueryable<Transaction>()
                     on e.Id equals transaction.MemberId into transactions
                             from subTransaction in transactions.DefaultIfEmpty()
                             where e.Id == session.Id
-                            select new { e, accounts, transactions };
+                            select new { e, transactions };
             var result = await queryable.FirstOrDefaultAsync();
+            var accounts = await Store.AsQueryable<Account>().ToListAsync();
             return Result.Complete(new
             {
                 totalIncome = result.transactions.Sum(e => e.Income),
                 totalSpending = result.transactions.Sum(e => e.Spending),
                 totalMoney = result.transactions.Sum(e => e.Income ?? 0 - e.Spending ?? 0),
-                account = result.accounts.Select(e => new
+                account = accounts.Select(e => new
                 {
                     accountId = e.Id,
                     accountName = e.Name,

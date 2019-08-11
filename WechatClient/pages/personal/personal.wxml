@@ -15,7 +15,7 @@
 				<text class='text'>账户总余额(元)</text>
 			</view>
 			<view class='personal_count_item'>
-				<text class='number'>1000</text>
+				<text class='number'>{{userInfos.totalDays}}</text>
 				<text class='text'>记账总天数</text>
 			</view>
 			<view class='personal_count_item'>

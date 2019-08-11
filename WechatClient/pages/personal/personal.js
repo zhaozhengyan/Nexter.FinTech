@@ -30,6 +30,7 @@ Page({
 		var userInfos = app.globalData.userInfos;
 		userInfos.joinTime = res.joinTime;
 		userInfos.totalMoney = res.totalMoney;
+    userInfos.totalDays = res.totalDays;
 		userInfos.count = res.count;
 
 		this.setData({

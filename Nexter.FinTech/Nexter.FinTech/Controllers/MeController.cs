@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
@@ -40,14 +41,13 @@ namespace Nexter.FinTech.Controllers
         {
             var session = this.GetSession();
             var queryable = from e in Store.AsQueryable<Member>()
-                            join account in Store.AsQueryable<Account>() on e.Id equals account.MemberId
                             join transaction in Store.AsQueryable<Transaction>()
                                 on e.Id equals transaction.MemberId into transactions
                             from subTransaction in transactions.DefaultIfEmpty()
                             where e.Id == session.Id
                             select new { e, transactions };
             var result = await queryable.FirstOrDefaultAsync();
-
+            var day = Math.Round(DateTime.Now.Subtract(result.e.CreatedAt).TotalDays, MidpointRounding.AwayFromZero);
             return Result.Complete(new
             {
                 totalIncome = result.transactions.Sum(e => e.Income),
@@ -57,7 +57,8 @@ namespace Nexter.FinTech.Controllers
                 accountId = result.e.Id,
                 accountName = result.e.NickName,
                 openId = result.e.AccountCode,
-                count = 100
+                count = result.transactions.Count(),
+                totalDays = day <= 0 ? 1 : day
             });
         }
         #endregion
