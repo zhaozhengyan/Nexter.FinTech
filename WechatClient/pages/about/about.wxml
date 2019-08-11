@@ -2,5 +2,6 @@
 <view class='about'>
 	<image src='../../images/logo.png' class='about_logo'></image>
 	<view class='slogan'>点滴珍贵,重在积累</view>
-	<view class='version'>@DailyFinTech v1.0.0</view>
+	<view class='slogan'></view>
+	<view class='version'>@zhaoblogs.com v1.0.0</view>
 </view>
