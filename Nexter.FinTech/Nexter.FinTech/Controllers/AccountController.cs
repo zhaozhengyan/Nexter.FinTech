@@ -45,7 +45,7 @@ namespace Nexter.FinTech.Controllers
                     accountId = e.Id,
                     accountName = e.Name,
                     iconPath = e.Icon,
-                    money = 100
+                    money = result.transactions.Where(r => r.AccountId == e.Id).Sum(t => t.Income - t.Spending)
                 })
             });
         }
