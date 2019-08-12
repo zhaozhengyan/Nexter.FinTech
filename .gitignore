@@ -41,5 +41,4 @@ key-*.xml
 ~$*
 
 src/.idea/
-/src/YLQ.Office/wwwroot/Content/ExportTempFiles
-/Nexter.FinTech/Nexter.FinTech/Publish/Publish/Publish/Publish/Publish/Publish
+/Nexter.FinTech/Nexter.FinTech/Publish/
