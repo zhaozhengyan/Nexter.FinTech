@@ -9,7 +9,8 @@
     "pages/detail/detail",
     "pages/tally/tally",
     "pages/about/about",
-    "pages/set-category/set-category"
+    "pages/set-category/set-category",
+    "pages/group/group"
   ],
   "window": {
     "backgroundTextStyle": "light",

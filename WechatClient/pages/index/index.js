@@ -77,8 +77,8 @@ Page({
   },
   //页面上拉触底事件（上拉加载更多）
   tallyScrollLower: function() {
-    this.data.page = this.data.page + 1;
-    this.queryTransaction();
+    // this.data.page = this.data.page + 1;
+    // this.queryTransaction();
   },
   /**
    * 筛选账单主函数
