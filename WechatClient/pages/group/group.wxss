@@ -2,14 +2,14 @@
 page {
 	background-color: #f5f5f5;
 }
-.account_head {
+.group_head {
 	padding: 24rpx 34rpx;
 	background-color: #fff;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 }
-.account_head_row {
+.group_head_row {
 	line-height: 1.5;
 	font-size: 32rpx;
 	color: #333;
@@ -17,18 +17,18 @@ page {
 	flex-direction: column;
 	text-align: center;
 }
-.account_head_row .number {
+.group_head_row .number {
 	font-size: 32rpx;
 	color: #000;
 	line-height: 48rpx;
 }
-.account_head_row .text {
+.group_head_row .text {
 	font-size: 28rpx;
 	color: #b7b7b7;
 	font-weight: lighter;
 	line-height: 42rpx;
 }
-.account {
+.group {
 	border-bottom: 1px solid #ebebeb;
 	margin-top: 22rpx;
 	background-color: #fff;
@@ -36,24 +36,24 @@ page {
 	color: #8b8b8b;
 	padding: 20rpx 34rpx;
 }
-.account_list {
+.group_list {
 	background-color: #fff;
 	border-top: 1px solid #e8e8e8;
 }
-.account_item {
+.group_item {
 	padding: 30rpx 34rpx;
 	border-bottom: 1px solid #ebebeb;
 	overflow: hidden;
 }
-.account_list .account_item:last-child {
+.group_list .group_item:last-child {
 	border-bottom: none;
 }
-.account_icon {
+.group_icon {
 	width: 56rpx;
 	height: 56rpx;
 	float: left;
 }
-.account_name {
+.group_name {
 	font-size: 32rpx;
 	color: #000;
 	float: left;
@@ -62,7 +62,7 @@ page {
 	height: 56rpx;
 	line-height: 56rpx;
 }
-.account_number {
+.group_number {
 	float: right;
 	display: block;
 	text-align: right;

@@ -43,7 +43,7 @@ Page({
     } else {
       wx.showModal({
         title: '拒绝授权怎么开始记账呢？',
-        content: '拒绝授权将不能登录每日记账，请点击“微信登录”按钮后，点击允许重新授权。',
+        content: '拒绝授权将不能登录哦，请点击“微信登录”按钮后，点击允许重新授权。',
         showCancel: false
       })
     }
@@ -54,7 +54,6 @@ Page({
     wx.getUserInfo({
       success: function(res) {
         var userInfo = res.userInfo;
-        console.log(res)
         var userInfos = {
           nickName: userInfo.nickName,
           gender: userInfo.gender,
@@ -65,14 +64,14 @@ Page({
           success(res) {
             if (res.code) {
               //发起网络请求
-              console.log("请求授权：" + res.code)
+              //console.log("请求授权：" + res.code)
               var url = app.globalData.httpGetUrl + 'me';
               utils.http_post(url, {
                 code: res.code,
                 nickName: userInfos.nickName,
               }, that.onLogin);
             } else {
-              console.log('登录失败！' + res.errMsg)
+              //console.log('登录失败！' + res.errMsg)
             }
           }
         })
@@ -81,7 +80,7 @@ Page({
   },
   onLogin: function(res) {
     wx.setStorageSync('token', res.token)
-    console.log(res)
+    //console.log(res)
     wx.switchTab({
       url: '../index/index',
     })

@@ -66,7 +66,15 @@ Page({
     //添加一笔账单
     if(this.data.currentCategoryId<=0){
       wx.showToast({
-        title: '请选择一个类别哦'
+        icon: 'none',
+        title: '请选择类别哦'
+      })
+      return;
+    }
+    if (this.data.money <= 0) {
+      wx.showToast({
+        icon: 'none',
+        title: '不写金额怎么记账呢？'
       })
       return;
     }
@@ -77,7 +85,7 @@ Page({
       createdAt: this.data.date,
       money: this.data.money,
       memo: this.data.note
-    } , this.goToIndex,"阿歐！服務器打了個盹");
+    } , this.goToIndex,"阿偶！服务器打了个盹");
   },
   goToIndex: function(res) {
     wx.switchTab({

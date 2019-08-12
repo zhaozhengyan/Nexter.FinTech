@@ -14,7 +14,7 @@
             <text class='text'>总支出(元)</text>
         </view>
     </view>
-    <view class='group'>账户({{group.groupLen}})</view>
+    <view class='group'>成员({{group.groupLen}})</view>
     <view class='group_list'>
 		<block wx:for='{{group.groupList}}' wx:key='groupId'>
 			<view class='group_item' data-id='{{item.groupId}}'>
