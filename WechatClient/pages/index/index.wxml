@@ -2,44 +2,46 @@
 <import src='../tabBar-template/tabBar-template.wxml' />
 <wxs src='../../utils/filters.wxs' module='filters'></wxs>
 <view class='index'>
-    <view class='index_header'>
-        <view class='index_filter'>
-            <picker class='picker_filter' mode="date" value="{{dateValue}}" fields='month' start="2017-01-01" end="{{endDate}}" bindchange="onDateChange">
-                <view class="picker">
-                    <text>{{date}}</text>
-                    <image class='date_arrow' src='../../images/index/date_arrow.png'></image>
-                </view>
-            </picker>
-            <image src='../../images/index/filter_icon.png' class='filter_btn' data-category-id='{{categoryId}}' catchtap='onOpenFilterTap'></image>
+  <view class='index_header'>
+    <view class='index_filter'>
+      <picker class='picker_filter' mode="date" value="{{dateValue}}" fields='month' start="2017-01-01" end="{{endDate}}" bindchange="onDateChange">
+        <view class="picker">
+          <text>{{date}}</text>
+          <image class='date_arrow' src='../../images/index/date_arrow.png'></image>
         </view>
-        <view class='text'>
-            <text>{{month}}月结余：</text>
-            <text class='large'>{{filters.toFix(tallyData.monthTotalMoneys[1] - tallyData.monthTotalMoneys[0])}}</text>
-        </view>
-        <view class='text'>
-            <text class='margin_right'>{{month}}月收入：{{filters.toFix(tallyData.monthTotalMoneys[1])}}</text>
-            <text>{{month}}月支出：{{filters.toFix(tallyData.monthTotalMoneys[0])}}</text>
-        </view>
+      </picker>
+      <image src='../../images/index/filter_icon.png' class='filter_btn' data-category-id='{{categoryId}}' catchtap='onOpenFilterTap'></image>
     </view>
-    <scroll-view class='tally_book_list' scroll-y='true'>
-		<block wx:for='{{tallyData.lists}}' wx:for-index='index' wx:for-item='items' wx:key=''>
-			<view class='tally_book_date'>
-				<text>{{items.date}}</text>
-				<text>收入:{{filters.toFix(items.totalMoney[0])}} 支出:{{filters.toFix(items.totalMoney[1])}}</text>
-			</view>
-			<block wx:for='{{items.list}}' wx:for-index='idx' wx:for-item='item' wx:key=''>
-				<view class='tally_book_item' data-idx='{{index + "," + idx}}' data-id='{{item.id}}' catchtap='onOpenTallyDetailTap'>
-					<view class='iconfont_container'>
-						<i class="iconfont {{item.categoryIcon}}"></i>
-					</view>
-					<view class='text_wrap'>
-						<view class='icon_title'>{{item.categoryName}}</view>
-						<view class='text'>账户：{{item.accountName.length === 1 ? item.accountName[0] : item.accountName[0] + '、' + item.accountName[1]}}</view>
-					</view>
-					<view class='money {{item.type !== "转账" ? item.type === "支出" ? "red" : "blue" : "black"}}'>{{item.type !== '转账' ? item.type === '支出' ? '-' + filters.toFix(item.money) : '+' + filters.toFix(item.money) : filters.toFix(item.money)}}</view>
-				</view>
-			</block>
-		</block>
-    </scroll-view>
+    <view class='text'>
+      <text>{{month}}月结余：</text>
+      <text class='large'>{{filters.toFix(tallyData.monthTotalMoneys[1] - tallyData.monthTotalMoneys[0])}}</text>
+    </view>
+    <view class='text'>
+      <text class='margin_right'>{{month}}月收入：{{filters.toFix(tallyData.monthTotalMoneys[1])}}</text>
+      <text>{{month}}月支出：{{filters.toFix(tallyData.monthTotalMoneys[0])}}</text>
+    </view>
+  </view>
+  <scroll-view class='tally_book_list' scroll-y='true' bindscrolltolower="tallyScrollLower">
+    <block wx:for='{{tallyData.lists}}' wx:for-index='index' wx:for-item='items' wx:key=''>
+      <view class='tally_book_date'>
+        <text>{{items.date}}</text>
+        <text>收入:{{filters.toFix(items.totalMoney[0])}} 支出:{{filters.toFix(items.totalMoney[1])}}</text>
+      </view>
+      <block wx:for='{{items.list}}' wx:for-index='idx' wx:for-item='item' wx:key=''>
+        <view class='tally_book_item' data-idx='{{index + "," + idx}}' data-id='{{item.id}}' catchtap='onOpenTallyDetailTap'>
+          <view class='iconfont_container'>
+            <i class="iconfont {{item.categoryIcon}}"></i>
+          </view>
+          <view class='text_wrap'>
+            <view class='icon_title'>{{item.categoryName}}</view>
+            <view class='text'>账户：{{item.accountName.length === 1 ? item.accountName[0] : item.accountName[0] + '、' + item.accountName[1]}}</view>
+          </view>
+          <view class='money {{item.type !== "转账" ? item.type === "支出" ? "red" : "blue" : "black"}}'>{{item.type !== '转账' ? item.type === '支出' ? '-' + filters.toFix(item.money) : '+' + filters.toFix(item.money) : filters.toFix(item.money)}}</view>
+        </view>
+      </block>
+    </block>
+    <!-- <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view> -->
+    <!-- <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view> -->
+  </scroll-view>
 </view>
 <template is='tabBarTemplate' data='{{...tabBarSelected}}' />

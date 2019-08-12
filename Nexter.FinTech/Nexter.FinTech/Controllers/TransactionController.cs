@@ -43,9 +43,11 @@ namespace Nexter.FinTech.Controllers
                             select new { e, category, account };
             if (selectCategory != null)
                 queryable = queryable.Where(e => e.e.CategoryId == selectCategory.Id);
+            var count = await queryable.LongCountAsync();
             var result = await queryable.Skip(query.Skip).Take(query.Take).ToListAsync();
             return Result.Complete(new
             {
+                Count = count,
                 DateMonth = result.FirstOrDefault()?.e.Date.ToString("yyyy-MM"),
                 MonthTotalMoneys = new[]
                 {

@@ -1,5 +1,6 @@
 {
 	"navigationBarBackgroundColor": "#116cc5",
 	"navigationBarTitleText": "FinTech",
-	"navigationBarTextStyle": "white"
+	"navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true
 }
