@@ -21,15 +21,6 @@ namespace Nexter.FinTech.Controllers
         }
 
         protected IRepository Store { get; }
-        public class TransactionQuery
-        {
-            public long AccountId { get; set; }
-            public long CategoryId { get; set; }
-            public DateTime? Date { get; set; }
-            public int Take => 10;
-            public int Skip => 0;
-
-        }
 
         [HttpGet]
         public async Task<Result> GetAsync([FromQuery] TransactionQuery query)
@@ -61,11 +52,11 @@ namespace Nexter.FinTech.Controllers
                    result.Sum(t => t.e.Spending),
                    result.Sum(t => t.e.Income)
                 },
-                @Lists = result.OrderByDescending(e => e.e.CreatedAt).GroupBy(e => e.e.Date).Select(c => new
+                @Lists = result.OrderByDescending(e => e.e.Date).ThenByDescending(e => e.e.CreatedAt).GroupBy(e => e.e.Date).Select(c => new
                 {
                     Date = c.Key.ToString("yyyy-MM-dd"),
                     totalMoney = new[]
-                       {
+                         {
                         c.Where(e => e.e.Date == c.Key).Sum(t => t.e.Income),
                         c.Where(e => e.e.Date == c.Key).Sum(t => t.e.Spending),
                         0
@@ -112,14 +103,6 @@ namespace Nexter.FinTech.Controllers
             });
         }
 
-        public class TransactionRequest
-        {
-            public long AccountId { get; set; }
-            public long CategoryId { get; set; }
-            public DateTime CreatedAt { get; set; }
-            public decimal Money { get; set; }
-            public string Memo { get; set; }
-        }
         [HttpPost]
         public async Task<Result> PostAsync([FromBody] TransactionRequest request)
         {
