@@ -26,25 +26,20 @@ namespace Nexter.FinTech.Controllers
         public async Task<Result> GetAsync()
         {
             var session = this.GetSession();
-            var queryable = from e in Store.AsQueryable<Group>()
-                            join member in Store.AsQueryable<Member>() on e.Id equals member.GroupId into members
-                            from subMember in members.DefaultIfEmpty()
-                            join transaction in Store.AsQueryable<Transaction>()
-                                on subMember.Id equals transaction.MemberId into transactions
-                            from subTransaction in transactions.DefaultIfEmpty()
-                            where e.Id == session.Id
-                            select new { e, members, transactions };
-            var result = await queryable.FirstOrDefaultAsync();
+            var members = await Store.AsQueryable<Member>().Where(e => e.GroupId == session.GroupId).ToListAsync();
+            var memberIds = members.Select(e => e.Id).ToArray();
+            var result = await Store.AsQueryable<Transaction>().Where(e => memberIds.Contains(e.MemberId)).ToArrayAsync();
             return Result.Complete(new
             {
-                totalIncome = result.transactions.Sum(e => e.Income),
-                totalSpending = result.transactions.Sum(e => e.Spending),
-                totalMoney = result.transactions.Sum(e => e.Income ?? 0 - e.Spending ?? 0),
-                members = result.members.Select(e => new
+                totalIncome = result.Sum(e => e.Income),
+                totalSpending = result.Sum(e => e.Spending),
+                totalMoney = result.Sum(e => e.Income ?? 0 - e.Spending ?? 0),
+                members = members.Select(e => new
                 {
                     e.Id,
-                    Name = e.NickName,
-                    money = result.transactions.Where(r => r.MemberId == e.Id).Sum(t => t.Income - t.Spending)
+                    e.NickName,
+                    e.Avatar,
+                    money = result.Where(r => r.MemberId == e.Id).Sum(t => t.Income ?? 0 - t.Spending ?? 0)
                 })
             });
         }

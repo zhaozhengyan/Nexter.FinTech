@@ -64,6 +64,7 @@ namespace Nexter.FinTech.Controllers
         {
             public string NickName { get; set; }
             public string Code { get; set; }
+            public string Avatar { get; set; }
         }
 
         [HttpPost]
@@ -82,10 +83,15 @@ namespace Nexter.FinTech.Controllers
                 var member = await Store.AsQueryable<Member>().FirstOrDefaultAsync(e => e.AccountCode == openId);
                 if (member == null)
                 {
-                    member = new Member(100, request.NickName, openId);
+                    member = new Member(100, request.NickName, openId, request.Avatar);
                     await Store.AddAsync(member);
-                    await Store.CommitAsync();
                 }
+                else
+                {
+                    member.NickName = request.NickName;
+                    member.Avatar = request.Avatar;
+                }
+                await Store.CommitAsync();
                 return Result.Complete(new { token = member.AccountCode });
             }
             return Result.Fail("注册帐户失败");

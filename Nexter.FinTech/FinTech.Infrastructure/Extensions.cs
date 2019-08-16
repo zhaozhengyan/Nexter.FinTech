@@ -114,21 +114,22 @@ namespace FinTech.Infrastructure
             return bodyString;
         }
 
-        //public static HttpResponse EnableRewind(this HttpResponse response)
-        //{
-        //    if (response == null)
-        //    {
-        //        throw new ArgumentNullException(nameof(response));
-        //    }
-        //    var body = response.Body;
-        //    if (!body.CanSeek)
-        //    {
-        //        var responseBodyStream = new WriteSyncMemoryStream(body);
-        //        response.Body = responseBodyStream;
-        //        response.HttpContext.Response.RegisterForDispose(responseBodyStream);
-        //    }
-        //    return response;
-        //}
+        public static HttpResponse EnableRewind(this HttpResponse response)
+        {
+            if (response == null)
+            {
+                throw new ArgumentNullException(nameof(response));
+            }
+            var body = response.Body;
+            if (!body.CanSeek)
+            {
+                var responseBodyStream = new WriteSyncMemoryStream(body);
+                response.Body = responseBodyStream;
+                response.HttpContext.Response.RegisterForDispose(responseBodyStream);
+            }
+            return response;
+        }
+
 
 
         /// <summary>

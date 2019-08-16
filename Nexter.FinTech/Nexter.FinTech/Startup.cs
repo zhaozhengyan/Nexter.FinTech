@@ -72,12 +72,12 @@ namespace Nexter.FinTech
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials());
-            //app.Use(next => context =>
-            //{
-            //    context.Request.EnableRewind();
-            //    //context.Response.EnableRewind();
-            //    return next(context);
-            //});
+            app.Use(next => context =>
+            {
+                context.Request.EnableRewind();
+                context.Response.EnableRewind();
+                return next(context);
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

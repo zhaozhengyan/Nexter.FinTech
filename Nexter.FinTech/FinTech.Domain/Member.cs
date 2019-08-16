@@ -7,10 +7,11 @@ namespace FinTech.Domain
     // Member
     public class Member
     {
-        public Member(long groupId, string nickName, string accountCode)
+        public Member(long groupId, string nickName, string accountCode,string avatar)
         {
             GroupId = groupId;
             NickName = nickName;
+            Avatar = avatar;
             AccountCode = accountCode;
             CreatedAt = DateTime.Now;
         }
@@ -22,6 +23,10 @@ namespace FinTech.Domain
         /// 昵称
         ///</summary>
         public string NickName { get; set; } // NickName (length: 32)
+        /// <summary>
+        /// 头像
+        /// </summary>
+        public string Avatar { get; set; } // NickName (length: 32)
 
         ///<summary>
         /// 微信Token
