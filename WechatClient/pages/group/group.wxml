@@ -1,27 +1,30 @@
 <!--pages/group/group.wxml-->
 <view class='group_container'>
-    <view class='group_head'>
-        <view class='group_head_row'>
-            <text class='number'>{{group.groupSum}}</text>
-            <text class='text'>总净资产(元)</text>
-        </view>
-        <view class='group_head_row'>
-            <text class='number'>{{group.totalIncome}}</text>
-            <text class='text'>总收入(元)</text>
-        </view>
-        <view class='group_head_row'>
-            <text class='number'>{{group.totalSpending}}</text>
-            <text class='text'>总支出(元)</text>
-        </view>
+  <view class='group_head'>
+    <view class='group_head_row'>
+      <text class='number'>{{group.totalMoney}}</text>
+      <text class='text'>总净资产(元)</text>
     </view>
-    <view class='group'>成员({{group.groupLen}})</view>
-    <view class='group_list'>
-		<block wx:for='{{group.groupList}}' wx:key='groupId'>
-			<view class='group_item' data-id='{{item.groupId}}'>
-				<image src='{{item.iconPath}}' class='group_icon'></image>
-				<text class='group_name'>{{item.groupName}}</text>
-				<text class='group_number'>{{item.money}} 元</text>
-			</view>
-		</block>
+    <view class='group_head_row'>
+      <text class='number'>{{group.totalIncome}}</text>
+      <text class='text'>总收入(元)</text>
     </view>
+    <view class='group_head_row'>
+      <text class='number'>{{group.totalSpending}}</text>
+      <text class='text'>总支出(元)</text>
+    </view>
+  </view>
+  <view class='group'>成员({{group.accountLen}})</view>
+  <view class='group_list'>
+    <block wx:for='{{group.members}}' wx:key='id'>
+      <view class='group_item' data-id='{{item.id}}'>
+        <image src='{{item.avatar}}' class='group_icon'></image>
+        <text class='group_name'>{{item.nickName}}</text>
+        <text class='group_number'>{{item.money}} 元</text>
+      </view>
+    </block>
+  </view>
+  <view class='tally_btn'>
+        <button type='default' open-type="share" >添加一个成员</button>
+  </view>
 </view>

@@ -69,6 +69,7 @@ Page({
               utils.http_post(url, {
                 code: res.code,
                 nickName: userInfos.nickName,
+                avatar: userInfos.avatarUrl,
               }, that.onLogin);
             } else {
               //console.log('登录失败！' + res.errMsg)
