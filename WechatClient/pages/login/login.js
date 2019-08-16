@@ -16,6 +16,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    wx.setStorageSync('inviterId', options.inviterId)
+    console.log('邀请人ID:' + options.inviterId);
     var that = this;
     wx.getSetting({
       success: function(res) {
@@ -50,6 +52,7 @@ Page({
   },
 
   getUserInfoFn: function() {
+    var inviterId = wx.getStorageSync('inviterId')
     var that = this;
     wx.getUserInfo({
       success: function(res) {
@@ -70,6 +73,7 @@ Page({
                 code: res.code,
                 nickName: userInfos.nickName,
                 avatar: userInfos.avatarUrl,
+                inviterId: inviterId
               }, that.onLogin);
             } else {
               //console.log('登录失败！' + res.errMsg)

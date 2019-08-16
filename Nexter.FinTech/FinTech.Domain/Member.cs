@@ -16,6 +16,11 @@ namespace FinTech.Domain
             CreatedAt = DateTime.Now;
         }
 
+        public void SetGroup(long groupId)
+        {
+            GroupId = groupId;
+        }
+
         public long Id { get; set; } // Id (Primary key)
         public long GroupId { get; set; } // GroupId
 

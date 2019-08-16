@@ -33,10 +33,10 @@
 			<text>定时提醒</text>
 			<image class='right_arrow' src='../../images/right_arrow.png'></image>
 		</view> -->
-		<view class='personal_item' data-page-url='../set-category/set-category' catchtap='onOpenPageTap'>
+		<!-- <view class='personal_item' data-page-url='../set-category/set-category' catchtap='onOpenPageTap'>
 			<text>设置类别</text>
 			<image class='right_arrow' src='../../images/right_arrow.png'></image>
-		</view>
+		</view> -->
     <view class='personal_item' data-page-url='../group/group' catchtap='onOpenPageTap'>
       <text>我的家庭</text>
       <image class='right_arrow' src='../../images/right_arrow.png'></image>

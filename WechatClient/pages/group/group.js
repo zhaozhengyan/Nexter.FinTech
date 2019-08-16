@@ -38,18 +38,17 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function(ops) {
-    debugger;
     if (ops.from === 'button') {
       // 来自页面内转发按钮
       console.log(ops.target)
     }
     var nickName = app.globalData.userInfos.nickName;
+    var token = wx.getStorageSync('token');
     return {
       imageUrl: '/images/logo.png',
       title: nickName + '邀请你加入家庭',
-      path: 'pages/index/index',
+      path: 'pages/login/login?inviterId=' + token,
       success: function(res) {
-        debugger;
         // 转发成功
         console.log("转发成功:" + JSON.stringify(res));
         var shareTickets = res.shareTickets;
@@ -67,6 +66,9 @@ Page({
       fail: function(res) {
         // 转发失败
         console.log("转发失败:" + JSON.stringify(res));
+      },
+      complete:function(res){
+        console.log("转发完成:" + JSON.stringify(res));
       }
     }
   }

@@ -65,6 +65,10 @@ namespace Nexter.FinTech.Controllers
             public string NickName { get; set; }
             public string Code { get; set; }
             public string Avatar { get; set; }
+            /// <summary>
+            /// 邀请人Token
+            /// </summary>
+            public string InviterId { get; set; }
         }
 
         [HttpPost]
@@ -81,6 +85,7 @@ namespace Nexter.FinTech.Controllers
             {
                 var openId = res["openid"].ToString();
                 var member = await Store.AsQueryable<Member>().FirstOrDefaultAsync(e => e.AccountCode == openId);
+                var inviterGroupId = await InviterGroupId(request);
                 if (member == null)
                 {
                     member = new Member(100, request.NickName, openId, request.Avatar);
@@ -91,10 +96,23 @@ namespace Nexter.FinTech.Controllers
                     member.NickName = request.NickName;
                     member.Avatar = request.Avatar;
                 }
+                if(inviterGroupId > 0)
+                    member.SetGroup(inviterGroupId);
                 await Store.CommitAsync();
                 return Result.Complete(new { token = member.AccountCode });
             }
             return Result.Fail("注册帐户失败");
+        }
+
+        private async Task<long> InviterGroupId(Auth request)
+        {
+            if (!string.IsNullOrWhiteSpace(request.InviterId))
+            {
+                var inviter = await Store.AsQueryable<Member>()
+                    .FirstOrDefaultAsync(e => e.AccountCode == request.InviterId);
+                return inviter.GroupId;
+            }
+            return 0;
         }
 
 
