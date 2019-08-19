@@ -2,15 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-    <UserSecretsId>fce98a79-33f4-471a-9409-3a994b1dcfbf</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Log\**" />
     <Compile Remove="Publish\**" />
+    <Content Remove="Log\**" />
     <Content Remove="Publish\**" />
+    <EmbeddedResource Remove="Log\**" />
     <EmbeddedResource Remove="Publish\**" />
+    <None Remove="Log\**" />
     <None Remove="Publish\**" />
   </ItemGroup>
 
