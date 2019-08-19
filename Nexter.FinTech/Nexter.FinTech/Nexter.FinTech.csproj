@@ -8,9 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Publish\**" />
+    <Content Remove="Publish\**" />
+    <EmbeddedResource Remove="Publish\**" />
+    <None Remove="Publish\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.7.12" />
+    <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
   </ItemGroup>
 
   <ItemGroup>

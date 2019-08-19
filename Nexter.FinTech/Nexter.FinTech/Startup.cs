@@ -20,6 +20,7 @@ using Newtonsoft.Json.Converters;
 using Nexter.Domain;
 using Nexter.FinTech.Infrastructure;
 using Nexter.Infrastructure;
+using Serilog;
 
 namespace Nexter.FinTech
 {
@@ -28,6 +29,7 @@ namespace Nexter.FinTech
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
         }
 
         public IConfiguration Configuration { get; }
@@ -58,12 +60,14 @@ namespace Nexter.FinTech
                 .AddScoped<DbContext, NexterContext>(sp => sp.GetRequiredService<NexterContext>())
                 .AddScoped<IRepository, Repository>(sp => sp.GetRequiredService<Repository>())
                 ;
+          
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddSerilog();
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto

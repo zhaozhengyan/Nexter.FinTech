@@ -25,6 +25,7 @@ namespace Nexter.FinTech.Controllers
         [HttpGet]
         public async Task<Result> GetAsync([FromQuery] TransactionQuery query)
         {
+            throw new Exception("test");
             var session = this.GetSession();
             var startDate = DateTime.Now.FirstDayOfThisMonth();
             var endDate = DateTime.Now.LastDayOfThisMonth();
