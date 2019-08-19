@@ -52,6 +52,7 @@ namespace Nexter.FinTech.Controllers
                 totalMoney = result.transactions.Sum(e => e.Income ?? 0 - e.Spending ?? 0),
                 joinTime = result.e.CreatedAt,
                 accountId = result.e.Id,
+                groupId = result.e.GroupId,
                 accountName = result.e.NickName,
                 openId = result.e.AccountCode,
                 count = result.transactions.Count(),
@@ -96,7 +97,7 @@ namespace Nexter.FinTech.Controllers
                     member.NickName = request.NickName;
                     member.Avatar = request.Avatar;
                 }
-                if(inviterGroupId > 0)
+                if (inviterGroupId > 0)
                     member.SetGroup(inviterGroupId);
                 await Store.CommitAsync();
                 return Result.Complete(new { token = member.AccountCode });

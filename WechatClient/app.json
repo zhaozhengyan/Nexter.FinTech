@@ -10,7 +10,8 @@
     "pages/tally/tally",
     "pages/about/about",
     "pages/set-category/set-category",
-    "pages/group/group"
+    "pages/group/group",
+    "pages/set-group/set-group"
   ],
   "window": {
     "backgroundTextStyle": "light",
