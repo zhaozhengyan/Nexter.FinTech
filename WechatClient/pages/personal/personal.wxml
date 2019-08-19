@@ -41,7 +41,7 @@
       <text>我的家庭</text>
       <image class='right_arrow' src='../../images/right_arrow.png'></image>
     </view>
-    <view class='personal_item' wx:elif="{{userInfos.groupId==0}}" data-page-url='../group/group' catchtap='onOpenPageTap'>
+    <view class='personal_item' wx:elif="{{userInfos.groupId==0}}" data-page-url='../set-group/set-group' catchtap='onOpenPageTap'>
       <text>创建家庭</text>
       <image class='right_arrow' src='../../images/right_arrow.png'></image>
     </view>
