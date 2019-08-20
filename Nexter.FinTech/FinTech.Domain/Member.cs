@@ -7,9 +7,10 @@ namespace FinTech.Domain
     // Member
     public class Member
     {
-        public Member(long groupId, string nickName, string accountCode,string avatar)
+        public Member() { }
+        public Member(string nickName, string accountCode,string avatar)
         {
-            GroupId = groupId;
+            GroupId = 0;
             NickName = nickName;
             Avatar = avatar;
             AccountCode = accountCode;

@@ -76,33 +76,41 @@ namespace Nexter.FinTech.Controllers
         [AllowAnonymous]
         public async Task<Result> PostAsync([FromBody]Auth request)
         {
+            var session = this.GetSession();
+            Member member;
+            if (this.GetSession() == null)
+            {
+                var openId = await GetToken(request.Code);
+                member = new Member(request.NickName, openId, request.Avatar);
+                await Store.AddAsync(member);
+            }
+            else
+            {
+                member = await Store.AsQueryable<Member>().FirstOrDefaultAsync(e => e.Id == session.Id);
+                member.NickName = request.NickName;
+                member.Avatar = request.Avatar;
+            }
+            var inviterGroupId = await InviterGroupId(request);
+            if (inviterGroupId > 0)
+                member.SetGroup(inviterGroupId);
+            await Store.CommitAsync();
+            return Result.Complete(new { token = member.AccountCode });
+        }
+
+        private async Task<string> GetToken(string code)
+        {
             StringBuilder url = new StringBuilder();
-            url.Append($"https://api.weixin.qq.com/sns/jscode2session?appid={Appid}");
+            url.Append($"{AuthUrl}");
+            url.Append($"?appid={Appid}");
             url.Append($"&secret={Secret}");
-            url.Append($"&js_code={request.Code}");
+            url.Append($"&js_code={code}");
             url.Append("&grant_type=authorization_code");
             var res = await ExecuteAsync(url.ToString());
             if (res.HasValues)
             {
-                var openId = res["openid"].ToString();
-                var member = await Store.AsQueryable<Member>().FirstOrDefaultAsync(e => e.AccountCode == openId);
-                var inviterGroupId = await InviterGroupId(request);
-                if (member == null)
-                {
-                    member = new Member(100, request.NickName, openId, request.Avatar);
-                    await Store.AddAsync(member);
-                }
-                else
-                {
-                    member.NickName = request.NickName;
-                    member.Avatar = request.Avatar;
-                }
-                if (inviterGroupId > 0)
-                    member.SetGroup(inviterGroupId);
-                await Store.CommitAsync();
-                return Result.Complete(new { token = member.AccountCode });
+                return res["openid"].ToString();
             }
-            return Result.Fail("注册帐户失败");
+            return string.Empty;
         }
 
         private async Task<long> InviterGroupId(Auth request)
