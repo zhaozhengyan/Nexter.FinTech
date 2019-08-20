@@ -20,6 +20,7 @@ namespace FinTech.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.HasSequence<long>(Ids).IncrementsBy(10);
             modelBuilder.Entity<Category>().ToTable("Categories");
             modelBuilder.Entity<Member>(eb =>
             {
