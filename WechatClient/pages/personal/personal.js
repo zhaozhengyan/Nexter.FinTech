@@ -58,7 +58,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    wx.hideTabBar({
+      aniamtion: false
+    });
 
+    var url = app.globalData.httpGetUrl + 'me';
+    utils.http_get(url, this.showPageData);
   },
 
   /**

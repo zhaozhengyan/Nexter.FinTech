@@ -26,11 +26,14 @@ namespace Nexter.FinTech.Controllers
         public async Task<Result> GetAsync()
         {
             var session = this.GetSession();
+            var group = await Store.AsQueryable<Group>().FirstOrDefaultAsync(e => e.Id == session.GroupId);
             var members = await Store.AsQueryable<Member>().Where(e => e.GroupId == session.GroupId).ToListAsync();
             var memberIds = members.Select(e => e.Id).ToArray();
             var result = await Store.AsQueryable<Transaction>().Where(e => memberIds.Contains(e.MemberId)).ToArrayAsync();
             return Result.Complete(new
             {
+                id = group.Id,
+                IsAdmin = session.Id == group?.CreateMemberId,
                 totalIncome = result.Sum(e => e.Income),
                 totalSpending = result.Sum(e => e.Spending),
                 totalMoney = result.Sum(e => e.Income ?? 0 - e.Spending ?? 0),
@@ -44,16 +47,29 @@ namespace Nexter.FinTech.Controllers
             });
         }
 
+        public class GroupRequest
+        {
+            public string Name { get; set; }
+        }
+
         [HttpPost]
-        public async Task<Result> PostAsync([FromQuery]string name)
+        public async Task<Result> PostAsync([FromBody]GroupRequest request)
         {
             var session = this.GetSession();
-            var group = new Group(name, session.Id);
-            await Store.AddAsync(group);
+            var group = await Store.AsQueryable<Group>().FirstOrDefaultAsync(e => e.CreateMemberId == session.Id);
+            if (group == null)
+            {
+                group = new Group(request.Name, session.Id);
+                await Store.AddAsync(group);
+            }
+            else
+            {
+                group.Name = request.Name;
+            }
             var member = await Store.AsQueryable<Member>().FirstOrDefaultAsync(e => e.Id == session.Id);
             member.GroupId = group.Id;
             await Store.CommitAsync();
-            return Result.Complete();
+            return Result.Complete(group);
         }
 
         [Route("Quit")]
@@ -64,7 +80,7 @@ namespace Nexter.FinTech.Controllers
             var member = await Store.AsQueryable<Member>().FirstOrDefaultAsync(e => e.Id == session.Id);
             member.GroupId = 0;
             await Store.CommitAsync();
-            return Result.Complete();
+            return Result.Complete(member.GroupId);
         }
 
 
@@ -75,7 +91,7 @@ namespace Nexter.FinTech.Controllers
             var group = await Store.AsQueryable<Group>().FirstOrDefaultAsync(e => e.Id == id && e.CreateMemberId == session.Id);
             await Store.RemoveAsync(group);
             await Store.CommitAsync();
-            return Result.Complete();
+            return Result.Complete(group);
         }
     }
 }

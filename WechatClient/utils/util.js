@@ -11,6 +11,10 @@ function filZero(num) {
   return num.toString().length === 2 ? num : '0' + num;
 }
 
+function isNull(str) {
+  return str == null || str == '' || str == undefined || str.toString().length == 0;
+}
+
 // 选择分类
 function SelectIconFont(event, callBack) {
   var categoryId = event.currentTarget.dataset.categoryId;
@@ -85,6 +89,7 @@ function http_delete(url, data, callback, text) {
 
 module.exports = {
   formatDate: formatDate,
+  isNull: isNull,
   SelectIconFont: SelectIconFont,
   http_get: http_get,
   http_delete: http_delete,

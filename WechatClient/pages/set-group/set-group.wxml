@@ -1,12 +1,11 @@
 <!--pages/set-group/set-group.wxml-->
-<view class='tally_container'>
-  <view class='tally_note'>
-    <view class='tally_note_name'>名字：</view>
+<view class='group_container'>
+  <view class='group_note'>
     <view class='text_container'>
-      <input name='note' bindinput='noteInput' type='text' confirm-type='done' placeholder='' placeholder-class='text_placeholder' />
+      <input name='note' bindinput='nameInput' type='text' confirm-type='done' placeholder='起个响亮的名字吧' placeholder-class='text_placeholder' />
     </view>
   </view>
-  <view class='tally_btn'>
-    <button type='default' bindtap='AddTally'>确定</button>
+  <view class='group_btn'>
+    <button type='default' bindtap='AddGroup'>确定</button>
   </view>
 </view>

@@ -41,6 +41,10 @@ namespace FinTech.Infrastructure
                 eb.Property(i => i.Id).ForSqlServerUseSequenceHiLo(Ids);
                 eb.Property(x => x.Type).HasConversion<string>();
             });
+            modelBuilder.Entity<Group>(eb =>
+            {
+                eb.Property(i => i.Id).ForSqlServerUseSequenceHiLo(Ids);
+            });
         }
     }
 }

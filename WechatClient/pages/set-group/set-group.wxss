@@ -2,17 +2,17 @@
 page {
 	background-color: #fff;
 }
-.tally_box {
+.group_box {
 	background-color: #fff;
 	border-bottom: 15rpx solid #f5f5f5;
 }
-.tally_tab {
+.group_tab {
 	border-bottom: 1px solid #f2f2f2;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 }
-.tally_tab text {
+.group_tab text {
 	font-size: 32rpx;
 	color: #999;
 	font-weight: bold;
@@ -21,13 +21,13 @@ page {
 	padding: 45rpx 0 15rpx;
 	text-align: center;
 }
-.tally_tab text.active {
+.group_tab text.active {
 	color: #116cc5;
 }
 .digit_container {
 	padding: 36rpx 20rpx;
 }
-.tally_digit {
+.group_digit {
 	text-align: center;
 	height: 54rpx;
 	line-height: 54rpx;
@@ -42,13 +42,13 @@ page {
 	color:#666;
 	border-bottom: 1px solid #f2f2f2;
 }
-.tally_select_row {
+.group_select_row {
 	background-color: #fff;
 	border-top: 1px solid #f2f2f2;
 	padding: 30rpx 20rpx;
 	overflow: hidden;
 }
-.tally_picker {
+.group_picker {
 	float: left;
 	height: 40rpx;
 	line-height: 40rpx;
@@ -57,31 +57,31 @@ page {
 	color: #666;
 	font-size: 28rpx;
 }
-.tally_account {
+.group_account {
 	float: right;
 	height: 40rpx;
 	display: flex;
 	flex-direction: row;
 }
-.tally_account_icon {
+.group_account_icon {
 	width: 40rpx;
 	height: 40rpx;
 	margin-right: 10rpx;
 	vertical-align: middle;
 }
-.tally_account_name {
+.group_account_name {
 	font-size: 28rpx;
 	color: #666;
 	vertical-align: middle;
 }
-.tally_note {
+.group_note {
 	background-color: #fff;
 	border-top: 1px solid #f2f2f2;
 	padding: 30rpx 20rpx;
 	display: flex;
 	flex-direction: row;
 }
-.tally_note_name {
+.group_note_name {
 	width: 90rpx;
 	font-size: 28rpx;
 	color: #666;
@@ -103,12 +103,12 @@ page {
 	line-height: 52rpx;
 }
 
-.tally_btn {
+.group_btn {
 	padding: 30rpx 20rpx;
 	background-color: #fff;
 	border-top: 1px solid #f2f2f2;
 }
-.tally_btn button {
+.group_btn button {
 	background-color: #116cc5;
 	color: #fff;
 }

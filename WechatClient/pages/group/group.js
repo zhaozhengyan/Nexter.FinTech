@@ -8,7 +8,7 @@ Page({
 
   onLoad: function(options) {
     wx.showShareMenu({
-      withShareTicket: true //// 要求小程序返回分享目标信息
+      withShareTicket: true // 要求小程序返回分享目标信息
     });
     var url = app.globalData.httpGetUrl + 'group';
     utils.http_get(url, this.showPageData);
@@ -16,6 +16,8 @@ Page({
   showPageData: function(res) {
     var accountLen = res.members.length;
     var group = {
+      id: res.id,
+      isAdmin: res.isAdmin,
       totalMoney: res.totalMoney,
       totalIncome: res.totalIncome,
       totalSpending: res.totalSpending,
@@ -26,12 +28,26 @@ Page({
       group: group
     });
   },
-
+  leaveGroup: function() {
+    var url = app.globalData.httpGetUrl + 'group/quit?id=' + this.data.group.id;
+    utils.http_post(url, {}, this.goToIndex);
+  },
+  goToIndex: function(res) {
+    wx.showToast({
+      title: '退出成功',
+      complete: function() {
+        wx.switchTab({
+          url: '../personal/personal',
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    var url = app.globalData.httpGetUrl + 'group';
+    utils.http_get(url, this.showPageData);
   },
 
   /**
@@ -58,7 +74,7 @@ Page({
         //可以获取群组信息
         wx.getShareInfo({
           shareTicket: shareTickets[0],
-          success: function (res) {
+          success: function(res) {
             console.log(res)
           }
         })
@@ -67,7 +83,7 @@ Page({
         // 转发失败
         console.log("转发失败:" + JSON.stringify(res));
       },
-      complete:function(res){
+      complete: function(res) {
         console.log("转发完成:" + JSON.stringify(res));
       }
     }

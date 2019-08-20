@@ -24,7 +24,10 @@
       </view>
     </block>
   </view>
-  <view class='tally_btn'>
-        <button type='default' open-type="share" >添加一个成员</button>
+  <view wx:if="{{group.isAdmin==true}}" class='tally_btn'>
+    <button type='default' open-type="share">添加一个成员</button>
+  </view>
+  <view wx:elif="{{group.isAdmin==false}}" class='tally_btn'>
+    <button type='default' bindtap='leaveGroup'>退出</button>
   </view>
 </view>

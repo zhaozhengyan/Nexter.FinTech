@@ -1,66 +1,36 @@
 // pages/set-group/set-group.js
+const utils = require('../../utils/util.js');
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    name: null
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  /*获取备注***/
+  nameInput: function(e) {
+    this.setData({
+      name: e.detail.value
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  AddGroup: function(e) {
+    if (utils.isNull(this.data.name)) {
+      wx.showToast({
+        icon: 'none',
+        title: '请填写名称哦'
+      })
+      return;
+    }
+    var url = app.globalData.httpGetUrl + 'group';
+    utils.http_post(url, {
+      name: this.data.name
+    }, this.goToGroup, "阿偶！服务器打了个盹");
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  goToGroup: function(res) {
+    wx.switchTab({
+      url: '../personal/personal',
+    })
   }
 })
