@@ -76,17 +76,17 @@ namespace Nexter.FinTech.Controllers
         [AllowAnonymous]
         public async Task<Result> PostAsync([FromBody]Auth request)
         {
-            var session = this.GetSession();
+            var openId = Request.Headers["Token"];
             Member member;
-            if (this.GetSession() == null)
+            if (string.IsNullOrWhiteSpace(openId))
             {
-                var openId = await GetToken(request.Code);
+                openId = await GetToken(request.Code);
                 member = new Member(request.NickName, openId, request.Avatar);
                 await Store.AddAsync(member);
             }
             else
             {
-                member = await Store.AsQueryable<Member>().FirstOrDefaultAsync(e => e.Id == session.Id);
+                member = await Store.AsQueryable<Member>().FirstOrDefaultAsync(e => e.AccountCode == openId);
                 member.NickName = request.NickName;
                 member.Avatar = request.Avatar;
             }
