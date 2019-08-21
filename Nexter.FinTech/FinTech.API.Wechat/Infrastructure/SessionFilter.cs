@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using FinTech.API.Wechat.Dto;
 using FinTech.Domain;
 using FinTech.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
@@ -11,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Nexter.Domain;
 
-namespace Nexter.FinTech.Infrastructure
+namespace FinTech.API.Wechat.Infrastructure
 {
     public class SessionFilter : IAsyncAuthorizationFilter
     {

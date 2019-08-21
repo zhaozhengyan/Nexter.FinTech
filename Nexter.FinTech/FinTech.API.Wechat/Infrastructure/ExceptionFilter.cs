@@ -1,4 +1,5 @@
-﻿using FinTech.Infrastructure;
+﻿using FinTech.API.Wechat.Dto;
+using FinTech.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -6,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 
-namespace Nexter.FinTech.Infrastructure
+namespace FinTech.API.Wechat.Infrastructure
 {
     public class ErrorResponse
     {

@@ -1,5 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
-namespace Nexter.FinTech
+namespace FinTech.API.Wechat.Dto
 {
     public class Result<T> : Result
     {

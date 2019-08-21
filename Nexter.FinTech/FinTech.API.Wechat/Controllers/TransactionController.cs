@@ -1,15 +1,15 @@
-﻿using FinTech.Domain;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using FinTech.API.Wechat.Dto;
+using FinTech.Domain;
 using FinTech.Infrastructure;
+using FinTech.Infrastructure.Validation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nexter.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FinTech.Infrastructure.Validation;
 
-namespace Nexter.FinTech.Controllers
+namespace FinTech.API.Wechat.Controllers
 {
     [Route("/[controller]")]
     [ApiController]

@@ -1,0 +1,4 @@
+2019-08-19 17:34:26.154 +08:00 [Error] Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Nexter.FinTech.Session..ctor(Member input) in D:\1.Code\Nexter.FinTech\Nexter.FinTech\Nexter.FinTech\Dto\Session.cs:line 13
+   at Nexter.FinTech.Infrastructure.SessionFilter.Microsoft.AspNetCore.Mvc.Filters.IAsyncAuthorizationFilter.OnAuthorizationAsync(AuthorizationFilterContext context) in D:\1.Code\Nexter.FinTech\Nexter.FinTech\Nexter.FinTech\Infrastructure\SessionFilter.cs:line 47

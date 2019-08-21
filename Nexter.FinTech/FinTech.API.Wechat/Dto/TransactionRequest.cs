@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nexter.FinTech
+namespace FinTech.API.Wechat.Dto
 {
     public class TransactionRequest
     {

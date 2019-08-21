@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FinTech.API.Wechat.Dto;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Nexter.FinTech.Controllers
+namespace FinTech.API.Wechat.Controllers
 {
     public static class Extensions
     {
