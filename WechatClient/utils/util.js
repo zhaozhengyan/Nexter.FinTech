@@ -56,10 +56,17 @@ function http_post(url, data, callback, text) {
     dataType: 'json',
     method: 'POST',
     success: function(res) {
-      if (res.data.data != null) {
-        callback(res.data.data)
-      } else if (callback != null) {
-        callback();
+      if (res.data.statusCode == 'Ok') {
+        if (res.data.data != null) {
+          callback(res.data.data)
+        } else if (callback != null) {
+          callback();
+        }
+      } else {
+        wx.showToast({
+          icon: 'none',
+          title: res.data.message
+        })
       }
     },
     fail: function() {
@@ -81,14 +88,21 @@ function http_put(url, data, callback, text) {
     },
     dataType: 'json',
     method: 'PUT',
-    success: function (res) {
-      if (res.data.data != null) {
-        callback(res.data.data)
-      } else if (callback != null) {
-        callback();
+    success: function(res) {
+      if (res.data.statusCode == 'Ok') {
+        if (res.data.data != null) {
+          callback(res.data.data)
+        } else if (callback != null) {
+          callback();
+        }
+      } else {
+        wx.showToast({
+          icon: 'none',
+          title: res.data.message
+        })
       }
     },
-    fail: function () {
+    fail: function() {
       wx.showToast({
         title: text ? text : '数据获取失败'
       })
@@ -108,10 +122,17 @@ function http_delete(url, data, callback, text) {
     dataType: 'json',
     method: 'DELETE',
     success: function(res) {
-      if (res.data.data != null) {
-        callback(res.data.data)
-      } else if (callback != null) {
-        callback();
+      if (res.data.statusCode == 'Ok') {
+        if (res.data.data != null) {
+          callback(res.data.data)
+        } else if (callback != null) {
+          callback();
+        }
+      } else {
+        wx.showToast({
+          icon: 'none',
+          title: res.data.message
+        })
       }
     },
     fail: function() {

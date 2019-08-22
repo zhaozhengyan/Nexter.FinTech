@@ -8,7 +8,7 @@
         </view>
         <view class='icon_name'>{{item.categoryName}}</view>
       </view>
-      <view wx:elif='{{item.isAdmin==true}}' class='iconfont_item' data-category-id='{{item.categoryId}}' data-category-name='{{item.categoryName}}' data-category-type='{{item.type}}'  bindlongpress="pressCategory">
+      <view wx:elif='{{item.isAdmin==true}}' class='iconfont_item' data-category-id='{{item.categoryId}}' data-category-name='{{item.categoryName}}' data-category-type='{{item.type}}'  bindlongpress="pressCategory" bindtap='onSelectIconFontTap'>
         <view class='iconfont_container {{ currentCategoryId == item.categoryId?"active":"" }}'>
           <i class="iconfont {{item.categoryIcon}}"></i>
         </view>

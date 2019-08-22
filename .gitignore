@@ -43,3 +43,4 @@ key-*.xml
 src/.idea/
 /Nexter.FinTech/Nexter.FinTech/Publish/
 /Nexter.FinTech/Nexter.FinTech/Log
+/Nexter.FinTech/FinTech.API.Wechat/Publish

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using FinTech.API.Wechat.Dto;
 using FinTech.Domain;
+using FinTech.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nexter.Domain;
@@ -92,6 +93,9 @@ namespace FinTech.API.Wechat.Controllers
                 .FirstOrDefaultAsync(e => e.CreateMemberId == session.Id && e.Id == request.Id);
             if (cat == null)
                 return Result.Complete("Not Found");
+            var hasTransaction = await Store.AsQueryable<Transaction>().AnyAsync(e => e.CategoryId == request.Id);
+            if (hasTransaction)
+                return Result.Fail(nameof(BusinessViolationStatusCodes.RuleViolated), "该分类下有记账，不能删除哦");
             await Store.RemoveAsync(cat);
             await Store.CommitAsync();
             return Result.Complete("删除成功");
