@@ -10,3 +10,7 @@
 		<template is='iconsTemplate' data='{{categoryArray: inCategorys}}' />
 	</view>
 </view>
+<modal hidden="{{newCategory}}" title="{{title}}" confirm-text="确认" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+    <input type='text'placeholder="请输入" value="{{name}}" bindinput="nameInput"  auto-focus/>
+</modal>
+

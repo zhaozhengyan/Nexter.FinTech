@@ -22,19 +22,22 @@ namespace FinTech.API.Wechat.Controllers
         [HttpGet]
         public async Task<Result> GetAsync()
         {
-            var result = await Store.AsQueryable<Category>().ToListAsync();
+            var session = this.GetSession();
+            var ids = new[] { 0, session.Id };
+            var result = await Store.AsQueryable<Category>().Where(c => ids.Contains(c.CreateMemberId.Value)).ToListAsync();
             return Result.Complete(new
             {
                 categorys = new object[]
                 {
                     new {
                         tallyType = "支出",
-                        category = result.Where(e => e.Type == CategoryType.Spending)
-                        .Select(e=>new
+                        category = result.Where(e => e.Type == CategoryType.Spending).Select(e=>new
                         {
                             categoryId=e.Id,
                             categoryName=e.Name,
-                            categoryIcon=e.Icon
+                            categoryIcon=e.Icon,
+                            e.Type,
+                            IsAdmin=e.CreateMemberId==session.Id
                         })
                         .ToList()
                     },
@@ -44,7 +47,9 @@ namespace FinTech.API.Wechat.Controllers
                         {
                             categoryId=e.Id,
                             categoryName=e.Name,
-                            categoryIcon=e.Icon
+                            categoryIcon=e.Icon,
+                            e.Type,
+                            IsAdmin=e.CreateMemberId==session.Id
                         })
                         .ToList()
                     }
@@ -52,5 +57,46 @@ namespace FinTech.API.Wechat.Controllers
 
             });
         }
+
+        [HttpPost]
+        public async Task<Result> PostAsync([FromBody]CategoryRequest request)
+        {
+            var session = this.GetSession();
+            if (string.IsNullOrWhiteSpace(request.Name))
+                return Result.Complete();
+            var category = new Category(request.Name, request.Icon, request.Type, session.Id);
+            await Store.AddAsync(category);
+            await Store.CommitAsync();
+            return Result.Complete();
+        }
+
+
+        [HttpPut]
+        public async Task<Result> PutAsync([FromBody]CategoryRequest request)
+        {
+            var session = this.GetSession();
+            var cat = await Store.AsQueryable<Category>()
+                .FirstOrDefaultAsync(e => e.CreateMemberId == session.Id && e.Id == request.Id);
+            if (cat == null)
+                return Result.Complete("Not Found");
+            cat.SetName(request.Name);
+            await Store.CommitAsync();
+            return Result.Complete();
+        }
+
+        [HttpDelete]
+        public async Task<Result> DeleteAsync([FromBody] CategoryRequest request)
+        {
+            var session = this.GetSession();
+            var cat = await Store.AsQueryable<Category>()
+                .FirstOrDefaultAsync(e => e.CreateMemberId == session.Id && e.Id == request.Id);
+            if (cat == null)
+                return Result.Complete("Not Found");
+            await Store.RemoveAsync(cat);
+            await Store.CommitAsync();
+            return Result.Complete("删除成功");
+        }
+
+
     }
 }

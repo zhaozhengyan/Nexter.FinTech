@@ -1,0 +1,4 @@
+2019-08-22 14:51:49.701 +08:00 [Error] Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at FinTech.API.Wechat.Dto.Session..ctor(Member input) in D:\1.Code\Nexter.FinTech\Nexter.FinTech\FinTech.API.Wechat\Dto\Session.cs:line 13
+   at FinTech.API.Wechat.Infrastructure.SessionFilter.Microsoft.AspNetCore.Mvc.Filters.IAsyncAuthorizationFilter.OnAuthorizationAsync(AuthorizationFilterContext context) in D:\1.Code\Nexter.FinTech\Nexter.FinTech\FinTech.API.Wechat\Infrastructure\SessionFilter.cs:line 48

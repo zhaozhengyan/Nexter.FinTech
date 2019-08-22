@@ -32,7 +32,9 @@ function http_get(url, callback, text) {
     dataType: 'json',
     method: 'GET',
     success: function(res) {
-      callback(res.data.data)
+      if (callback != null) {
+        callback(res.data.data)
+      }
     },
     fail: function() {
       wx.showToast({
@@ -54,9 +56,39 @@ function http_post(url, data, callback, text) {
     dataType: 'json',
     method: 'POST',
     success: function(res) {
-      callback(res.data.data)
+      if (res.data.data != null) {
+        callback(res.data.data)
+      } else if (callback != null) {
+        callback();
+      }
     },
     fail: function() {
+      wx.showToast({
+        title: text ? text : '数据获取失败'
+      })
+    }
+  })
+}
+
+function http_put(url, data, callback, text) {
+  var token = wx.getStorageSync('token');
+  wx.request({
+    url: url,
+    data: data,
+    header: {
+      'content-type': 'application/json',
+      'token': token
+    },
+    dataType: 'json',
+    method: 'PUT',
+    success: function (res) {
+      if (res.data.data != null) {
+        callback(res.data.data)
+      } else if (callback != null) {
+        callback();
+      }
+    },
+    fail: function () {
       wx.showToast({
         title: text ? text : '数据获取失败'
       })
@@ -76,7 +108,11 @@ function http_delete(url, data, callback, text) {
     dataType: 'json',
     method: 'DELETE',
     success: function(res) {
-      callback(res.data.data)
+      if (res.data.data != null) {
+        callback(res.data.data)
+      } else if (callback != null) {
+        callback();
+      }
     },
     fail: function() {
       wx.showToast({
@@ -92,6 +128,7 @@ module.exports = {
   isNull: isNull,
   SelectIconFont: SelectIconFont,
   http_get: http_get,
+  http_post: http_post,
+  http_put: http_put,
   http_delete: http_delete,
-  http_post: http_post
 }

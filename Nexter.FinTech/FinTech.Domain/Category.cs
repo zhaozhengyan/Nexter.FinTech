@@ -6,6 +6,21 @@ namespace FinTech.Domain
 
     public class Category
     {
+        public Category() { }
+
+        public Category(string name, string icon, CategoryType? type, long createMemberId)
+        {
+            Name = name;
+            Icon = icon;
+            Type = type;
+            CreateMemberId = createMemberId;
+        }
+
+        public void SetName (string newName)
+        {
+            Name = newName;
+        }
+
         public long Id { get; set; } // Id (Primary key)
         public string Name { get; set; } // Name (length: 32)
         public string Icon { get; set; } // Icon (length: 64)
@@ -14,6 +29,10 @@ namespace FinTech.Domain
         /// 1=Spending , 2= Income
         ///</summary>
         public CategoryType? Type { get; set; } // Type
+        /// <summary>
+        /// ¥¥Ω®»ÀID
+        /// </summary>
+        public long? CreateMemberId { get; set; }
     }
 
     public enum CategoryType

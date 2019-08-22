@@ -62,17 +62,6 @@ namespace FinTech.API.Wechat.Controllers
         }
         #endregion
 
-        public class Auth
-        {
-            public string NickName { get; set; }
-            public string Code { get; set; }
-            public string Avatar { get; set; }
-            /// <summary>
-            /// 邀请人Token
-            /// </summary>
-            public string InviterId { get; set; }
-        }
-
         [HttpPost]
         [AllowAnonymous]
         public async Task<Result> PostAsync([FromBody]Auth request)
