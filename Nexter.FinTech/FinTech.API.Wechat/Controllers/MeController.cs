@@ -63,6 +63,23 @@ namespace FinTech.API.Wechat.Controllers
         #endregion
 
         [HttpPost]
+        [Route("TimedReminder")]
+        public async Task<Result> TimedReminder([FromBody] TimedReminderRequest request)
+        {
+            var session = this.GetSession();
+            var reminder = await Store.AsQueryable<TimedReminder>().FirstOrDefaultAsync(e => e.MemberId == session.Id);
+            if (reminder == null)
+            {
+                reminder = new TimedReminder(session.Id, request.Time);
+                await Store.AddAsync(reminder);
+            }
+            reminder.SetCron(request.Time);
+            reminder.SetEnabled(request.IsEnabled);
+            await Store.CommitAsync();
+            return Result.Complete();
+        }
+
+        [HttpPost]
         [AllowAnonymous]
         public async Task<Result> PostAsync([FromBody]Auth request)
         {

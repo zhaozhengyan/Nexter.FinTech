@@ -12,6 +12,7 @@ namespace FinTech.Infrastructure
         public DbSet<Group> Groups { get; set; }
         public DbSet<Member> Members { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<TimedReminder> TimedReminders { get; set; }
 
         public NexterContext(DbContextOptions options) : base(options)
         {
@@ -43,6 +44,10 @@ namespace FinTech.Infrastructure
                 eb.Property(x => x.Type).HasConversion<string>();
             });
             modelBuilder.Entity<Group>(eb =>
+            {
+                eb.Property(i => i.Id).ForSqlServerUseSequenceHiLo(Ids);
+            });
+            modelBuilder.Entity<TimedReminder>(eb =>
             {
                 eb.Property(i => i.Id).ForSqlServerUseSequenceHiLo(Ids);
             });

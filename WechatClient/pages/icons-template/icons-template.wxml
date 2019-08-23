@@ -2,7 +2,7 @@
 <template name='iconsTemplate'>
   <view class='iconfont_list'>
     <block wx:for='{{categoryArray}}' wx:key=''>
-      <view wx:if='{{item.isAdmin==false}}' class='iconfont_item' data-category-id='{{item.categoryId}}' data-category-name='{{item.categoryName}}' data-category-type='{{item.type}}' bindtap='onSelectIconFontTap'>
+      <view wx:if='{{item.isAdmin==false||item.categoryId==-1}}' class='iconfont_item' data-category-id='{{item.categoryId}}' data-category-name='{{item.categoryName}}' data-category-type='{{item.type}}' bindtap='onSelectIconFontTap'>
         <view class='iconfont_container {{ currentCategoryId == item.categoryId?"active":"" }}'>
           <i class="iconfont {{item.categoryIcon}}"></i>
         </view>
