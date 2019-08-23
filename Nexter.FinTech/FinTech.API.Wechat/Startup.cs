@@ -14,6 +14,11 @@ using Newtonsoft.Json.Converters;
 using Nexter.Domain;
 using Nexter.Infrastructure;
 using Serilog;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
+using FinTech.API.Wechat.Jobs;
+using FinTech.ApplicationServices;
 
 namespace FinTech.API.Wechat
 {
@@ -30,6 +35,12 @@ namespace FinTech.API.Wechat
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ITimedReminderService, TimedReminderService>();
+            services.AddSingleton<IJobFactory, SingletonJobFactory>();
+            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
+            services.AddSingleton<TimedReminderJob>();
+            services.AddSingleton(new JobSchedule(typeof(TimedReminderJob), "0/50 * * * * ?")); // run every 5 seconds
+            services.AddHostedService<QuartzHostedService>();
             services.AddDbContextPool<NexterContext>(opt =>
             {
                 opt.UseSqlServer(Configuration.GetConnectionString("Writable"));
@@ -51,9 +62,10 @@ namespace FinTech.API.Wechat
             services
                 .AddScoped<Repository>()
                 .AddScoped<DbContext, NexterContext>(sp => sp.GetRequiredService<NexterContext>())
+                .AddScoped<IUnitOfWork, Repository>(sp => sp.GetRequiredService<Repository>())
                 .AddScoped<IRepository, Repository>(sp => sp.GetRequiredService<Repository>())
                 ;
-          
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

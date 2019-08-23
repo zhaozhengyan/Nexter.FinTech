@@ -7,6 +7,7 @@ App({
     httpGetUrl: 'http://localhost:60933/'
   },
   onLaunch: function() {
-
+    debugger;
+    console.log(wx.env)
   }
 })
