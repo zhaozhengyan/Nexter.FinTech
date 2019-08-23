@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FinTech.Domain;
@@ -17,15 +18,16 @@ namespace FinTech.ApplicationServices
     }
     public class TimedReminderService : BaseService, ITimedReminderService
     {
-        public TimedReminderService(ILogger<TimedReminder> logger, IUnitOfWork unitOfWork, IRepository repository) 
+        public TimedReminderService(ILogger<TimedReminder> logger, IUnitOfWork unitOfWork, IRepository repository)
             : base(logger, unitOfWork, repository)
         {
         }
 
 
-        public async Task TimedReminder(string baseUrl,string appid,string secret)
+        public async Task TimedReminder(string baseUrl, string appid, string secret)
         {
-            var reminders = await Repository.AsQueryable<TimedReminder>().Where(e => e.IsEnabled).ToListAsync();
+            var now = DateTime.Now;
+            var reminders = await Repository.AsQueryable<TimedReminder>().Where(e => e.IsEnabled && e.LastReminderAt < now.Date).ToListAsync();
             if (reminders.NotAny()) return;
             var url = $"{baseUrl}?grant_type=client_credential&appid={appid}&secret={secret}";
             var result = await ExecuteAsync(url);
