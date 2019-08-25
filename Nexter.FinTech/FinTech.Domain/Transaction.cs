@@ -10,7 +10,7 @@ namespace FinTech.Domain
         /// </summary>
         /// <param name="memo">备注</param>
         /// <param name="categoryId"></param>
-        /// <param name="accountId">支付宝帐户ID</param>
+        /// <param name="accountId">支付宝帐户ID</param>s
         /// <param name="memberId">会员ID</param>
         /// <param name="bookId">账本</param>
         /// <param name="spending">花销</param>
@@ -23,8 +23,8 @@ namespace FinTech.Domain
             MemberId = memberId;
             BookId = bookId;
             CategoryId = categoryId;
-            Spending = spending;
-            Income = income;
+            Spending = spending ?? 0;
+            Income = income ?? 0;
             Date = createdAt.Date;
             CreatedAt = DateTime.Now;
             LastModifiedAt = DateTime.Now;
