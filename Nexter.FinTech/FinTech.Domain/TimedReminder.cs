@@ -1,4 +1,5 @@
 
+using NCrontab;
 using System;
 
 namespace FinTech.Domain
@@ -15,7 +16,7 @@ namespace FinTech.Domain
 
         public long Id { get; set; } // Id (Primary key)
         public long MemberId { get; set; }
-        public bool IsEnabled{ get; set; }
+        public bool IsEnabled { get; set; }
         /// <summary>
         /// ±Ì¥Ô Ω0 27 21 * * ? *
         /// </summary>
@@ -24,7 +25,15 @@ namespace FinTech.Domain
 
         public void SetCron(DateTime time)
         {
-            Cron = $"0 {time.Hour} {time.Minute} * * ? *";
+            //0 1 21 1/1 * ? 
+            Cron = $"* {time.Minute} {time.Hour} * *";
+        }
+
+        public DateTime GetNexterExecuteTime()
+        {
+            var schedule = CrontabSchedule.Parse(Cron);
+            var nextTime = schedule.GetNextOccurrence(LastReminderAt ?? DateTime.Now);
+            return nextTime;
         }
 
         public void SetEnabled(bool requestSwitch)
@@ -34,7 +43,7 @@ namespace FinTech.Domain
 
         public void SendSuccess()
         {
-            LastReminderAt=DateTime.Now;
+            LastReminderAt = DateTime.Now;
         }
     }
 

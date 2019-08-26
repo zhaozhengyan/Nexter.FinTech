@@ -22,6 +22,11 @@ namespace FinTech.Domain
             GroupId = groupId;
         }
 
+        public int GetRegDays()
+        {
+            return (int)DateTime.Now.Subtract(CreatedAt.Date).TotalDays;
+        }
+
         public long Id { get; set; } // Id (Primary key)
         public long GroupId { get; set; } // GroupId
 

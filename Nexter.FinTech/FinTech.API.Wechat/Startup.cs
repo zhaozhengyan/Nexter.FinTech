@@ -19,6 +19,8 @@ using Quartz.Impl;
 using Quartz.Spi;
 using FinTech.API.Wechat.Jobs;
 using FinTech.ApplicationServices;
+using Refit;
+using System;
 
 namespace FinTech.API.Wechat
 {
@@ -35,6 +37,10 @@ namespace FinTech.API.Wechat
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<WechatApiHttpHandler>();
+            services.AddRefitClient<IWeChatApi>()
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration["Wechat:BaseUrl"]))
+                .AddHttpMessageHandler<WechatApiHttpHandler>();
             services.AddScoped<ITimedReminderService, TimedReminderService>();
             services.AddSingleton<IJobFactory, SingletonJobFactory>();
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();

@@ -36,7 +36,7 @@ namespace FinTech.API.Wechat.Jobs
             using (var scope = _provider.CreateScope())
             {
                 var service = scope.ServiceProvider.GetService<ITimedReminderService>();
-                await service.TimedReminder(Url, Appid, Secret);
+                await service.TimedReminder();
             }
         }
 
