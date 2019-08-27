@@ -6,6 +6,13 @@ namespace FinTech.ApplicationServices.Dto
         [JsonProperty(PropertyName = "touser")]
         public string ToUser { get; set; }
 
+        [JsonProperty(PropertyName = "mp_template_msg")]
+        public Template Template { get; set; }
+    }
+    public class Template
+    {
+        [JsonProperty(PropertyName = "appid")]
+        public string Appid { get; set; }
         [JsonProperty(PropertyName = "template_id")]
         public string TemplateId { get; set; }
 
@@ -14,6 +21,7 @@ namespace FinTech.ApplicationServices.Dto
 
         [JsonProperty(PropertyName = "miniprogram")]
         public MiniProgram MiniProgram { get; set; }
+
         [JsonProperty(PropertyName = "data")]
         public Data Data { get; set; }
     }

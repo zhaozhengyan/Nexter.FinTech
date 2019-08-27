@@ -60,16 +60,19 @@ namespace FinTech.ApplicationServices
                     var request = new SendMessageRequest
                     {
                         ToUser = reminder.openId,
-                        TemplateId = "BsUHiDGtrpDUZ97dD4ZJ078siC8Mt78Eh96jCZCD3C0",
-                        MiniProgram = new MiniProgram() { Appid = Appid, PagePath = "index" },
-                        Data = new Data
+                        Template = new Template
                         {
-                            Keyword1 = new Keyword { Value = "懒主银，今天还没记账耶" },
-                            Keyword2 = new Keyword { Value = $"{reminder.RegDays}天" },
-                            Keyword3 = new Keyword { Value = lastReminderAt.ToString("yyyy-MM-dd") }
+                            Appid = Appid,
+                            TemplateId = "BsUHiDGtrpDUZ97dD4ZJ078siC8Mt78Eh96jCZCD3C0",
+                            MiniProgram = new MiniProgram { Appid = Appid, PagePath = "index" },
+                            Data = new Data
+                            {
+                                Keyword1 = new Keyword { Value = "懒主银，今天还没记账耶" },
+                                Keyword2 = new Keyword { Value = $"{reminder.RegDays}天" },
+                                Keyword3 = new Keyword { Value = lastReminderAt.ToString("yyyy-MM-dd") },
+                            }
                         }
                     };
-                    var req = JsonConvert.SerializeObject(request);
                     var messageRes = await WechatApi.SendMessage(result.AccessToken, request);
                     if (messageRes.IsSuccess)
                         Logger.LogInformation($"SendMessage[{reminder.openId}]:{messageRes.Msgid}");
