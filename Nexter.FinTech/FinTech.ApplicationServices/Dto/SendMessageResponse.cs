@@ -5,8 +5,6 @@ namespace FinTech.ApplicationServices.Dto
     {
         [JsonProperty(PropertyName = "msgid")]
         public string Msgid { get; set; }
-
-        public bool IsSuccess => Errcode == 0 && Errmsg == "ok";
     }
 
     public class BaseResponse
@@ -15,5 +13,7 @@ namespace FinTech.ApplicationServices.Dto
         public int Errcode { get; set; }
         [JsonProperty(PropertyName = "errmsg")]
         public string Errmsg { get; set; }
+        public bool IsSuccess => Errcode == 0 && Errmsg == "ok";
+
     }
 }

@@ -1,14 +1,19 @@
 <!--pages/timing/timing.wxml-->
-<view class='timing_container'>
+<form bindsubmit="formSubmit" bindreset="formReset" report-submit="true">
+  <view class='timing_container'>
     <view class='timing'>
-		<view class='timing_item'>
-			 <picker mode="time" value="{{time}}" bindchange="onTimeChange" class='timing_picker'>
-				<view class="picker">
-				<text>提醒时间：{{time}}</text>
-				<icon type='waiting' size='14' color='#999'></icon>
-				</view>
-			</picker>
-			<switch checked class='timing_switch' color='#116cc5' bindchange='onTimingSwitch' />
-		</view>
-	</view>
-</view>
+      <view class='timing_item'>
+        <picker name="picker" mode="time" value="{{time}}" bindchange="onTimeChange" class='timing_picker'>
+          <view class="picker">
+            <text>提醒时间：{{time}}</text>
+            <icon type='waiting' size='14' color='#999'></icon>
+          </view>
+        </picker>
+        <switch name="switch" checked class='timing_switch' color='#116cc5' bindchange='onTimingSwitch' />
+      </view>
+      <view class='group_btn'>
+        <button form-type="submit">确定</button>
+      </view>
+    </view>
+  </view>
+</form>

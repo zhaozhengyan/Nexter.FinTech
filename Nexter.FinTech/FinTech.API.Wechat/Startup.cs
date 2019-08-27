@@ -21,18 +21,21 @@ using FinTech.API.Wechat.Jobs;
 using FinTech.ApplicationServices;
 using Refit;
 using System;
+using System.Diagnostics;
 
 namespace FinTech.API.Wechat
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
             Configuration = configuration;
+            HostingEnvironment = hostingEnvironment;
             Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment HostingEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -41,12 +44,15 @@ namespace FinTech.API.Wechat
             services.AddRefitClient<IWeChatApi>()
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration["Wechat:BaseUrl"]))
                 .AddHttpMessageHandler<WechatApiHttpHandler>();
-            services.AddScoped<ITimedReminderService, TimedReminderService>();
-            services.AddSingleton<IJobFactory, SingletonJobFactory>();
-            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
-            services.AddSingleton<TimedReminderJob>();
-            services.AddSingleton(new JobSchedule(typeof(TimedReminderJob), "0/50 * * * * ?")); // run every 5 seconds
-            services.AddHostedService<QuartzHostedService>();
+            if (!HostingEnvironment.IsDevelopment())
+            {
+                services.AddScoped<ITimedReminderService, TimedReminderService>();
+                services.AddSingleton<IJobFactory, SingletonJobFactory>();
+                services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
+                services.AddSingleton<TimedReminderJob>();
+                services.AddSingleton(new JobSchedule(typeof(TimedReminderJob), "0/50 * * * * ?")); // run every 5 seconds
+                services.AddHostedService<QuartzHostedService>();
+            }
             services.AddDbContextPool<NexterContext>(opt =>
             {
                 opt.UseSqlServer(Configuration.GetConnectionString("Writable"));

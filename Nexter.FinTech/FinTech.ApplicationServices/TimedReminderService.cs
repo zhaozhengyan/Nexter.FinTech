@@ -29,9 +29,16 @@ namespace FinTech.ApplicationServices
             WechatApi = wechatApi;
             Appid = configuration["Wechat:Appid"];
             Secret = configuration["Wechat:Secret"];
+            TemplateId = configuration["Wechat:MsgTemplateId"];
+            Page = configuration["Wechat:GoPage"];
+            TemplateMsg = configuration["Wechat:MsgContent"];
+
         }
         protected string Appid { get; }
+        protected string Page { get; }
         protected string Secret { get; }
+        protected string TemplateId { get; }
+        protected string TemplateMsg { get; }
         protected IWeChatApi WechatApi { get; }
 
 
@@ -39,13 +46,15 @@ namespace FinTech.ApplicationServices
         {
             var now = DateTime.Now;
             var queryable = from e in Repository.AsQueryable<TimedReminder>()
-                    .Where(e => e.IsEnabled && e.LastReminderAt < now.Date)
+                    .Where(e => e.IsEnabled && e.LastReminderAt < now.Date && e.FormId.IsAny())
                             join member in Repository.AsQueryable<Member>() on e.MemberId equals member.Id
                             select new
                             {
+                                e,
                                 openId = member.AccountCode,
                                 RegDays = member.GetRegDays(),
                                 TimeCron = e.GetNexterExecuteTime(),
+                                e.FormId,
                                 e.LastReminderAt
                             };
             var reminders = await queryable.ToListAsync();
@@ -60,17 +69,14 @@ namespace FinTech.ApplicationServices
                     var request = new SendMessageRequest
                     {
                         ToUser = reminder.openId,
-                        Template = new Template
+                        FormId = reminder.FormId,
+                        TemplateId = TemplateId,
+                        Page = Page,
+                        Data = new Data
                         {
-                            Appid = Appid,
-                            TemplateId = "BsUHiDGtrpDUZ97dD4ZJ078siC8Mt78Eh96jCZCD3C0",
-                            MiniProgram = new MiniProgram { Appid = Appid, PagePath = "index" },
-                            Data = new Data
-                            {
-                                Keyword1 = new Keyword { Value = "懒主银，今天还没记账耶" },
-                                Keyword2 = new Keyword { Value = $"{reminder.RegDays}天" },
-                                Keyword3 = new Keyword { Value = lastReminderAt.ToString("yyyy-MM-dd") },
-                            }
+                            Keyword1 = new Keyword { Value = TemplateMsg },
+                            Keyword2 = new Keyword { Value = $"{reminder.RegDays}天" },
+                            Keyword3 = new Keyword { Value = lastReminderAt.ToString("yyyy-MM-dd") },
                         }
                     };
                     var messageRes = await WechatApi.SendMessage(result.AccessToken, request);
@@ -78,8 +84,9 @@ namespace FinTech.ApplicationServices
                         Logger.LogInformation($"SendMessage[{reminder.openId}]:{messageRes.Msgid}");
                     else
                         Logger.LogError($"SendMessage[{reminder.openId}]:{messageRes.Errcode}:{messageRes.Errmsg}");
-
+                    reminder.e.ClearFormId();
                 }
+                await Repository.CommitAsync();
             }
         }
     }

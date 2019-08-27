@@ -22,6 +22,15 @@ namespace FinTech.Domain
         /// </summary>
         public string Cron { get; set; }
         public DateTime? LastReminderAt { get; set; }
+        /// <summary>
+        /// 表单ID，用于发送模板提醒
+        /// </summary>
+        public string FormId { get; set; }
+
+        public void SetFormId(string formId)
+        {
+            FormId = formId;
+        }
 
         public void SetCron(DateTime time)
         {
@@ -29,7 +38,7 @@ namespace FinTech.Domain
             Cron = $"* {time.Minute} {time.Hour} * *";
         }
 
-        public DateTime GetNexterExecuteTime()
+        public DateTime? GetNexterExecuteTime()
         {
             var schedule = CrontabSchedule.Parse(Cron);
             var nextTime = schedule.GetNextOccurrence(LastReminderAt ?? DateTime.Now);
@@ -44,6 +53,11 @@ namespace FinTech.Domain
         public void SendSuccess()
         {
             LastReminderAt = DateTime.Now;
+        }
+
+        public void ClearFormId()
+        {
+            FormId = null;
         }
     }
 
