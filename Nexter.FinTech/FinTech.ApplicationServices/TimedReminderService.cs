@@ -46,7 +46,7 @@ namespace FinTech.ApplicationServices
         {
             var now = DateTime.Now;
             var queryable = from e in Repository.AsQueryable<TimedReminder>()
-                    .Where(e => e.IsEnabled && e.LastReminderAt < now.Date && e.FormId.IsAny())
+                    .Where(e => e.IsEnabled && e.LastReminderAt < now.Date && e.FormId != null)
                             join member in Repository.AsQueryable<Member>() on e.MemberId equals member.Id
                             select new
                             {
@@ -84,7 +84,7 @@ namespace FinTech.ApplicationServices
                         Logger.LogInformation($"SendMessage[{reminder.openId}]:{messageRes.Msgid}");
                     else
                         Logger.LogError($"SendMessage[{reminder.openId}]:{messageRes.Errcode}:{messageRes.Errmsg}");
-                    reminder.e.ClearFormId();
+                    reminder.e.SendSuccess();
                 }
                 await Repository.CommitAsync();
             }

@@ -62,6 +62,11 @@ function http_post(url, data, callback, text) {
         } else if (callback != null) {
           callback();
         }
+        else{
+          wx.showToast({
+            title: "提交成功"
+          })
+        }
       } else {
         wx.showToast({
           icon: 'none',

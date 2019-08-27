@@ -34,8 +34,7 @@ namespace FinTech.Domain
 
         public void SetCron(DateTime time)
         {
-            //0 1 21 1/1 * ? 
-            Cron = $"* {time.Minute} {time.Hour} * *";
+            Cron = $"{time.Minute} {time.Hour} * * *";
         }
 
         public DateTime? GetNexterExecuteTime()
@@ -52,10 +51,11 @@ namespace FinTech.Domain
 
         public void SendSuccess()
         {
+            FormId = null;
             LastReminderAt = DateTime.Now;
         }
 
-        public void ClearFormId()
+        public void SendFail()
         {
             FormId = null;
         }

@@ -7,14 +7,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    time: '21:00'
+    time: '21:00',
+    IsEnabled : false
   },
   onShow: function(e) {
     var reminderTime = app.globalData.userInfos.reminderTime;
     console.log(reminderTime)
-    if (!utils.isNull(reminderTime)){
+    if (!utils.isNull(reminderTime)) {
       this.setData({
-        time: reminderTime
+        time: reminderTime,
+        IsEnabled: true
       });
     }
   },
