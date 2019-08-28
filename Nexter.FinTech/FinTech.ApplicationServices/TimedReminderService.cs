@@ -46,7 +46,7 @@ namespace FinTech.ApplicationServices
         {
             var now = DateTime.Now;
             var queryable = from e in Repository.AsQueryable<TimedReminder>()
-                    .Where(e => e.IsEnabled && e.LastReminderAt < now.Date && e.FormId != null)
+                    .Where(e => e.IsEnabled && e.LastReminderAt < now && e.FormId != null)
                             join member in Repository.AsQueryable<Member>() on e.MemberId equals member.Id
                             select new
                             {

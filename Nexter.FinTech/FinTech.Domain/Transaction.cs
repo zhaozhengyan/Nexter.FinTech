@@ -12,7 +12,6 @@ namespace FinTech.Domain
         /// <param name="categoryId"></param>
         /// <param name="accountId">支付宝帐户ID</param>s
         /// <param name="memberId">会员ID</param>
-        /// <param name="bookId">账本</param>
         /// <param name="spending">花销</param>
         /// <param name="income">收入</param>
         /// <param name="createdAt"></param>

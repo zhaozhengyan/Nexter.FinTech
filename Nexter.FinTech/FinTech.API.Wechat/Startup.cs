@@ -50,7 +50,7 @@ namespace FinTech.API.Wechat
                 services.AddSingleton<IJobFactory, SingletonJobFactory>();
                 services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
                 services.AddSingleton<TimedReminderJob>();
-                services.AddSingleton(new JobSchedule(typeof(TimedReminderJob), "0/50 * * * * ?")); // run every 5 seconds
+                services.AddSingleton(new JobSchedule(typeof(TimedReminderJob), "0 0/1 * * * ? *")); // run every 1 minute
                 services.AddHostedService<QuartzHostedService>();
             }
             services.AddDbContextPool<NexterContext>(opt =>
