@@ -45,7 +45,7 @@ Page({
     wx.hideTabBar({
       aniamtion: false
     });
-    var url = app.globalData.httpGetUrl + 'me';
+    var url = app.globalData.baseUrl + 'me';
     utils.http_get(url, this.showPageData);
   }
 })

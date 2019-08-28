@@ -10,7 +10,7 @@ Page({
     wx.showShareMenu({
       withShareTicket: true // 要求小程序返回分享目标信息
     });
-    var url = app.globalData.httpGetUrl + 'group';
+    var url = app.globalData.baseUrl + 'group';
     utils.http_get(url, this.showPageData);
   },
   showPageData: function(res) {
@@ -29,7 +29,7 @@ Page({
     });
   },
   leaveGroup: function() {
-    var url = app.globalData.httpGetUrl + 'group/quit?id=' + this.data.group.id;
+    var url = app.globalData.baseUrl + 'group/quit?id=' + this.data.group.id;
     utils.http_post(url, {}, this.goToIndex);
   },
   goToIndex: function(res) {
@@ -46,7 +46,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    var url = app.globalData.httpGetUrl + 'group';
+    var url = app.globalData.baseUrl + 'group';
     utils.http_get(url, this.showPageData);
   },
 

@@ -120,7 +120,13 @@ namespace FinTech.API.Wechat.Controllers
                 income = request.Money;
             else
                 spending = request.Money;
-            var trade = new Transaction(request.Memo, category.Id, request.AccountId, session.Id, 0, spending, income, request.CreatedAt);
+            var trade = new Transaction(request.Memo,
+                                        category.Id,
+                                        request.AccountId,
+                                        session.Id,
+                                        spending,
+                                        income,
+                                        request.CreatedAt);
             await Store.AddAsync(trade);
             await Store.CommitAsync();
             return Result.Complete();

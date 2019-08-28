@@ -26,7 +26,7 @@ Page({
       // idx: idx,
       id: id
     });
-    var url = app.globalData.httpGetUrl + 'Transaction/detail?id=' + id;
+    var url = app.globalData.baseUrl + 'Transaction/detail?id=' + id;
     utils.http_get(url, this.getDetail);
   },
 
@@ -39,7 +39,7 @@ Page({
   DeleteTally: function(e) {
     //删除一笔账单
     var id = this.data.details.id;
-    var url = app.globalData.httpGetUrl + 'transaction?id=' + id;
+    var url = app.globalData.baseUrl + 'transaction?id=' + id;
     utils.http_delete(url, {}, this.goToIndex, "阿歐！服務器打了個盹");
   },
   goToIndex: function(res) {

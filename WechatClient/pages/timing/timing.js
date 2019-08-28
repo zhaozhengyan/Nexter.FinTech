@@ -40,7 +40,7 @@ Page({
     });
   },
   goSubscribe: function(formId) {
-    var url = app.globalData.httpGetUrl + 'me/timedreminder';
+    var url = app.globalData.baseUrl + 'me/timedreminder';
     utils.http_post(url, {
       time: this.data.time,
       IsEnabled: this.data.IsEnabled,

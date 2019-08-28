@@ -29,11 +29,11 @@ Page({
     var toDayDate = utils.formatDate(new Date());
 
     //获取类别数据
-    var categoryUrl = app.globalData.httpGetUrl + 'category';
+    var categoryUrl = app.globalData.baseUrl + 'category';
     utils.http_get(categoryUrl, this.getCategorys);
 
     //获取账户
-    var accountUrl = app.globalData.httpGetUrl + 'account';
+    var accountUrl = app.globalData.baseUrl + 'account';
     utils.http_get(accountUrl, this.getAccounts);
 
     this.setData({
@@ -78,7 +78,7 @@ Page({
       })
       return;
     }
-    var url = app.globalData.httpGetUrl + 'transaction';
+    var url = app.globalData.baseUrl + 'transaction';
     utils.http_post(url, {
       accountId: this.data.selectedAccount.accountId,
       categoryId: this.data.currentCategoryId,

@@ -84,7 +84,7 @@ Page({
    * 筛选账单主函数
    */
   queryTransaction: function() {
-    var url = app.globalData.httpGetUrl + 'transaction?date=' + this.data.dateValue;
+    var url = app.globalData.baseUrl + 'transaction?date=' + this.data.dateValue;
     if (this.data.categoryId !== this.data.categoryIdChange) {
       url = url + '&categoryId=' + this.data.categoryIdChange;
       this.setData({

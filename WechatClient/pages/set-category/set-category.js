@@ -39,7 +39,7 @@ Page({
   },
   //确认添加  
   confirm: function(res) {
-    var categoryUrl = app.globalData.httpGetUrl + 'category';
+    var categoryUrl = app.globalData.baseUrl + 'category';
     if (this.data.id > 0) {
       utils.http_put(categoryUrl, {
         id: this.data.id,
@@ -87,7 +87,7 @@ Page({
   },
   deleteCategory: function(categoryId) {
     var that = this;
-    var categoryUrl = app.globalData.httpGetUrl + 'category';
+    var categoryUrl = app.globalData.baseUrl + 'category';
     wx.showModal({
       title: '提示',
       content: '确定要删除此分类吗？',
@@ -138,7 +138,7 @@ Page({
     });
   },
   queryData: function() {
-    var categoryUrl = app.globalData.httpGetUrl + 'category';
+    var categoryUrl = app.globalData.baseUrl + 'category';
     utils.http_get(categoryUrl, this.getCategorys);
   }
 })

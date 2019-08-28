@@ -16,12 +16,12 @@ namespace FinTech.Domain
         /// <param name="spending">花销</param>
         /// <param name="income">收入</param>
         /// <param name="createdAt"></param>
-        public Transaction(string memo, long categoryId, long accountId, long memberId, long bookId, decimal? spending, decimal? income, DateTime createdAt)
+        public Transaction(string memo, long categoryId, long accountId, long memberId, decimal? spending, decimal? income, DateTime createdAt)
         {
             Memo = memo;
             AccountId = accountId;
             MemberId = memberId;
-            BookId = bookId;
+            BookId = 0;
             CategoryId = categoryId;
             Spending = spending ?? 0;
             Income = income ?? 0;

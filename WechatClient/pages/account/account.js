@@ -14,7 +14,7 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		var url = app.globalData.httpGetUrl + 'account';
+		var url = app.globalData.baseUrl + 'account';
 		utils.http_get(url, this.showPageData);
 	},
 

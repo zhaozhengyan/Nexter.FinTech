@@ -52,7 +52,8 @@ namespace FinTech.API.Wechat.Controllers
         public async Task<Result> PostAsync([FromBody]GroupRequest request)
         {
             var session = this.GetSession();
-            var group = await Store.AsQueryable<Group>().FirstOrDefaultAsync(e => e.CreateMemberId == session.Id);
+            var group = await Store.AsQueryable<Group>()
+                .FirstOrDefaultAsync(e => e.CreateMemberId == session.Id);
             if (group == null)
             {
                 group = new Group(request.Name, session.Id);
@@ -62,8 +63,9 @@ namespace FinTech.API.Wechat.Controllers
             {
                 group.Name = request.Name;
             }
-            var member = await Store.AsQueryable<Member>().FirstOrDefaultAsync(e => e.Id == session.Id);
-            member.GroupId = group.Id;
+            var member = await Store.AsQueryable<Member>()
+                .FirstOrDefaultAsync(e => e.Id == session.Id);
+            member?.SetGroup(group.Id);;
             await Store.CommitAsync();
             return Result.Complete(group);
         }
@@ -73,10 +75,11 @@ namespace FinTech.API.Wechat.Controllers
         public async Task<Result> PostAsync([FromQuery] long id)
         {
             var session = this.GetSession();
-            var member = await Store.AsQueryable<Member>().FirstOrDefaultAsync(e => e.Id == session.Id);
-            member.GroupId = 0;
+            var member = await Store.AsQueryable<Member>()
+                .FirstOrDefaultAsync(e => e.Id == session.Id);
+            member?.SetGroup(id);
             await Store.CommitAsync();
-            return Result.Complete(member.GroupId);
+            return Result.Complete();
         }
 
 

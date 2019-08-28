@@ -23,7 +23,7 @@ Page({
       })
       return;
     }
-    var url = app.globalData.httpGetUrl + 'group';
+    var url = app.globalData.baseUrl + 'group';
     utils.http_post(url, {
       name: this.data.name
     }, this.goToGroup, "阿偶！服务器打了个盹");

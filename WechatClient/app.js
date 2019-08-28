@@ -3,8 +3,8 @@ App({
   globalData: {
     userInfos: null,
     token: null,
-    httpGetUrl: 'https://fintech-api.zhaoblogs.com/'
-    //httpGetUrl: 'http://localhost:60933/'
+    baseUrl: 'https://fintech-api.zhaoblogs.com/'
+    //baseUrl: 'http://localhost:60933/'
   },
   onLaunch: function() {
   }

@@ -68,7 +68,7 @@ Page({
             if (res.code) {
               //发起网络请求
               //console.log("请求授权：" + res.code)
-              var url = app.globalData.httpGetUrl + 'me';
+              var url = app.globalData.baseUrl + 'me';
               utils.http_post(url, {
                 code: res.code,
                 nickName: userInfos.nickName,
