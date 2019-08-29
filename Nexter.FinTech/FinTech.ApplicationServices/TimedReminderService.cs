@@ -1,18 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using FinTech.ApplicationServices.Dto;
+﻿using FinTech.ApplicationServices.Dto;
 using FinTech.Domain;
 using FinTech.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Expressions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Nexter.Domain;
-using Refit;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FinTech.ApplicationServices
 {
