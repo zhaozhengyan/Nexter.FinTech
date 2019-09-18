@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{F7D5A3B8-2D58-4860-8C8A-1C61F6D3B6B9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Core", "2.Core", "{F7D5A3B8-2D58-4860-8C8A-1C61F6D3B6B9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinTech.Domain", "FinTech.Domain\FinTech.Domain.csproj", "{859B8436-7210-4BF9-A762-AE8802788EFF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Host", "Host", "{14371041-46DF-4ED3-A7E2-2ED45FB5EDEF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Host", "3.Host", "{14371041-46DF-4ED3-A7E2-2ED45FB5EDEF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinTech.Infrastructure", "FinTech.Infrastructure\FinTech.Infrastructure.csproj", "{D48433B0-B04B-429D-BCB1-0FCE25E65DDC}"
 EndProject
@@ -15,9 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinTech.API.Wechat", "FinTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinTech.ApplicationServices", "FinTech.ApplicationServices\FinTech.ApplicationServices.csproj", "{882BDFAD-C0F9-41D2-BF12-E19BE78CDF98}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{3B49709A-3119-459B-8ADB-B1B9F8C68B4C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Test", "4.Test", "{3B49709A-3119-459B-8ADB-B1B9F8C68B4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinTech.Test", "FinTech.Test\FinTech.Test.csproj", "{FEFDFF29-B63C-4C17-95B0-2F63EC77675A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinTech.Test", "FinTech.Test\FinTech.Test.csproj", "{FEFDFF29-B63C-4C17-95B0-2F63EC77675A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.DB", "1.DB", "{E72E2170-2653-4EE9-90D8-2D13F559A80D}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "FinTech.DB", "FinTech.DB\FinTech.DB.sqlproj", "{C5C7FFED-E7D7-4E31-8EEA-653BC2C6115C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,12 @@ Global
 		{FEFDFF29-B63C-4C17-95B0-2F63EC77675A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEFDFF29-B63C-4C17-95B0-2F63EC77675A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEFDFF29-B63C-4C17-95B0-2F63EC77675A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5C7FFED-E7D7-4E31-8EEA-653BC2C6115C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5C7FFED-E7D7-4E31-8EEA-653BC2C6115C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5C7FFED-E7D7-4E31-8EEA-653BC2C6115C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C5C7FFED-E7D7-4E31-8EEA-653BC2C6115C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5C7FFED-E7D7-4E31-8EEA-653BC2C6115C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5C7FFED-E7D7-4E31-8EEA-653BC2C6115C}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +65,7 @@ Global
 		{A992B94A-54ED-41E8-B60B-5A59092BDD07} = {14371041-46DF-4ED3-A7E2-2ED45FB5EDEF}
 		{882BDFAD-C0F9-41D2-BF12-E19BE78CDF98} = {F7D5A3B8-2D58-4860-8C8A-1C61F6D3B6B9}
 		{FEFDFF29-B63C-4C17-95B0-2F63EC77675A} = {3B49709A-3119-459B-8ADB-B1B9F8C68B4C}
+		{C5C7FFED-E7D7-4E31-8EEA-653BC2C6115C} = {E72E2170-2653-4EE9-90D8-2D13F559A80D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D0019AA9-230B-4D76-9C68-A56D3C50D452}

@@ -1,0 +1,6 @@
+﻿CREATE SEQUENCE [dbo].[Ids]
+    AS BIGINT
+    START WITH 10000
+    INCREMENT BY 10
+    NO CACHE;
+

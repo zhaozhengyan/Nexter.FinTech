@@ -1,10 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using FinTech.API.Wechat.Dto;
+﻿using FinTech.API.Wechat.Dto;
 using FinTech.ApplicationServices;
 using FinTech.ApplicationServices.Dto;
 using FinTech.Domain;
@@ -13,9 +7,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Nexter.Domain;
+using System;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FinTech.API.Wechat.Controllers
 {
