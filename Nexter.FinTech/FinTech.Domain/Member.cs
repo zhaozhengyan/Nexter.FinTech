@@ -22,6 +22,11 @@ namespace FinTech.Domain
             GroupId = groupId;
         }
 
+        public void QuitGroup()
+        {
+            GroupId = 0;
+        }
+
         public int GetRegDays()
         {
             return (int)DateTime.Now.Subtract(CreatedAt.Date).TotalDays;

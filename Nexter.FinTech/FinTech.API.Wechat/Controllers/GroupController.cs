@@ -65,7 +65,7 @@ namespace FinTech.API.Wechat.Controllers
             }
             var member = await Store.AsQueryable<Member>()
                 .FirstOrDefaultAsync(e => e.Id == session.Id);
-            member?.SetGroup(group.Id);;
+            member?.SetGroup(group.Id); ;
             await Store.CommitAsync();
             return Result.Complete(group);
         }
@@ -76,8 +76,8 @@ namespace FinTech.API.Wechat.Controllers
         {
             var session = this.GetSession();
             var member = await Store.AsQueryable<Member>()
-                .FirstOrDefaultAsync(e => e.Id == session.Id);
-            member?.SetGroup(id);
+                .FirstOrDefaultAsync(e => e.Id == session.Id && e.GroupId == id);
+            member?.QuitGroup();
             await Store.CommitAsync();
             return Result.Complete();
         }
