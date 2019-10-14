@@ -1,6 +1,10 @@
 ## PigPig 记账
 
  `PigPig`项目致力于打造一个完整开源的理财微信小程序，采用现阶段流行技术实现。
+ 
+### 扫码体验
+
+<img src="https://github.com/zhaozhengyan/Notebook/raw/master/img/gh_7b0b4751951e_1280.jpg" width="200px">
 
  ### 代码结构
 
