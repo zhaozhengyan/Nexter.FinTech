@@ -1,0 +1,34 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- admin_vue_release
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+
+variables:
+  dockerId: z921190200@163.com  
+  namespace: nexter
+  imageName: fintech  # Replace with the name of the image you want to publish
+  dockerfile: FinTech.API.Wechat/Dockerfile
+  registry: registry.cn-hangzhou.aliyuncs.com
+
+steps:
+- task: CmdLine@2
+  inputs:
+    script: |
+      echo ready to execute command
+      ls
+      sed -i 's/{Writable}/$(Writable)/g' FinTech.API.Wechat/appsettings.Production.json
+      sed -i 's/{ReadOnly}/$(ReadOnly)/g' FinTech.API.Wechat/appsettings.Production.json
+      echo command executed
+- script: |
+    docker build  -f $(dockerfile) -t $(imageName) .
+    docker login -u $(dockerId) --password $(AliyunDockerPwd) $(registry)
+    docker tag $(imageName) $(registry)/$(namespace)/$(imageName)
+    docker push $(registry)/$(namespace)/$(imageName)
+  displayName: push to aliyun 
