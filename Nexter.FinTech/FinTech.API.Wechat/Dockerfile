@@ -5,7 +5,7 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 COPY ./ /src
 RUN ls -la 
-WORKDIR "/src/Nexter.FinTech/Nexter.FinTech/FinTech.API.Wechat"
+WORKDIR "/src/Nexter.FinTech/FinTech.API.Wechat"
 RUN ls -la 
 RUN dotnet publish "FinTech.API.Wechat.csproj" -c Release -o /app
 
