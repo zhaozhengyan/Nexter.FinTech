@@ -7,7 +7,6 @@ COPY ./ /src
 RUN ls -la 
 WORKDIR "/src/Nexter.FinTech/Nexter.FinTech/FinTech.API.Wechat"
 RUN ls -la 
-FROM build AS publish
 RUN dotnet publish "FinTech.API.Wechat.csproj" -c Release -o /app
 
 FROM base AS final
