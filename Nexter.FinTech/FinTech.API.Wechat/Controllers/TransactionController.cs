@@ -68,6 +68,7 @@ namespace FinTech.API.Wechat.Controllers
                         s.e.Id,
                         Date = s.e.Date.ToString("yyyy-MM-dd"),
                         Money = s.category.Type == CategoryType.Spending ? s.e.Spending : s.e.Income,
+                        CategoryType = s.category.Type,
                         type = s.category.Type.GetDescription(),
                         categoryName = s.category.Name,
                         categoryIcon = s.category.Icon,

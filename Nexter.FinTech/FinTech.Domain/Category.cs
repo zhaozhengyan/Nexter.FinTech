@@ -40,7 +40,9 @@ namespace FinTech.Domain
         [Description("支出")]
         Spending,
         [Description("收入")]
-        Income 
+        Income,
+        [Description("转账")]
+        Transfer
     }
 }
 

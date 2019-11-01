@@ -36,12 +36,10 @@
             <view class='icon_title'>{{item.categoryName}}</view>
             <view class='text'>账户：{{item.accountName.length === 1 ? item.accountName[0] : item.accountName[0] + '、' + item.accountName[1]}}</view>
           </view>
-          <view class='money {{item.type !== "转账" ? item.type === "支出" ? "red" : "blue" : "black"}}'>{{item.type !== '转账' ? item.type === '支出' ? '-' + filters.toFix(item.money) : '+' + filters.toFix(item.money) : filters.toFix(item.money)}}</view>
+          <view class='money {{item.categoryType !== "Transfer" ? item.categoryType === "Spending" ? "red" : "blue" : "black"}}'>{{item.categoryType !== 'Transfer' ? item.type === 'Spending' ? '-' + filters.toFix(item.money) : '+' + filters.toFix(item.money) : filters.toFix(item.money)}}</view>
         </view>
       </block>
     </block>
-    <!-- <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view> -->
-    <!-- <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view> -->
   </scroll-view>
 </view>
 <template is='tabBarTemplate' data='{{...tabBarSelected}}' />
