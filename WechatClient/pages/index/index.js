@@ -17,7 +17,7 @@ Page({
       tabBarIndexSelected: true,
       tabBarPersonalSelected: false
     },
-    tallyData: {}
+    tallyData: { "count": 0, "monthTotalMoneys": [0.0, 0.0], "lists": [] }
   },
 
   /**
@@ -74,11 +74,6 @@ Page({
   onPullDownRefresh: function() {
     this.clearCache();
     this.queryTransaction(); //第一次加载数据
-  },
-  //页面上拉触底事件（上拉加载更多）
-  tallyScrollLower: function() {
-    // this.data.page = this.data.page + 1;
-    // this.queryTransaction();
   },
   /**
    * 筛选账单主函数

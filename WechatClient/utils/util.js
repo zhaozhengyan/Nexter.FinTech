@@ -23,6 +23,13 @@ function SelectIconFont(event, callBack) {
 
 function http_get(url, callback, text) {
   var token = wx.getStorageSync('token');
+  console.log(url)
+  if (isNull(token) && url.search("/transaction") == -1){
+    wx.navigateTo({
+      url: '../login/login',
+    })
+    return false;
+  }
   wx.request({
     url: url,
     header: {
@@ -61,8 +68,7 @@ function http_post(url, data, callback, text) {
           callback(res.data.data)
         } else if (callback != null) {
           callback();
-        }
-        else{
+        } else {
           wx.showToast({
             title: "提交成功"
           })

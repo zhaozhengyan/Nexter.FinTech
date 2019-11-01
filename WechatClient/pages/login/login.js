@@ -85,7 +85,6 @@ Page({
   },
   onLogin: function(res) {
     wx.setStorageSync('token', res.token)
-    //console.log(res)
     wx.switchTab({
       url: '../index/index',
     })
@@ -104,7 +103,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    
   },
 
   /**
@@ -118,7 +117,10 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    console.log("login onUnload")
+    wx.reLaunch({
+      url: '../index/index',
+    })
   },
 
   /**

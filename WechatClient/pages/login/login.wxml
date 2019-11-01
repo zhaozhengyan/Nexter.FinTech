@@ -1,11 +1,11 @@
 <!--pages/login/login.wxml-->
 <view class='container'>
-	<image class='logo' src='/images/logo.png'></image>
-	<view class='app_title'>点滴珍贵,重在积累</view>
-	<view class='content'>
-        <text class='content_title'>FinTech申请获取以下权限</text>
-        <text class='content_info'>· 获得您的公开信息(昵称，头像等)</text>
-		<button size='default' type='primary' open-type='getUserInfo' class='login_btn' bindgetuserinfo='onGetUserInfo'>{{buttonText}}</button>
-    </view>
+  <image class='logo' src='/images/logo.png'></image>
+  <view class='app_title'>点滴珍贵,重在积累</view>
+  <view class='content'>
+    <text class='content_title'>PigPig申请获取以下权限</text>
+    <text class='content_info'>· 获得您的公开信息(昵称，头像等)</text>
+    <button size='default' type='primary' open-type='getUserInfo' class='login_btn' bindgetuserinfo='onGetUserInfo'>{{buttonText}}</button>
+    <!-- <button size='default' type='primary' open-type='getUserInfo' class='cancel_btn' bindgetuserinfo='onGetUserInfo'>{{buttonText}}</button> -->
+  </view>
 </view>
-

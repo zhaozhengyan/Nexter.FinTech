@@ -41,3 +41,9 @@
 	margin-top: 84rpx;
 	background-color: #116cc5;
 }
+
+.cancel_btn {
+	width: 100%;
+	margin-top: 27rpx;
+	background-color: #0203137a;
+}
