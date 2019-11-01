@@ -13,6 +13,10 @@ RUN dotnet publish "FinTech.API.Wechat.csproj" -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
+
+RUN echo "Asia/Shanghai" > /etc/timezone
+RUN dpkg-reconfigure -f noninteractive tzdata
+
 ENTRYPOINT ["dotnet", "FinTech.API.Wechat.dll"]
 
 

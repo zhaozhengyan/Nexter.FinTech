@@ -43,20 +43,21 @@ namespace FinTech.API.Wechat.Infrastructure
                 var sessionId = context.HttpContext.Request.Query["Token"];
                 if (string.IsNullOrWhiteSpace(sessionId))
                     sessionId = context.HttpContext.Request.Headers["Token"];
+                if (string.IsNullOrWhiteSpace(sessionId))
+                    throw new BusinessViolation(BusinessViolationStatusCodes.RuleViolated);
                 var session = await Store.AsQueryable<Member>()
-                    .FirstOrDefaultAsync(e => e.AccountCode == sessionId);
+                     .FirstOrDefaultAsync(e => e.AccountCode == sessionId);
                 context.HttpContext.Items["Session"] = new Session(session);
             }
             catch (BusinessViolation violation)
             {
                 await NotAuthorized(context, Result.Fail(nameof(StatusCode.Unauthorized), violation.Message));
-
                 return;
             }
             catch (Exception error)
             {
                 Logger?.LogError(0, error, error.Message);
-                await NotAuthorized(context, Result.Fail(nameof(StatusCode.InternalServerError)));
+                await NotAuthorized(context, Result.Fail(nameof(StatusCode.Unauthorized)));
                 return;
             }
         }
