@@ -16,6 +16,9 @@ Page({
 
   showPageData: function(res) {
     var userInfos = app.globalData.userInfos;
+    if (userInfos == null) {
+      userInfos = res;
+    }
     userInfos.joinTime = res.joinTime;
     userInfos.totalMoney = res.totalMoney;
     userInfos.totalDays = res.totalDays;

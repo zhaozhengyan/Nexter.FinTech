@@ -59,6 +59,8 @@ namespace FinTech.API.Wechat.Controllers
                 openId = result.e.AccountCode,
                 count = result.transactions.Count(),
                 totalDays = day <= 0 ? 1 : day,
+                avatarUrl = result.e.Avatar,
+                result.e.NickName,
                 reminderTime = result.reminder?.GetNexterExecuteTime()?.ToString("t", CultureInfo.CurrentCulture)
             });
         }
