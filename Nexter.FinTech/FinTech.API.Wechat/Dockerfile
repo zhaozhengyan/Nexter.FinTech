@@ -14,8 +14,8 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
 
-RUN echo "Asia/Shanghai" > /etc/timezone
-RUN dpkg-reconfigure -f noninteractive tzdata
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \ 
+    echo 'Asia/Shanghai' >/etc/timezone
 
 ENTRYPOINT ["dotnet", "FinTech.API.Wechat.dll"]
 
