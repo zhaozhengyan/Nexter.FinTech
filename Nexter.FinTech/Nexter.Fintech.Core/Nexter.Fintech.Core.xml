@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nexter.Fintech.Core</name>
+    </assembly>
+    <members>
+        <member name="P:FinTech.Domain.Category.Type">
+            <summary>
+             1=Spending , 2= Income
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Category.CreateMemberId">
+            <summary>
+            创建人ID
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Member.NickName">
+            <summary>
+             昵称
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Member.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Member.AccountCode">
+            <summary>
+             微信Token
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.TimedReminder.Cron">
+            <summary>
+            表达式0 27 21 * * ? *
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.TimedReminder.FormId">
+            <summary>
+            表单ID，用于发送模板提醒
+            </summary>
+        </member>
+        <member name="M:FinTech.Domain.Transaction.#ctor(System.String,System.Int64,System.Int64,System.Int64,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.DateTime)">
+            <summary>
+            交易对象
+            </summary>
+            <param name="memo">备注</param>
+            <param name="categoryId"></param>
+            <param name="accountId">支付宝帐户ID</param>s
+            <param name="memberId">会员ID</param>
+            <param name="spending">花销</param>
+            <param name="income">收入</param>
+            <param name="createdAt"></param>
+        </member>
+        <member name="P:FinTech.Domain.Transaction.BookId">
+            <summary>
+             账本ID
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Transaction.Spending">
+            <summary>
+             花销
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Transaction.Income">
+            <summary>
+             收入
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Transaction.Date">
+            <summary>
+             日期
+            </summary>
+        </member>
+        <member name="M:Nexter.Fintech.Core.TypeExtensions.GetLiteralCustomAttribute``1(System.Type,System.String)">
+            <summary>
+            获取字符串枚举的指定Attribute
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="enumType"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nexter.Fintech.Core.TypeExtensions.ConstuctObject(System.Type)">
+            <summary>
+            调用输入类型的无参构造，初始化属性
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Nexter.Fintech.Core.BusinessViolation.NeedRetry">
+            <summary>
+            是否需要重试执行 (当前仅消息队列消费者使用)
+            </summary>
+        </member>
+        <member name="P:Nexter.Fintech.Core.BusinessViolation.RetryTime">
+            <summary>
+            当需要重试时, 该时间决定何时重试(消息队列根据此时间重新发送消息)
+            </summary>
+        </member>
+    </members>
+</doc>
