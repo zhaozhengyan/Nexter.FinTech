@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Nexter.Fintech.Application.Job;
 using Nexter.Fintech.Application.Wechat.Options;
 using System;
+using Yitter.IdGenerator;
 
 namespace Nexter.Fintech.Web.Core;
 
@@ -23,6 +24,8 @@ public class Startup : AppStartup
         {
             o.HttpHost = new Uri(wechat.AuthUrl);
         });
+
+        YitIdHelper.SetIdGenerator(new IdGeneratorOptions(1) { SeqBitLength = 16 });
 
         services.AddCorsAccessor();
         services.AddTaskScheduler();

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace FinTech.Domain
 {
     [Table("Transactions")]
-    public class Transaction : IEntity
+    public class Transaction : BaseEntity
     {
         public Transaction() { }
 
@@ -33,7 +33,6 @@ namespace FinTech.Domain
             LastModifiedAt = DateTime.Now;
         }
 
-        public long Id { get; set; } // Id (Primary key)
         public string Memo { get; set; } // Memo (length: 128)
         public long AccountId { get; set; } // AccountId
         public long MemberId { get; set; } // MemberId
