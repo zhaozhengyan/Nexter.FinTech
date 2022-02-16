@@ -81,4 +81,3 @@ namespace Nexter.Fintech.Application.Job
         }
     }
 }
-}

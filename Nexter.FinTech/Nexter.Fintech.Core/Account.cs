@@ -4,9 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace FinTech.Domain
 {
     [Table("Accounts")]
-    public class Account : IEntity
+    public class Account : BaseEntity
     {
-        public long Id { get; set; } // Id (Primary key)
         public long MemberId { get; set; } // Id (Primary key)
         public string Name { get; set; } // Name (length: 128)
         public string Type { get; set; } // Type

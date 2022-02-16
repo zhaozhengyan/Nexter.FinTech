@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace FinTech.Domain
 {
     [Table("Categories")]
-    public class Category : IEntity
+    public class Category : BaseEntity
     {
         public Category() { }
 
@@ -23,7 +23,6 @@ namespace FinTech.Domain
             Name = newName;
         }
 
-        public long Id { get; set; } // Id (Primary key)
         public string Name { get; set; } // Name (length: 32)
         public string Icon { get; set; } // Icon (length: 64)
 

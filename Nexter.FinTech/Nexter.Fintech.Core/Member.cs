@@ -8,7 +8,7 @@ namespace FinTech.Domain
 {
 
     [Table("Members")]
-    public class Member : IEntity
+    public class Member : BaseEntity
     {
         public Member() { }
         public Member(string nickName, string accountCode, string avatar)
@@ -35,8 +35,6 @@ namespace FinTech.Domain
             return (int)DateTime.Now.Subtract(CreatedAt.Date).TotalDays;
         }
 
-        [Key]
-        public long Id { get; set; } // Id (Primary key)
         public long GroupId { get; set; } // GroupId
 
         ///<summary>

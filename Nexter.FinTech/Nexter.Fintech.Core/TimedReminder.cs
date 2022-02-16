@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace FinTech.Domain
 {
     [Table("TimedReminders")]
-    public class TimedReminder : IEntity
+    public class TimedReminder : BaseEntity
     {
         public TimedReminder() { }
         public TimedReminder(long memberId, DateTime time)
@@ -17,7 +17,6 @@ namespace FinTech.Domain
             SetCron(time);
         }
 
-        public long Id { get; set; } // Id (Primary key)
         public long MemberId { get; set; }
         public bool IsEnabled { get; set; }
         /// <summary>
