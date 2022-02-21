@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- master
+- v2.0.0-beta
 
 pool:
   vmImage: 'ubuntu-16.04'
@@ -14,7 +14,7 @@ variables:
   dockerId: z921190200@163.com  
   namespace: nexter
   imageName: fintech  # Replace with the name of the image you want to publish
-  dockerfile: Nexter.FinTech/FinTech.API.Wechat/Dockerfile
+  dockerfile: Nexter.FinTech/Nexter.Fintech.Web.Entry/Dockerfile
   registry: registry.cn-hangzhou.aliyuncs.com
 
 steps:
@@ -23,8 +23,7 @@ steps:
     script: |
       echo ready to execute command
       ls
-      sed -i 's/{Writable}/$(Writable)/g' Nexter.FinTech/FinTech.API.Wechat/appsettings.Production.json
-      sed -i 's/{ReadOnly}/$(ReadOnly)/g' Nexter.FinTech/FinTech.API.Wechat/appsettings.Production.json
+      sed -i 's/{Writable}/$(Writable)/g' Nexter.FinTech/Nexter.Fintech.Web.Entry/appsettings.json
       echo command executed
 - script: |
     docker build  -f $(dockerfile) -t $(imageName) .
