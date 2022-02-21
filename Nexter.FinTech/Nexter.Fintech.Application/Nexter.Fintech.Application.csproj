@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <NoWarn>1701;1702;1591</NoWarn>
+    <DocumentationFile>Nexter.Fintech.Application.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Nexter.Fintech.Application.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WebApiClientCore" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Nexter.Fintech.Core\Nexter.Fintech.Core.csproj" />
+  </ItemGroup>
+
+</Project>
