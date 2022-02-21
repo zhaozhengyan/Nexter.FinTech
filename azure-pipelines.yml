@@ -7,7 +7,7 @@ trigger:
 - v2.0.0-beta
 
 pool:
-  vmImage: 'ubuntu-16.04'
+  vmImage: 'ubuntu-18.04'
 
 
 variables:
@@ -23,7 +23,7 @@ steps:
     script: |
       echo ready to execute command
       ls
-      sed -i 's/{Writable}/$(Writable)/g' Nexter.FinTech/Nexter.Fintech.Web.Entry/appsettings.json
+      sed -i 's/{ConnectionStr}/$(Writable)/g' Nexter.FinTech/Nexter.Fintech.Web.Entry/appsettings.json
       echo command executed
 - script: |
     docker build  -f $(dockerfile) -t $(imageName) .

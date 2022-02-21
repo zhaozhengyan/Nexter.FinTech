@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <NoWarn>1701;1702;1591</NoWarn>
+    <DocumentationFile>Nexter.Fintech.Web.Core.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Nexter.Fintech.Web.Core.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Nexter.Fintech.Application\Nexter.Fintech.Application.csproj" />
+    <ProjectReference Include="..\Nexter.Fintech.Database.Migrations\Nexter.Fintech.Database.Migrations.csproj" />
+  </ItemGroup>
+
+</Project>
