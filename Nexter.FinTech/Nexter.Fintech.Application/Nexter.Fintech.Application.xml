@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nexter.Fintech.Application</name>
+    </assembly>
+    <members>
+        <member name="T:Nexter.Fintech.Application.AccountAppService">
+            <summary>
+            Account
+            </summary>
+        </member>
+        <member name="T:Nexter.Fintech.Application.CategoryAppService">
+            <summary>
+            Category
+            </summary>
+        </member>
+        <member name="P:Nexter.Fintech.Application.Auth.InviterId">
+            <summary>
+            邀请人Token
+            </summary>
+        </member>
+        <member name="T:Nexter.Fintech.Application.GroupAppService">
+            <summary>
+            Group
+            </summary>
+        </member>
+        <member name="T:Nexter.Fintech.Application.MeAppService">
+            <summary>
+            Me
+            </summary>
+        </member>
+        <member name="M:Nexter.Fintech.Application.MeAppService.GetAsync">
+            <summary>
+            ME
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Nexter.Fintech.Application.TransactionAppService">
+            <summary>
+            Transcation
+            </summary>
+        </member>
+        <member name="T:FinTech.ApplicationServices.WeChat.IWechatApi">
+            <summary>
+            Wechat接口
+            </summary>
+        </member>
+    </members>
+</doc>

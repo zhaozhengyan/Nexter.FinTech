@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nexter.Fintech.Web.Core</name>
+    </assembly>
+    <members>
+        <member name="P:Nexter.Fintech.Web.Core.BusinessViolation.NeedRetry">
+            <summary>
+            是否需要重试执行 (当前仅消息队列消费者使用)
+            </summary>
+        </member>
+        <member name="P:Nexter.Fintech.Web.Core.BusinessViolation.RetryTime">
+            <summary>
+            当需要重试时, 该时间决定何时重试(消息队列根据此时间重新发送消息)
+            </summary>
+        </member>
+    </members>
+</doc>
