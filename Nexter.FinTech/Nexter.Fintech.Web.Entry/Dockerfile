@@ -8,7 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 COPY ./ /src
 RUN ls -la
-WORKDIR "/src/Nexter.FinTech/Nexter.Fintech.Web.Entry/Nexter.Fintech.Web.Entry"
+WORKDIR "/src/Nexter.FinTech/Nexter.Fintech.Web.Entry"
 RUN ls -la
 RUN dotnet build "Nexter.Fintech.Web.Entry.csproj" -c Release -o /app/build
 
