@@ -8,6 +8,8 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 COPY ./ /src
 RUN ls -la
+RUN cd src/
+RUN ls -la
 COPY ["Nexter.Fintech.Web.Entry/Nexter.Fintech.Web.Entry.csproj", "Nexter.Fintech.Web.Entry/"]
 COPY ["Nexter.Fintech.Web.Core/Nexter.Fintech.Web.Core.csproj", "Nexter.Fintech.Web.Core/"]
 COPY ["Nexter.Fintech.Database.Migrations/Nexter.Fintech.Database.Migrations.csproj", "Nexter.Fintech.Database.Migrations/"]
