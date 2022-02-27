@@ -8,17 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 COPY ./ /src
 RUN ls -la
-RUN cd src/
-RUN ls -la
-COPY ["Nexter.Fintech.Web.Entry/Nexter.Fintech.Web.Entry.csproj", "Nexter.Fintech.Web.Entry/"]
-COPY ["Nexter.Fintech.Web.Core/Nexter.Fintech.Web.Core.csproj", "Nexter.Fintech.Web.Core/"]
-COPY ["Nexter.Fintech.Database.Migrations/Nexter.Fintech.Database.Migrations.csproj", "Nexter.Fintech.Database.Migrations/"]
-COPY ["Nexter.Fintech.EntityFramework.Core/Nexter.Fintech.EntityFramework.Core.csproj", "Nexter.Fintech.EntityFramework.Core/"]
-COPY ["Nexter.Fintech.Core/Nexter.Fintech.Core.csproj", "Nexter.Fintech.Core/"]
-COPY ["Nexter.Fintech.Application/Nexter.Fintech.Application.csproj", "Nexter.Fintech.Application/"]
-RUN dotnet restore "Nexter.Fintech.Web.Entry/Nexter.Fintech.Web.Entry.csproj"
-COPY . .
-WORKDIR "/src/Nexter.Fintech.Web.Entry"
+WORKDIR "/src/Nexter.FinTech/Nexter.Fintech.Web.Entry/Nexter.Fintech.Web.Entry"
 RUN ls -la
 RUN dotnet build "Nexter.Fintech.Web.Entry.csproj" -c Release -o /app/build
 
