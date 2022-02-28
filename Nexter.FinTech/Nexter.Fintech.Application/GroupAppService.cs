@@ -13,6 +13,7 @@ namespace Nexter.Fintech.Application
     /// <summary>
     /// Group
     /// </summary>
+    [NonUnify]
     public class GroupAppService : IDynamicApiController
     {
         private readonly IRepository<Member> _memberRep;

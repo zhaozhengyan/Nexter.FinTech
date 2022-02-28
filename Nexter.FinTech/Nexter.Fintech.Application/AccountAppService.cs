@@ -2,6 +2,7 @@
 using Furion;
 using Furion.DatabaseAccessor;
 using Furion.DynamicApiController;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nexter.Fintech.Core;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Nexter.Fintech.Application
     /// <summary>
     /// Account
     /// </summary>
+    [NonUnify]
     public class AccountAppService : IDynamicApiController
     {
         private readonly IRepository<Account> _accountRep;

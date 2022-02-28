@@ -70,6 +70,7 @@ namespace Nexter.Fintech.Application
         }
 
 
+        [NonUnify]
         [Route("TimedReminder")]
         public async Task<Result> TimedReminder([FromBody] TimedReminderRequest request)
         {
@@ -87,7 +88,7 @@ namespace Nexter.Fintech.Application
             await _timedReminderRep.SaveNowAsync();
             return Result.Complete();
         }
-
+        [NonUnify]
         [AllowAnonymous]
         public async Task<Result> PostAsync([FromBody] Auth request)
         {

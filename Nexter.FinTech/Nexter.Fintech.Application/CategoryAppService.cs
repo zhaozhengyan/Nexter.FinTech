@@ -13,6 +13,7 @@ namespace Nexter.Fintech.Application
     /// <summary>
     /// Category
     /// </summary>
+    [NonUnify]
     public class CategoryAppService : IDynamicApiController
     {
         private readonly IRepository<Transaction> _transcationRep;
