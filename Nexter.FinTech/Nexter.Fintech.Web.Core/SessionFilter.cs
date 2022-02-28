@@ -15,12 +15,12 @@ namespace FinTech.API.Wechat.Infrastructure
 {
     public class SessionFilter : IAsyncAuthorizationFilter
     {
-        protected IRepository<Member> Store { get; }
+        private readonly IRepository<Member> _memberRep;
         protected virtual ILogger<SessionFilter> Logger { get; }
-        public SessionFilter(ILogger<SessionFilter> logger, IRepository<Member> store)
+        public SessionFilter(ILogger<SessionFilter> logger, IRepository<Member> memberRep)
         {
             Logger = logger;
-            Store = store;
+            _memberRep = memberRep;
         }
         protected virtual Task NotAuthorized(AuthorizationFilterContext context, Result result = null)
         {
@@ -44,7 +44,7 @@ namespace FinTech.API.Wechat.Infrastructure
                     sessionId = context.HttpContext.Request.Headers["Token"];
                 if (string.IsNullOrWhiteSpace(sessionId))
                     throw new BusinessViolation(BusinessViolationStatusCodes.RuleViolated);
-                var session = await Store.AsQueryable()
+                var session = await _memberRep.AsQueryable()
                      .FirstOrDefaultAsync(e => e.AccountCode == sessionId.FirstOrDefault());
                 context.HttpContext.Items["Session"] = new Session(session);
             }
