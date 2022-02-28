@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Nexter.Fintech.Application.Job;
 using Nexter.Fintech.Application.Wechat.Options;
+using Serilog;
 using System;
 using Yitter.IdGenerator;
 
@@ -48,6 +49,10 @@ public class Startup : AppStartup
         }
 
         app.UseHttpsRedirection();
+
+        app.UseStaticFiles();
+
+        app.UseSerilogRequestLogging();
 
         app.UseRouting();
 
