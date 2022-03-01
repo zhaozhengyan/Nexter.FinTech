@@ -12,9 +12,11 @@ namespace FinTech.ApplicationServices.WeChat
     public interface IWechatApi : IHttpApi
     {
 
+        [JsonReturn]
         [HttpGet("/sns/jscode2session")]
-        Task<dynamic> GetOpenId(GetOpenIdRequest request);
+        Task<GetOpenIdResponse> GetOpenId(GetOpenIdRequest request);
 
+        [JsonReturn]
         [HttpGet("/cgi-bin/token")]
         Task<Authenticate> GetAccessToken(GetAccessTokenRequest request);
 
