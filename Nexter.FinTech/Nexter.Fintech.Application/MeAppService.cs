@@ -92,7 +92,7 @@ namespace Nexter.Fintech.Application
         [AllowAnonymous]
         public async Task<Result> PostAsync([FromBody] Auth request)
         {
-            var openId = App.HttpContext.Request.Headers["Token"];
+            var openId = App.HttpContext.Request.Headers["Token"].FirstOrDefault();
             var wechatOpt = App.GetOptions<WechatOptions>();
             if (string.IsNullOrWhiteSpace(openId))
             {
@@ -126,7 +126,7 @@ namespace Nexter.Fintech.Application
             {
                 var inviter = await _memberRep.AsQueryable()
                     .FirstOrDefaultAsync(e => e.AccountCode == request.InviterId);
-                return inviter.GroupId;
+                return inviter == null ? 0 : inviter.GroupId;
             }
             return 0;
         }
