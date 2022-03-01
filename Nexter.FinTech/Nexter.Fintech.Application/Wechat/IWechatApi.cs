@@ -13,7 +13,7 @@ namespace FinTech.ApplicationServices.WeChat
     {
 
         [HttpGet("/sns/jscode2session")]
-        Task<GetOpenIdResponse> GetOpenId(GetOpenIdRequest request);
+        Task<dynamic> GetOpenId(GetOpenIdRequest request);
 
         [HttpGet("/cgi-bin/token")]
         Task<Authenticate> GetAccessToken(GetAccessTokenRequest request);
