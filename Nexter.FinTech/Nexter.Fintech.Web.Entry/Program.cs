@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args).Inject();
 builder.Host.UseSerilogDefault(config =>
 {
     string date = DateTime.Now.ToString("yyyy-MM-dd");//按时间创建文件夹
-    string outputTemplate = "{NewLine}【{Level:u3}】{Timestamp:yyyy-MM-dd HH:mm:ss.fff}" +
+    string outputTemplate = "{NewLine}[{Level:u3}]{Timestamp:yyyy-MM-dd HH:mm:ss.fff}" +
     "{NewLine}#Msg#{Message:lj}" +
     "{NewLine}#Pro #{Properties:j}" +
     "{NewLine}#Exc#{Exception}" +

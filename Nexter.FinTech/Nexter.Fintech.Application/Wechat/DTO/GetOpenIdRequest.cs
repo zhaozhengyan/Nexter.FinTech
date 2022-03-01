@@ -7,17 +7,17 @@ namespace FinTech.ApplicationServices.Dto
         public GetOpenIdRequest() { }
         public GetOpenIdRequest(string appid, string secret, string jsCode)
         {
-            this.appid = appid;
-            this.secret = secret;
-            js_code = jsCode;
+            this.Appid = appid;
+            this.Secret = secret;
+            Js_Code = jsCode;
         }
 
-        public string appid { get; set; }
+        public string Appid { get; set; }
 
-        public string secret { get; set; }
+        public string Secret { get; set; }
 
-        public string js_code { get; set; }
+        public string Js_Code { get; set; }
 
-        public string grant_type => "authorization_code";
+        public string Grant_Type => "authorization_code";
     }
 }
