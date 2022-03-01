@@ -8,6 +8,7 @@ using Furion.DynamicApiController;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Nexter.Fintech.Application.Wechat.Options;
 using Nexter.Fintech.Core;
 using System;
@@ -97,7 +98,9 @@ namespace Nexter.Fintech.Application
             if (string.IsNullOrWhiteSpace(openId))
             {
                 var response = await _wechatApi.GetOpenId(new GetOpenIdRequest(wechatOpt.Appid, wechatOpt.Secret, request.Code));
-                openId = response?.OpenId;
+                if (string.IsNullOrEmpty(response))
+                    return Result.Fail("注册失败");
+                openId = JsonConvert.DeserializeObject<GetOpenIdResponse>(response).OpenId;
             }
             if (openId.NotAny())
                 return Result.Fail("注册失败");
