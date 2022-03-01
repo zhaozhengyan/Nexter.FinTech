@@ -1,25 +1,23 @@
-﻿namespace FinTech.ApplicationServices.Dto
+﻿using WebApiClientCore;
+
+namespace FinTech.ApplicationServices.Dto
 {
     public class GetOpenIdRequest
     {
         public GetOpenIdRequest() { }
         public GetOpenIdRequest(string appid, string secret, string jsCode)
         {
-            Appid = appid;
-            Secret = secret;
-            JsCode = jsCode;
+            this.appid = appid;
+            this.secret = secret;
+            js_code = jsCode;
         }
 
-        //[AliasAs("appid")]
-        public string Appid { get; set; }
+        public string appid { get; set; }
 
-        //[AliasAs("secret")]
-        public string Secret { get; set; }
+        public string secret { get; set; }
 
-        //[AliasAs("js_code")]
-        public string JsCode { get; set; }
+        public string js_code { get; set; }
 
-        //[AliasAs("grant_type")]
-        public string GrantType => "authorization_code";
+        public string grant_type => "authorization_code";
     }
 }

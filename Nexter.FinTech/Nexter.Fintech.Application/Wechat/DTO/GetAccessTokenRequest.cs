@@ -10,7 +10,6 @@ namespace FinTech.ApplicationServices.Dto
         //[AliasAs("secret")]
         public string Secret { get; set; }
 
-        //[AliasAs("grant_type")]
-        public string GrantType => "client_credential";
+        public string grant_type => "client_credential";
     }
 }
