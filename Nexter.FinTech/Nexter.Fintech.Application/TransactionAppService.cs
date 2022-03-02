@@ -15,6 +15,7 @@ namespace Nexter.Fintech.Application
     /// Transcation
     /// </summary>
     [NonUnify]
+    [Route("Transaction")]
     public class TransactionAppService : IDynamicApiController
     {
         private readonly IRepository<Category> _categoryRep;
