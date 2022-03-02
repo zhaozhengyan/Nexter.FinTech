@@ -36,7 +36,7 @@ namespace Nexter.Fintech.Application
                 {
                     new {
                         tallyType = "支出",
-                        category = result.Where(e => e.Type == CategoryType.Spending).Select(e=>new
+                        category = result.Where(e => e.Type == (int)CategoryType.Spending).Select(e=>new
                         {
                             categoryId=e.Id,
                             categoryName=e.Name,
@@ -48,7 +48,7 @@ namespace Nexter.Fintech.Application
                     },
                     new {
                         tallyType = "收入",
-                        category = result.Where(e => e.Type == CategoryType.Income).Select(e=>new
+                        category = result.Where(e => e.Type == (int)CategoryType.Income).Select(e=>new
                         {
                             categoryId=e.Id,
                             categoryName=e.Name,

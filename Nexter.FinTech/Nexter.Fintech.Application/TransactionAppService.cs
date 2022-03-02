@@ -71,9 +71,9 @@ namespace Nexter.Fintech.Application
                     {
                         s.e.Id,
                         Date = s.e.Date.ToString("yyyy-MM-dd"),
-                        Money = s.category.Type == CategoryType.Spending ? s.e.Spending : s.e.Income,
+                        Money = s.category.Type == (int)CategoryType.Spending ? s.e.Spending : s.e.Income,
                         CategoryType = s.category.Type,
-                        type = s.category.Type.GetDescription(),
+                        type = ((CategoryType)s.category.Type).GetDescription(),
                         categoryName = s.category.Name,
                         categoryIcon = s.category.Icon,
                         accountName = new[] { s.account.Name },
@@ -99,8 +99,8 @@ namespace Nexter.Fintech.Application
             {
                 s.e.Id,
                 Date = s.e.Date.ToString("yyyy-MM-dd"),
-                Money = s.category.Type == CategoryType.Spending ? s.e.Spending : s.e.Income,
-                type = s.category.Type.GetDescription(),
+                Money = s.category.Type == (int)CategoryType.Spending ? s.e.Spending : s.e.Income,
+                type = ((CategoryType)s.category.Type).GetDescription(),
                 categoryName = s.category.Name,
                 categoryIcon = s.category.Icon,
                 accountName = new[] { s.account.Name },
@@ -119,7 +119,7 @@ namespace Nexter.Fintech.Application
             decimal? income = null, spending = null;
             Rule.For(category).NotFound();
             Rule.For(account).NotFound();
-            if (category.Type == CategoryType.Income)
+            if (category.Type == (int)CategoryType.Income)
                 income = request.Money;
             else
                 spending = request.Money;

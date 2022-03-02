@@ -1,12 +1,15 @@
 
 using Furion.DatabaseAccessor;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FinTech.Domain
 {
     [Table("Categories")]
-    public class Category : BaseEntity
+    public class Category : BaseEntity,IEntityTypeBuilder<Category>
     {
         public Category() { }
 
@@ -14,7 +17,7 @@ namespace FinTech.Domain
         {
             Name = name;
             Icon = icon;
-            Type = type;
+            Type = (int)type;
             CreateMemberId = createMemberId;
         }
 
@@ -29,12 +32,18 @@ namespace FinTech.Domain
         ///<summary>
         /// 1=Spending , 2= Income
         ///</summary>
-        public CategoryType? Type { get; set; } // Type
+        public int Type { get; set; } // Type
         /// <summary>
         /// ¥¥Ω®»ÀID
         /// </summary>
         public long? CreateMemberId { get; set; }
+
+        public void Configure(EntityTypeBuilder<Category> entityBuilder, DbContext dbContext, Type dbContextLocator)
+        {
+        }
     }
+
+    
 
     public enum CategoryType
     {
