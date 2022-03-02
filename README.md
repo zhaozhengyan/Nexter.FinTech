@@ -10,16 +10,17 @@
 
 ``` lua
 ├─Nexter.FinTech
-│  ├─FinTech.API.Wechat
-│  │  ├─Controllers --API
-│  │  ├─Dto --数据传输
-│  │  ├─Infrastructure --基础设施
-│  │  ├─Jobs --Quartz 自动任务
-│  ├─FinTech.ApplicationServices --业务逻辑
-│  ├─FinTech.DB --数据库
-│  ├─FinTech.Domain --业务领域
-│  ├─FinTech.Infrastructure --基础设施
-│  ├─FinTech.Test --单元测试
+│  ├─Nexter.Fintech.Application
+│  │  ├─DTO --数据传输
+│  │  ├─Job --自动任务
+│  │  └─Wechat
+│  │      ├─DTO
+│  │      └─Options
+│  ├─Nexter.Fintech.Core
+│  ├─Nexter.Fintech.Database.Migrations
+│  ├─Nexter.Fintech.EntityFramework.Core
+│  ├─Nexter.Fintech.Web.Core
+│  └─Nexter.Fintech.Web.Entry
 └─WechatClient
     ├─data -- Mock Json数据
     ├─iconfont 
@@ -50,9 +51,8 @@
 技术 | 说明 | 官网
 ----|----|----
 ASP.NET Web API | .Net API框架 | [https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api](https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api)
-Refit | REST库 | [https://reactiveui.github.io/refit/](https://reactiveui.github.io/refit/)
+WebApiClientCore | REST库 | [https://github.com/dotnetcore/WebApiClient](https://github.com/dotnetcore/WebApiClient)
 EntityFrameworkCore | Orm框架 | [https://www.nuget.org/packages/Microsoft.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore)
-Quartz.Net | Quartz 调度工具| [https://github.com/quartznet/quartznet/](https://github.com/quartznet/quartznet/)
 
 #### 前端技术
 
