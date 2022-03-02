@@ -27,6 +27,7 @@ public class Startup : AppStartup
             o.HttpHost = new Uri(wechat.AuthUrl);
         });
 
+        //TODO id long dto transcation to string
         YitIdHelper.SetIdGenerator(new IdGeneratorOptions(1) { SeqBitLength = 12 });
 
         services.AddCorsAccessor();
