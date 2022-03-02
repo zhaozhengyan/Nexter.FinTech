@@ -28,7 +28,7 @@ public class Startup : AppStartup
         });
 
         //TODO id long dto transcation to string
-        YitIdHelper.SetIdGenerator(new IdGeneratorOptions(1) { SeqBitLength = 12 });
+        YitIdHelper.SetIdGenerator(new IdGeneratorOptions(1));
 
         services.AddCorsAccessor();
         services.AddTaskScheduler();
