@@ -8,8 +8,80 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // navigationBarTitle: '',
-    buttonText: '微信登录'
+    buttonText: '微信登录',
+    avatarUrl: '',
+    nickName: ''
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    if (options.inviterId) {
+      wx.setStorageSync('inviterId', options.inviterId)
+      console.log('邀请人ID:' + options.inviterId);
+    }
+  },
+
+  onChooseAvatar: function(e) {
+    const { avatarUrl } = e.detail
+    this.setData({
+      avatarUrl: avatarUrl
+    })
+  },
+
+  onNicknameInput: function(e) {
+    this.setData({
+      nickName: e.detail.value
+    })
+  },
+
+  onLogin: function() {
+    const { avatarUrl, nickName } = this.data
+    
+    if (!nickName) {
+      wx.showToast({
+        icon: 'none',
+        title: '请输入昵称'
+      })
+      return
+    }
+
+    this.setData({
+      buttonText: '登录中...'
+    })
+
+    const inviterId = wx.getStorageSync('inviterId')
+    const that = this
+
+    wx.login({
+      success(res) {
+        if (res.code) {
+          var url = app.globalData.baseUrl + 'me'
+          utils.http_post(url, {
+            code: res.code,
+            nickName: nickName,
+            avatar: avatarUrl || '',
+            inviterId: inviterId || ''
+          }, that.onLoginSuccess)
+        } else {
+          wx.showToast({
+            icon: 'none',
+            title: '登录失败：' + res.errMsg
+          })
+          that.setData({
+            buttonText: '微信登录'
+          })
+        }
+      }
+    })
+  },
+
+  onLoginSuccess: function(res) {
+    wx.setStorageSync('token', res.token)
+    wx.switchTab({
+      url: '../index/index',
+    })
   },
 
   /**

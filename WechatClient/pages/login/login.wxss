@@ -36,14 +36,49 @@
 	margin-top: 30rpx;
 }
 
+.avatar-section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 40rpx;
+}
+
+.avatar-btn {
+	background: transparent;
+	border: none;
+	padding: 0;
+	margin: 0;
+	line-height: normal;
+}
+
+.avatar-btn::after {
+	border: none;
+}
+
+.avatar {
+	width: 160rpx;
+	height: 160rpx;
+	border-radius: 50%;
+	display: block;
+}
+
+.nickname-section {
+	margin-top: 40rpx;
+}
+
+.nickname-input {
+	width: 100%;
+	height: 80rpx;
+	border: 1px solid #eaeaea;
+	border-radius: 8rpx;
+	padding: 0 20rpx;
+	margin-top: 20rpx;
+	font-size: 28rpx;
+	box-sizing: border-box;
+}
+
 .login_btn {
 	width: 100%;
 	margin-top: 84rpx;
 	background-color: #116cc5;
-}
-
-.cancel_btn {
-	width: 100%;
-	margin-top: 27rpx;
-	background-color: #0203137a;
 }

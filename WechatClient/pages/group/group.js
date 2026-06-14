@@ -7,9 +7,6 @@ Page({
   },
 
   onLoad: function(options) {
-    wx.showShareMenu({
-      withShareTicket: true // 要求小程序返回分享目标信息
-    });
     var url = app.globalData.baseUrl + 'group';
     utils.http_get(url, this.showPageData);
   },

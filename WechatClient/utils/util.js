@@ -7,12 +7,11 @@ function formatDate(date) {
 }
 
 function filZero(num) {
-  //补0
   return num.toString().length === 2 ? num : '0' + num;
 }
 
 function isNull(str) {
-  return str == null || str == '' || str == undefined || str.toString().length == 0;
+  return str == null || str === '' || str == undefined || str.toString().length == 0;
 }
 
 // 选择分类
@@ -21,139 +20,88 @@ function SelectIconFont(event, callBack) {
   callBack(categoryId);
 }
 
-function http_get(url, callback, text) {
-  var token = wx.getStorageSync('token');
-  console.log(url)
-  if (isNull(token) && url.search("/transaction") == -1){
+function getToken() {
+  return wx.getStorageSync('token') || '';
+}
+
+function checkToken(url) {
+  var token = getToken();
+  if (isNull(token) && url.search('/transaction') == -1) {
     wx.navigateTo({
       url: '../login/login',
     })
     return false;
   }
+  return true;
+}
+
+function request(url, method, data, callback, text) {
+  if (!checkToken(url)) return;
+
+  var token = getToken();
   wx.request({
     url: url,
+    data: data,
     header: {
       'content-type': 'application/json',
       'token': token
     },
     dataType: 'json',
-    method: 'GET',
-    success: function(res) {
-      if (callback != null) {
-        callback(res.data.data)
+    method: method,
+    success: function (res) {
+      if (res.statusCode === 200 && res.data) {
+        if (res.data.statusCode == 'Ok') {
+          if (res.data.data != null) {
+            callback && callback(res.data.data)
+          } else if (callback != null) {
+            callback();
+          } else {
+            wx.showToast({
+              title: '提交成功'
+            })
+          }
+        } else {
+          wx.showToast({
+            icon: 'none',
+            title: res.data.message || '请求失败'
+          })
+        }
+      } else if (res.statusCode === 401) {
+        wx.removeStorageSync('token');
+        wx.navigateTo({
+          url: '../login/login',
+        })
+      } else {
+        wx.showToast({
+          icon: 'none',
+          title: '服务器错误: ' + res.statusCode
+        })
       }
     },
-    fail: function() {
+    fail: function (err) {
+      console.error('[HTTP Error]', method, url, err);
       wx.showToast({
-        title: text ? text : '数据获取失败'
+        title: text || '网络请求失败'
       })
     }
   })
+}
+
+function http_get(url, callback, text) {
+  request(url, 'GET', null, callback, text);
 }
 
 function http_post(url, data, callback, text) {
-  var token = wx.getStorageSync('token');
-  wx.request({
-    url: url,
-    data: data,
-    header: {
-      'content-type': 'application/json',
-      'token': token
-    },
-    dataType: 'json',
-    method: 'POST',
-    success: function(res) {
-      if (res.data.statusCode == 'Ok') {
-        if (res.data.data != null) {
-          callback(res.data.data)
-        } else if (callback != null) {
-          callback();
-        } else {
-          wx.showToast({
-            title: "提交成功"
-          })
-        }
-      } else {
-        wx.showToast({
-          icon: 'none',
-          title: res.data.message
-        })
-      }
-    },
-    fail: function() {
-      wx.showToast({
-        title: text ? text : '数据获取失败'
-      })
-    }
-  })
+  request(url, 'POST', data, callback, text);
 }
 
 function http_put(url, data, callback, text) {
-  var token = wx.getStorageSync('token');
-  wx.request({
-    url: url,
-    data: data,
-    header: {
-      'content-type': 'application/json',
-      'token': token
-    },
-    dataType: 'json',
-    method: 'PUT',
-    success: function(res) {
-      if (res.data.statusCode == 'Ok') {
-        if (res.data.data != null) {
-          callback(res.data.data)
-        } else if (callback != null) {
-          callback();
-        }
-      } else {
-        wx.showToast({
-          icon: 'none',
-          title: res.data.message
-        })
-      }
-    },
-    fail: function() {
-      wx.showToast({
-        title: text ? text : '数据获取失败'
-      })
-    }
-  })
+  request(url, 'PUT', data, callback, text);
 }
 
 function http_delete(url, data, callback, text) {
-  var token = wx.getStorageSync('token');
-  wx.request({
-    url: url,
-    data: data,
-    header: {
-      'content-type': 'application/json',
-      'token': token
-    },
-    dataType: 'json',
-    method: 'DELETE',
-    success: function(res) {
-      if (res.data.statusCode == 'Ok') {
-        if (res.data.data != null) {
-          callback(res.data.data)
-        } else if (callback != null) {
-          callback();
-        }
-      } else {
-        wx.showToast({
-          icon: 'none',
-          title: res.data.message
-        })
-      }
-    },
-    fail: function() {
-      wx.showToast({
-        title: text ? text : 'O.O 删除失败了呢！'
-      })
-    }
-  })
+  request(url, 'DELETE', data, callback, text);
 }
-
 
 module.exports = {
   formatDate: formatDate,

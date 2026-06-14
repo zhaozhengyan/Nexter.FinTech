@@ -3,9 +3,20 @@
   <image class='logo' src='/images/logo.png'></image>
   <view class='app_title'>点滴珍贵,重在积累</view>
   <view class='content'>
-    <text class='content_title'>PigPig申请获取以下权限</text>
-    <text class='content_info'>· 获得您的公开信息(昵称，头像等)</text>
-    <button size='default' type='primary' open-type='getUserInfo' class='login_btn' bindgetuserinfo='onGetUserInfo'>{{buttonText}}</button>
-    <!-- <button size='default' type='primary' open-type='getUserInfo' class='cancel_btn' bindgetuserinfo='onGetUserInfo'>{{buttonText}}</button> -->
+    <text class='content_title'>完善个人信息</text>
+    
+    <view class='avatar-section'>
+      <text class='content_info'>点击选择头像</text>
+      <button class='avatar-btn' open-type='chooseAvatar' bindchooseavatar='onChooseAvatar'>
+        <image class='avatar' src='{{avatarUrl || "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiB2aWV3Qm94PSIwIDAgMTYwIDE2MCI+PHJlY3Qgd2lkdGg9IjE2MCIgaGVpZ2h0PSIxNjAiIGZpbGw9IiNlYWVhZWEiLz48dGV4dCB4PSI4MCIgeT0iOTAiIGZvbnQtc2l6ZT0iNjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM5OTkiPkE8L3RleHQ+PC9zdmc+"}}'></image>
+      </button>
+    </view>
+
+    <view class='nickname-section'>
+      <text class='content_info'>请输入昵称</text>
+      <input type='nickname' class='nickname-input' placeholder='请输入昵称' value='{{nickName}}' bindinput='onNicknameInput' bindblur='onNicknameInput'/>
+    </view>
+
+    <button size='default' type='primary' class='login_btn' bindtap='onLogin'>{{buttonText}}</button>
   </view>
 </view>
