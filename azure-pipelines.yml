@@ -1,19 +1,16 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+# CI/CD Pipeline for Nexter.FinTech
+# Build and deploy the .NET 10 application
 
 trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-18.04'
-
+  vmImage: 'ubuntu-latest'
 
 variables:
   dockerId: z921190200@163.com  
   namespace: nexter
-  imageName: fintech  # Replace with the name of the image you want to publish
+  imageName: fintech
   dockerfile: Nexter.FinTech/Nexter.Fintech.Web.Entry/Dockerfile
   registry: registry.cn-hangzhou.aliyuncs.com
 
@@ -22,12 +19,11 @@ steps:
   inputs:
     script: |
       echo ready to execute command
-      ls
       sed -i 's/{ConnectionStr}/$(Writable)/g' Nexter.FinTech/Nexter.Fintech.Web.Entry/appsettings.json
       echo command executed
 - script: |
-    docker build  -f $(dockerfile) -t $(imageName) .
+    docker build -f $(dockerfile) -t $(imageName) .
     docker login -u $(dockerId) --password $(AliyunDockerPwd) $(registry)
     docker tag $(imageName) $(registry)/$(namespace)/$(imageName)
     docker push $(registry)/$(namespace)/$(imageName)
-  displayName: push to aliyun 
+  displayName: push to aliyun
