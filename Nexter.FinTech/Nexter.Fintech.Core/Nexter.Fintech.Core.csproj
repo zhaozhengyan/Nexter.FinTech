@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <NoWarn>1701;1702;1591</NoWarn>
     <DocumentationFile>Nexter.Fintech.Core.xml</DocumentationFile>
   </PropertyGroup>
@@ -11,11 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Furion" Version="3.0.6" />
-    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="3.0.6" />
-    <PackageReference Include="Furion.Extras.Logging.Serilog" Version="3.0.6" />
-    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="3.0.6" />
-    <PackageReference Include="NCrontab.Signed" Version="3.3.2" />
+    <PackageReference Include="Furion" Version="4.9.8.96" />
+    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.8.96" />
+    <PackageReference Include="Furion.Extras.Logging.Serilog" Version="4.9.7.80" />
+    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.8.96" />
+    <PackageReference Include="NCrontab.Signed" Version="3.4.0" />
   </ItemGroup>
 
 </Project>
