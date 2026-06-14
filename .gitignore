@@ -4,42 +4,76 @@
 # User-specific files
 *.suo
 *.user
+*.userosscache
 *.sln.docstates
 *.mp3
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
 
 # Build results
 Logs/
 [Dd]ebug/
 [Rr]elease/
 x64/
+x86/
 build/
 node_modules 
 .bin/
-.vs
+.vs/
 [Bb]in/
 [Oo]bj/
+[Bb]uild/
+artifacts/
 
-# Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
-packages
-!packages/*/build/
+# NuGet Packages
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.fragment.lock.json
 
-# BundleScripts
-[Bb]undles/
+# .NET Core
+project.nuget.cache
 
-# MSTest test Results
-[Tt]est[Rr]esult*/
-[Bb]uild[Ll]og.*
+# Visual Studio
+.vs/
+*.dbmdl
+*.jfm
+launchSettings.json.local
 
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Logs
 *.log
 *.vspscc
 *.vssscc
 *.scc
-*.dbmdl
-*.jfm
-
 key-*.xml
 ~$*
 
-src/.idea/
-/Nexter.FinTech/FinTech.API.Wechat/Publish
-/Nexter.FinTech/FinTech.API.Wechat/Log
+# Publish output
+publish/
+Publish/
+publishoutput/
+
+# Docker
+docker-compose.override.yml
+
+# Azure Pipelines
+azure-pipelines.override.yml
