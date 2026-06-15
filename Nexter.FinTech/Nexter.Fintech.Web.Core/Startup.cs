@@ -21,7 +21,7 @@ public class Startup : AppStartup
         var wechat = App.GetConfig<WechatOptions>("Wechat", true);
         services.AddHttpApi<IWechatApi>(o =>
         {
-            o.HttpHost = new Uri(wechat.AuthUrl);
+            o.HttpHost = new Uri(wechat.BaseUrl);
         });
 
         //TODO id long dto transcation to string
@@ -29,7 +29,10 @@ public class Startup : AppStartup
 
         services.AddCorsAccessor();
 
-        services.AddHostedService<TimedReminderBackgroundService>();
+        if (!App.HostEnvironment.IsDevelopment())
+        {
+            services.AddHostedService<TimedReminderBackgroundService>();
+        }
 
         services.AddControllers()
                 .AddInjectWithUnifyResult();

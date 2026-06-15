@@ -9,6 +9,7 @@ namespace Nexter.Fintech.Application.Wechat.Options
 {
     public class WechatOptions : IConfigurableOptions
     {
+        public string BaseUrl { get; set; }
         public string AuthUrl { get; set; }
         public string Appid { get; set; }
         public string Secret { get; set; }

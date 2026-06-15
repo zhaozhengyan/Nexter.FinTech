@@ -51,6 +51,12 @@ namespace FinTech.Domain
         ///</summary>
         public string AccountCode { get; set; } // AccountCode (length: 256)
         public DateTime CreatedAt { get; set; } // AccountCode (length: 256)
+
+        ///<summary>
+        /// 默认选中的Tab: index=账单, items=物品, personal=我的
+        ///</summary>
+        [MaxLength(16)]
+        public string DefaultTab { get; set; } = "index";
     }
 
 }

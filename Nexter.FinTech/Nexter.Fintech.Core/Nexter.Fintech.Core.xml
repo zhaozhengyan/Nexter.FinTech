@@ -14,6 +14,76 @@
             创建人ID
             </summary>
         </member>
+        <member name="P:FinTech.Domain.Item.Name">
+            <summary>
+            物品名称
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Item.Price">
+            <summary>
+            购买价格
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Item.AdditionalCost">
+            <summary>
+            附加费用
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Item.PurchaseDate">
+            <summary>
+            购买日期
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Item.RetireDate">
+            <summary>
+            退役日期（可选）
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Item.WarrantyEndDate">
+            <summary>
+            过保日期（可选）
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Item.MemberId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Item.CategoryId">
+            <summary>
+            分类ID
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Item.Icon">
+            <summary>
+            图标
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Item.PriceCalcMethod">
+            <summary>
+            计算均价方式: time=按时间, usage=按使用次数
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Item.Note">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.ItemCategory.Name">
+            <summary>
+            分类名称
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.ItemCategory.Icon">
+            <summary>
+            图标
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.ItemCategory.MemberId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
         <member name="P:FinTech.Domain.Member.NickName">
             <summary>
              昵称
@@ -27,6 +97,11 @@
         <member name="P:FinTech.Domain.Member.AccountCode">
             <summary>
              微信Token
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Member.DefaultTab">
+            <summary>
+             默认选中的Tab: index=账单, items=物品, personal=我的
             </summary>
         </member>
         <member name="P:FinTech.Domain.TimedReminder.Cron">

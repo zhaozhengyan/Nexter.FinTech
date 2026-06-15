@@ -8,4 +8,12 @@
     <ProjectReference Include="..\Nexter.Fintech.EntityFramework.Core\Nexter.Fintech.EntityFramework.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.15" />
+  </ItemGroup>
+
 </Project>

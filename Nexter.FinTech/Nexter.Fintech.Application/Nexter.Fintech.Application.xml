@@ -24,6 +24,41 @@
             Group
             </summary>
         </member>
+        <member name="T:Nexter.Fintech.Application.ItemAppService">
+            <summary>
+            物品管理
+            </summary>
+        </member>
+        <member name="M:Nexter.Fintech.Application.ItemAppService.GetCategoriesAsync">
+            <summary>
+            获取物品分类列表
+            </summary>
+        </member>
+        <member name="M:Nexter.Fintech.Application.ItemAppService.GetListAsync(System.String,System.Nullable{System.Int64})">
+            <summary>
+            获取物品列表
+            </summary>
+        </member>
+        <member name="M:Nexter.Fintech.Application.ItemAppService.GetAsync(System.Int64)">
+            <summary>
+            获取物品详情
+            </summary>
+        </member>
+        <member name="M:Nexter.Fintech.Application.ItemAppService.PostAsync(Nexter.Fintech.Application.ItemRequest)">
+            <summary>
+            添加物品
+            </summary>
+        </member>
+        <member name="M:Nexter.Fintech.Application.ItemAppService.PutAsync(Nexter.Fintech.Application.ItemRequest)">
+            <summary>
+            更新物品
+            </summary>
+        </member>
+        <member name="M:Nexter.Fintech.Application.ItemAppService.DeleteAsync(System.Int64)">
+            <summary>
+            删除物品
+            </summary>
+        </member>
         <member name="T:Nexter.Fintech.Application.MeAppService">
             <summary>
             Me
@@ -35,6 +70,16 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Nexter.Fintech.Application.MeAppService.UpdateDefaultTab(Nexter.Fintech.Application.DefaultTabRequest)">
+            <summary>
+            更新默认Tab
+            </summary>
+        </member>
+        <member name="P:Nexter.Fintech.Application.DefaultTabRequest.Tab">
+            <summary>
+            Tab名称: index, items, personal
+            </summary>
+        </member>
         <member name="T:Nexter.Fintech.Application.TransactionAppService">
             <summary>
             Transcation
@@ -44,6 +89,12 @@
             <summary>
             Wechat接口
             </summary>
+        </member>
+        <member name="T:WebApiClientCore.HttpApiProxyClass">
+            <summary>HttpApi代理类</summary>
+        </member>
+        <member name="M:WebApiClientCore.HttpApiProxyClass.Initialize">
+            <summary>初始化代理类</summary> 
         </member>
     </members>
 </doc>

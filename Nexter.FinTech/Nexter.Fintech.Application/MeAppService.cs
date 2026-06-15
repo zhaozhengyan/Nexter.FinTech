@@ -1,4 +1,4 @@
-﻿using FinTech.ApplicationServices;
+using FinTech.ApplicationServices;
 using FinTech.ApplicationServices.Dto;
 using FinTech.ApplicationServices.WeChat;
 using FinTech.Domain;
@@ -56,7 +56,7 @@ namespace Nexter.Fintech.Application
             {
                 totalIncome = transcations.Sum(e => e.Income),
                 totalSpending = transcations.Sum(e => e.Spending),
-                totalMoney = transcations.Sum(e => e.Income ?? 0 - e.Spending ?? 0),
+                totalMoney = transcations.Sum(e => (e.Income ?? 0) - (e.Spending ?? 0)),
                 joinTime = member.CreatedAt,
                 accountId = member.Id,
                 groupId = member.GroupId,
@@ -66,7 +66,8 @@ namespace Nexter.Fintech.Application
                 totalDays = day <= 0 ? 1 : day,
                 avatarUrl = member.Avatar,
                 member.NickName,
-                reminderTime = reminder?.GetNexterExecuteTime()?.ToString("t", CultureInfo.CurrentCulture)
+                reminderTime = reminder?.GetNexterExecuteTime()?.ToString("t", CultureInfo.CurrentCulture),
+                defaultTab = member.DefaultTab ?? "index"
             });
         }
 
@@ -89,6 +90,27 @@ namespace Nexter.Fintech.Application
             await _timedReminderRep.SaveNowAsync();
             return Result.Complete();
         }
+        /// <summary>
+        /// 更新默认Tab
+        /// </summary>
+        [NonUnify]
+        [Route("DefaultTab")]
+        public async Task<Result> UpdateDefaultTab([FromBody] DefaultTabRequest request)
+        {
+            var allowed = new[] { "index", "items" };
+            if (request == null || string.IsNullOrWhiteSpace(request.Tab) || !allowed.Contains(request.Tab))
+                return Result.Fail("非法的 Tab 值");
+
+            var session = App.HttpContext.Items["Session"] as Session;
+            var member = await _memberRep.FirstOrDefaultAsync(e => e.Id == session.Id);
+            if (member == null) return Result.Fail("用户不存在");
+
+            member.DefaultTab = request.Tab;
+            await _memberRep.UpdateNowAsync(member);
+
+            return Result.Complete();
+        }
+
         [NonUnify]
         [AllowAnonymous]
         public async Task<Result> PostAsync([FromBody] Auth request)
@@ -133,5 +155,13 @@ namespace Nexter.Fintech.Application
             }
             return 0;
         }
+    }
+
+    public class DefaultTabRequest
+    {
+        /// <summary>
+        /// Tab名称: index, items, personal
+        /// </summary>
+        public string Tab { get; set; }
     }
 }

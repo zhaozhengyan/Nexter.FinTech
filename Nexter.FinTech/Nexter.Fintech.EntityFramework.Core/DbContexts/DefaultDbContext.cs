@@ -7,7 +7,7 @@ using Yitter.IdGenerator;
 
 namespace Nexter.Fintech.EntityFramework.Core;
 
-[AppDbContext("Fintech", DbProvider.MySql)]
+[AppDbContext("Fintech", DbProvider.MySqlOfficial)]
 public class DefaultDbContext : AppDbContext<DefaultDbContext>
 {
     public DefaultDbContext(DbContextOptions<DefaultDbContext> options) : base(options)
