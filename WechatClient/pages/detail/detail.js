@@ -27,7 +27,7 @@ Page({
       id: id
     });
     var url = app.globalData.baseUrl + 'Transaction/detail?id=' + id;
-    utils.http_get(url, this.getDetail);
+    utils.http_get(url, this.getDetail.bind(this));
   },
 
   getDetail: function(res) {
@@ -40,7 +40,7 @@ Page({
     //删除一笔账单
     var id = this.data.details.id;
     var url = app.globalData.baseUrl + 'transaction?id=' + id;
-    utils.http_delete(url, {}, this.goToIndex, "阿歐！服務器打了個盹");
+    utils.http_delete(url, {}, this.goToIndex.bind(this), "阿歐！服務器打了個盹");
   },
   goToIndex: function(res) {
     wx.switchTab({

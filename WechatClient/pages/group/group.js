@@ -8,17 +8,18 @@ Page({
 
   onLoad: function(options) {
     var url = app.globalData.baseUrl + 'group';
-    utils.http_get(url, this.showPageData);
+    utils.http_get(url, this.showPageData.bind(this));
   },
   showPageData: function(res) {
-    var accountLen = res.members.length;
+    var members = res.members || [];
+    var accountLen = members.length;
     var group = {
       id: res.id,
       isAdmin: res.isAdmin,
       totalMoney: res.totalMoney,
       totalIncome: res.totalIncome,
       totalSpending: res.totalSpending,
-      members: res.members,
+      members: members,
       accountLen: accountLen
     }
     this.setData({
@@ -26,8 +27,12 @@ Page({
     });
   },
   leaveGroup: function() {
+    if (!this.data.group.id) {
+      wx.showToast({ icon: 'none', title: '数据加载中，请稍后' });
+      return;
+    }
     var url = app.globalData.baseUrl + 'group/quit?id=' + this.data.group.id;
-    utils.http_post(url, {}, this.goToIndex);
+    utils.http_post(url, {}, this.goToIndex.bind(this));
   },
   goToIndex: function(res) {
     wx.showToast({
@@ -44,7 +49,7 @@ Page({
    */
   onShow: function() {
     var url = app.globalData.baseUrl + 'group';
-    utils.http_get(url, this.showPageData);
+    utils.http_get(url, this.showPageData.bind(this), null, true);
   },
 
   /**
@@ -55,7 +60,7 @@ Page({
       // 来自页面内转发按钮
       console.log(ops.target)
     }
-    var nickName = app.globalData.userInfos.nickName;
+    var nickName = (app.globalData.userInfos && app.globalData.userInfos.nickName) || '';
     var token = wx.getStorageSync('token');
     return {
       imageUrl: '/images/logo.png',

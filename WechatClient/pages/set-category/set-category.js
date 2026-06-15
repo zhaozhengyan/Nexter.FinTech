@@ -12,7 +12,7 @@ Page({
     type: null
   },
   onShow: function(options) {
-    this.queryData();
+    this.queryData(true);
   },
   //添加分类弹框
   addCategory: function(e) {
@@ -44,13 +44,13 @@ Page({
       utils.http_put(categoryUrl, {
         id: this.data.id,
         name: this.data.name
-      }, this.queryData);
+      }, this.queryData.bind(this));
     } else {
       utils.http_post(categoryUrl, {
         name: this.data.name,
         icon: 'icon-hongbao',
         type: this.data.type
-      }, this.queryData);
+      }, this.queryData.bind(this));
     }
     this.setData({
       newCategory: true,
@@ -95,7 +95,7 @@ Page({
         if (res.confirm) {
           utils.http_delete(categoryUrl, {
             id: categoryId
-          }, that.queryData);
+          }, that.queryData.bind(that));
         } else if (res.cancel) {
           return false;
         }
@@ -137,8 +137,8 @@ Page({
       inCategorys: inCategorys
     });
   },
-  queryData: function() {
+  queryData: function(silent) {
     var categoryUrl = app.globalData.baseUrl + 'category';
-    utils.http_get(categoryUrl, this.getCategorys);
+    utils.http_get(categoryUrl, this.getCategorys.bind(this), null, silent);
   }
 })

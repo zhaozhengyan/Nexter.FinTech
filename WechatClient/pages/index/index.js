@@ -14,6 +14,7 @@ Page({
     categoryId: 0,
     categoryIdChange: 0,
     tabBarSelected: {
+      combinedTab: 'index',
       tabBarIndexSelected: true,
       tabBarPersonalSelected: false
     },
@@ -27,6 +28,7 @@ Page({
     wx.hideTabBar({
       aniamtion: false
     });
+    this.setData({ 'tabBarSelected.combinedTab': app.globalData.combinedTab || 'index' });
     //初始化时间
     var toDayDate = utils.formatDate(new Date());
     var date = toDayDate.split('-')[0] + '年' + toDayDate.split('-')[1] + '月';
@@ -40,6 +42,27 @@ Page({
     });
   },
 
+  onCombinedTabTap: function() {
+    var tab = app.globalData.combinedTab || 'index';
+    if (tab !== 'index') {
+      wx.switchTab({ url: '/pages/' + tab + '/' + tab });
+    }
+  },
+
+  onCombinedTabLongPress: function() {
+    app.globalData.combinedTab = 'items';
+    wx.switchTab({ url: '/pages/items/items' });
+  },
+
+  onAddTap: function() {
+    var tab = app.globalData.combinedTab || 'index';
+    if (tab === 'items') {
+      wx.navigateTo({ url: '../item-detail/item-detail' });
+    } else {
+      wx.navigateTo({ url: '../tally/tally' });
+    }
+  },
+
   onDateChange: function(e) {
     // 改变日期
     var date = e.detail.value.split('-')[0] + '年' + e.detail.value.split('-')[1] + '月';
@@ -47,7 +70,7 @@ Page({
       date: date,
       dateValue: e.detail.value
     });
-    this.queryTransaction();
+    this.queryTransaction(true);
   },
   // 类型筛选
   onOpenFilterTap: function(event) {
@@ -68,17 +91,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.queryTransaction();
+    this.queryTransaction(true);
   },
   // 下拉刷新
   onPullDownRefresh: function() {
     this.clearCache();
-    this.queryTransaction(); //第一次加载数据
+    this.queryTransaction(true); //静默刷新，下拉动画本身就是loading
   },
   /**
    * 筛选账单主函数
    */
-  queryTransaction: function() {
+  queryTransaction: function(silent) {
     var url = app.globalData.baseUrl + 'transaction?date=' + this.data.dateValue;
     if (this.data.categoryId !== this.data.categoryIdChange) {
       url = url + '&categoryId=' + this.data.categoryIdChange;
@@ -86,17 +109,18 @@ Page({
         categoryId: this.data.categoryIdChange
       });
     };
-    utils.http_get(url, this.outPutList);
+    utils.http_get(url, this.outPutList.bind(this), null, silent);
   },
   outPutList: function(res) {
     this.setData({
       tallyData: res
     });
+    wx.stopPullDownRefresh();
   },
   // 清缓存
   clearCache: function() {
     this.setData({
-      tallyData: [] //数组清空
+      tallyData: { "count": 0, "monthTotalMoneys": [0.0, 0.0], "lists": [] }
     });
   }
 })

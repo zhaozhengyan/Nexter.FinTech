@@ -1,0 +1,65 @@
+<!--pages/items/items.wxml-->
+<import src='../tabBar-template/tabBar-template.wxml' />
+<view class="container">
+  <!-- 顶部统计卡片 -->
+  <view class="stats-card">
+    <view class="stats-header">
+      <view class="stats-title">
+        <text class="stats-count">共 {{totalCount}} 件物品</text>
+      </view>
+      <view class="stats-actions">
+        <view class="action-btn" bindtap="onFilterTap">{{categoryName || '筛选'}}</view>
+        <view class="action-btn" bindtap="onSortTap">排序</view>
+      </view>
+    </view>
+    <view class="stats-content">
+      <view class="stat-item">
+        <text class="stat-label">总资产</text>
+        <text class="stat-value">¥{{totalAsset}}</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <text class="stat-label">日均成本</text>
+        <view class="stat-value-row">
+          <text class="stat-value">¥{{dailyCost}}</text>
+          <text class="stat-unit">/天</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 物品列表 -->
+  <view class="item-list">
+    <view class="item-card" wx:for="{{items}}" wx:key="id" bindtap="onItemTap" data-id="{{item.id}}">
+      <view class="item-icon">
+        <text class="ri {{item.icon}}" wx:if="{{item.icon}}"></text>
+        <text class="item-icon-text" wx:else>{{item.name[0] || '?'}}</text>
+      </view>
+      <view class="item-info">
+        <text class="item-name">{{item.name}}</text>
+        <view class="item-price-row">
+          <text class="item-price">¥{{item.price}}</text>
+          <text class="item-daily">¥{{item.dailyCost}}/天</text>
+        </view>
+      </view>
+      <view class="item-days">
+        <text class="days-number">{{item.days}}</text>
+        <text class="days-unit">天</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{items.length === 0 && !loading}}">
+    <text class="empty-icon">📦</text>
+    <text class="empty-text">还没有添加物品</text>
+    <text class="empty-hint">点击下方 + 号添加你的第一个物品</text>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>
+
+<template is='tabBarTemplate' data='{{...tabBarSelected}}' />

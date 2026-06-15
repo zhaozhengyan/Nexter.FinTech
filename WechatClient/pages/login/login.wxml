@@ -1,22 +1,28 @@
 <!--pages/login/login.wxml-->
 <view class='container'>
-  <image class='logo' src='/images/logo.png'></image>
-  <view class='app_title'>点滴珍贵,重在积累</view>
-  <view class='content'>
-    <text class='content_title'>完善个人信息</text>
-    
+  <view class='logo-section'>
+    <image class='logo' src='/images/logo.png'></image>
+    <text class='app_title'>点滴珍贵，重在积累</text>
+  </view>
+
+  <view class='form-section'>
     <view class='avatar-section'>
-      <text class='content_info'>点击选择头像</text>
       <button class='avatar-btn' open-type='chooseAvatar' bindchooseavatar='onChooseAvatar'>
-        <image class='avatar' src='{{avatarUrl || "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiB2aWV3Qm94PSIwIDAgMTYwIDE2MCI+PHJlY3Qgd2lkdGg9IjE2MCIgaGVpZ2h0PSIxNjAiIGZpbGw9IiNlYWVhZWEiLz48dGV4dCB4PSI4MCIgeT0iOTAiIGZvbnQtc2l6ZT0iNjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM5OTkiPkE8L3RleHQ+PC9zdmc+"}}'></image>
+        <view class='avatar-wrap'>
+          <image class='avatar' src='{{avatarUrl || ""}}' wx:if="{{avatarUrl}}"></image>
+          <view class='avatar-placeholder' wx:else>
+            <text class='avatar-icon'>📷</text>
+          </view>
+        </view>
       </button>
+      <text class='avatar-hint'>点击选择头像</text>
     </view>
 
     <view class='nickname-section'>
-      <text class='content_info'>请输入昵称</text>
+      <text class='nickname-label'>昵称</text>
       <input type='nickname' class='nickname-input' placeholder='请输入昵称' value='{{nickName}}' bindinput='onNicknameInput' bindblur='onNicknameInput'/>
     </view>
 
-    <button size='default' type='primary' class='login_btn' bindtap='onLogin'>{{buttonText}}</button>
+    <button class='login_btn' bindtap='onLogin' disabled='{{!nickName}}'>{{buttonText}}</button>
   </view>
 </view>

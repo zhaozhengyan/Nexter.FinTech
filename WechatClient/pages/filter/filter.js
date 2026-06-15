@@ -18,10 +18,10 @@ Page({
 	 */
 	onLoad: function (options) {
 		var categoryUrl = app.globalData.baseUrl + 'category';
-		utils.http_get(categoryUrl, this.getCategorys);
+		utils.http_get(categoryUrl, this.getCategorys.bind(this));
 
 		this.setData({
-			currentCategoryId: options.category_id
+			currentCategoryId: parseInt(options.category_id) || 0
 		});
 	},
 
@@ -55,22 +55,20 @@ Page({
 	},
 
 	onSelectIconFontTap:function (event){
-		console.log(event);
-		utils.SelectIconFont(event, this.SelectIconFontId);
-	},
-
-	SelectIconFontId: function (res){
-		this.setData({
-			currentCategoryId: res
+		var that = this;
+		utils.SelectIconFont(event, function(id) {
+			that.setData({
+				currentCategoryId: id
+			});
+			var pages = getCurrentPages();
+			var prevPage = pages[pages.length - 2];
+			prevPage.setData({
+				categoryIdChange: id
+			});
+			wx.navigateBack({
+				delta: 1
+			})
 		});
-		var pages = getCurrentPages();
-		var prevPage = pages[pages.length - 2];
-		prevPage.setData({
-			categoryIdChange: res
-		});
-		wx.navigateBack({
-			delta: 1
-		})
 	},
 
 	// onGetTallyType: function (event){

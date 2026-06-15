@@ -1,0 +1,190 @@
+<!--pages/item-detail/item-detail.wxml-->
+<view class="container">
+  <!-- 详情模式 -->
+  <block wx:if="{{!isEdit}}">
+    <view class="detail-card">
+      <view class="detail-header">
+        <view class="detail-icon">
+          <text class="ri {{item.icon || 'ri-box-3-line'}}"></text>
+        </view>
+        <view class="detail-title">
+          <text class="detail-name">{{item.name}}</text>
+          <text class="detail-category">{{item.categoryName || '未分类'}}</text>
+        </view>
+      </view>
+
+      <view class="detail-stats">
+        <view class="stat-box">
+          <text class="stat-label">购买价格</text>
+          <text class="stat-value">¥{{item.price}}</text>
+        </view>
+        <view class="stat-box">
+          <text class="stat-label">已使用</text>
+          <text class="stat-value">{{item.days}}天</text>
+        </view>
+        <view class="stat-box">
+          <text class="stat-label">日均成本</text>
+          <text class="stat-value">¥{{item.dailyCost}}</text>
+        </view>
+      </view>
+
+      <view class="detail-info">
+        <view class="info-row">
+          <text class="info-label">购买日期</text>
+          <text class="info-value">{{item.purchaseDate}}</text>
+        </view>
+        <view class="info-row" wx:if="{{item.retireDate}}">
+          <text class="info-label">退役日期</text>
+          <text class="info-value">{{item.retireDate}}</text>
+        </view>
+        <view class="info-row" wx:if="{{item.warrantyEndDate}}">
+          <text class="info-label">过保日期</text>
+          <text class="info-value">{{item.warrantyEndDate}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">备注</text>
+          <text class="info-value">{{item.note || '-'}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="action-bar">
+      <view class="action-btn edit-btn" bindtap="onEditTap">编辑</view>
+      <view class="action-btn delete-btn" bindtap="onDeleteTap">删除</view>
+    </view>
+  </block>
+
+  <!-- 编辑/添加模式 -->
+  <block wx:if="{{isEdit}}">
+    <view class="form-card">
+      <!-- 物品名称 -->
+      <view class="form-section">
+        <view class="form-item full">
+          <text class="form-label">物品名称</text>
+          <input class="form-input" placeholder="请输入物品名称" value="{{form.name}}" bindinput="onInputName"/>
+        </view>
+      </view>
+
+      <!-- 分类和图标 -->
+      <view class="form-section">
+        <view class="form-row">
+          <view class="form-item half">
+            <text class="form-label">分类</text>
+            <picker range="{{categories}}" range-key="name" value="{{categoryIndex}}" bindchange="onCategoryChange">
+              <view class="form-input picker-input">
+                <text>{{form.categoryName || '请选择'}}</text>
+                <text class="arrow">›</text>
+              </view>
+            </picker>
+          </view>
+          <view class="form-item half">
+            <text class="form-label">图标</text>
+            <view class="form-input icon-select" bindtap="onIconTap">
+              <text class="ri {{form.icon || 'ri-box-3-line'}}"></text>
+              <text class="icon-name">{{form.iconName || '选择图标'}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 价格和附加项 -->
+      <view class="form-section">
+        <view class="form-row">
+          <view class="form-item half">
+            <text class="form-label">购买价格</text>
+            <input class="form-input" type="digit" placeholder="0" value="{{form.price}}" bindinput="onInputPrice"/>
+          </view>
+          <view class="form-item half">
+            <text class="form-label">附加项(选填)</text>
+            <view class="form-input-row">
+              <input class="form-input small" type="digit" placeholder="0" value="{{form.additionalCost}}" bindinput="onInputAdditional"/>
+              <view class="add-btn" bindtap="onAddAdditional">添加</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 日期 -->
+      <view class="form-section">
+        <view class="form-row">
+          <view class="form-item half">
+            <text class="form-label">购买日期</text>
+            <picker mode="date" value="{{form.purchaseDate}}" bindchange="onPurchaseDateChange">
+              <view class="form-input picker-input">
+                <text>{{form.purchaseDate || '请选择'}}</text>
+                <text class="arrow">›</text>
+              </view>
+            </picker>
+          </view>
+          <view class="form-item half">
+            <text class="form-label">退役日期(选填)</text>
+            <picker mode="date" value="{{form.retireDate}}" bindchange="onRetireDateChange">
+              <view class="form-input picker-input">
+                <text>{{form.retireDate || '请选择'}}</text>
+                <text class="arrow">›</text>
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+
+      <!-- 过保日期 -->
+      <view class="form-section">
+        <view class="form-item full">
+          <text class="form-label">过保日期(选填)</text>
+          <picker mode="date" value="{{form.warrantyEndDate}}" bindchange="onWarrantyDateChange">
+            <view class="form-input picker-input">
+              <text>{{form.warrantyEndDate || '请选择'}}</text>
+              <text class="arrow">›</text>
+            </view>
+          </picker>
+        </view>
+      </view>
+
+      <!-- 计算均价方式 -->
+      <view class="form-section">
+        <view class="form-item full">
+          <text class="form-label">计算均价方式</text>
+          <picker range="{{calcMethods}}" range-key="name" value="{{calcMethodIndex}}" bindchange="onCalcMethodChange">
+            <view class="form-input picker-input">
+              <text>{{form.calcMethodName || '按时间'}}</text>
+              <text class="arrow">›</text>
+            </view>
+          </picker>
+        </view>
+      </view>
+
+      <!-- 备注 -->
+      <view class="form-section">
+        <view class="form-item full">
+          <text class="form-label">备注</text>
+          <textarea class="form-textarea" placeholder="可选备注" value="{{form.note}}" bindinput="onInputNote"/>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部按钮 -->
+    <view class="bottom-bar">
+      <view class="bottom-btn cancel-btn" bindtap="onCancelTap">取消</view>
+      <view class="bottom-btn save-btn" bindtap="onSaveTap">保存</view>
+    </view>
+  </block>
+</view>
+
+<!-- 图标选择弹窗 -->
+<view class="icon-modal" wx:if="{{showIconModal}}" catchtap="onCloseIconModal">
+  <view class="icon-modal-content" catchtap="preventClose">
+    <view class="icon-modal-header">
+      <text class="icon-modal-title">选择图标</text>
+      <text class="icon-modal-close" bindtap="onCloseIconModal">✕</text>
+    </view>
+    <view class="icon-grid">
+      <view class="icon-item {{form.icon === item.name ? 'active' : ''}}" 
+            wx:for="{{iconList}}" wx:key="name" 
+            bindtap="onSelectIcon" data-icon="{{item.name}}" data-name="{{item.label}}">
+        <text class="ri {{item.name}}"></text>
+        <text class="icon-label">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+</view>

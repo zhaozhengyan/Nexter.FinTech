@@ -1,0 +1,30 @@
+/* Remix Icon - subset for item categories (16 icons only) */
+
+@font-face {
+  font-family: "remixicon";
+  src: url('data:application/x-font-woff;charset=utf-8;base64,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') format('woff');
+}
+
+.ri {
+  font-family: "remixicon" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ri-box-3-line:before { content: "\f2f5"; }
+.ri-smartphone-line:before { content: "\f15a"; }
+.ri-computer-line:before { content: "\ebca"; }
+.ri-tv-2-line:before { content: "\f235"; }
+.ri-keyboard-line:before { content: "\ee75"; }
+.ri-mouse-line:before { content: "\ef7d"; }
+.ri-headphone-line:before { content: "\ee05"; }
+.ri-timer-line:before { content: "\f215"; }
+.ri-camera-line:before { content: "\eb31"; }
+.ri-gamepad-line:before { content: "\edab"; }
+.ri-t-shirt-line:before { content: "\f1d9"; }
+.ri-footprint-line:before { content: "\ed91"; }
+.ri-handbag-line:before { content: "\edf7"; }
+.ri-home-4-line:before { content: "\ee1d"; }
+.ri-car-line:before { content: "\eb39"; }
+.ri-book-open-line:before { content: "\eadb"; }

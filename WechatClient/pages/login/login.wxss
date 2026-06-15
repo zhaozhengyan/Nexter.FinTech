@@ -1,84 +1,137 @@
 /* pages/login/login.wxss */
+page {
+  background-color: #f5f5f5;
+}
+
 .container {
-	padding: 60rpx 44rpx 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.container .logo {
-	width: 140rpx;
-	height: 140rpx;
-	display: block;
-	margin: 0 auto;
-}
-.container .app_title {
-	color: #000;
-	text-align: center;
-	font-size: 28rpx;
-	height: 60rpx;
-	line-height: 60rpx;
-} 
-
-.container .content {
-	margin-top: 130rpx;
-	padding-top: 68rpx;
-	display: flex;
-	flex-direction: column;
-	border-top: 1px dashed #eaeaea;
+/* Logo 区域 */
+.logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 0 60rpx;
+  background: #fff;
 }
 
-.content_title {
-	font-size: 34rpx;
-	color: #000;
-	font-weight: bold;
-}
-.content_info {
-	font-size: 26rpx;
-	color: #666;
-	margin-top: 30rpx;
+.logo {
+  width: 120rpx;
+  height: 120rpx;
 }
 
+.app_title {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 20rpx;
+}
+
+/* 表单区域 */
+.form-section {
+  background: #fff;
+  margin-top: 20rpx;
+  padding: 48rpx 44rpx;
+  flex: 1;
+}
+
+/* 头像选择 */
 .avatar-section {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin-top: 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .avatar-btn {
-	background: transparent;
-	border: none;
-	padding: 0;
-	margin: 0;
-	line-height: normal;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  line-height: normal;
 }
 
 .avatar-btn::after {
-	border: none;
+  border: none;
+}
+
+.avatar-wrap {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
 }
 
 .avatar {
-	width: 160rpx;
-	height: 160rpx;
-	border-radius: 50%;
-	display: block;
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
 }
 
+.avatar-placeholder {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  background: #e8f4fd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3rpx dashed #116cc5;
+  box-sizing: border-box;
+}
+
+.avatar-icon {
+  font-size: 48rpx;
+}
+
+.avatar-hint {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 16rpx;
+}
+
+/* 昵称输入 */
 .nickname-section {
-	margin-top: 40rpx;
+  margin-top: 48rpx;
+}
+
+.nickname-label {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 500;
 }
 
 .nickname-input {
-	width: 100%;
-	height: 80rpx;
-	border: 1px solid #eaeaea;
-	border-radius: 8rpx;
-	padding: 0 20rpx;
-	margin-top: 20rpx;
-	font-size: 28rpx;
-	box-sizing: border-box;
+  width: 100%;
+  height: 88rpx;
+  border-bottom: 2rpx solid #eaeaea;
+  padding: 0;
+  margin-top: 16rpx;
+  font-size: 30rpx;
+  box-sizing: border-box;
 }
 
+/* 登录按钮 */
 .login_btn {
-	width: 100%;
-	margin-top: 84rpx;
-	background-color: #116cc5;
+  width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
+  margin-top: 72rpx;
+  background-color: #116cc5 !important;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 500;
+  border-radius: 44rpx;
+  border: none;
+}
+
+.login_btn[disabled] {
+  background-color: #c8dff5 !important;
+  color: #fff;
+}
+
+.login_btn::after {
+  border: none;
 }

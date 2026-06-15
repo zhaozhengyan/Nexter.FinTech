@@ -1,12 +1,14 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/items/items",
     "pages/login/login",
     "pages/personal/personal",
     "pages/account/account",
     "pages/timing/timing",
     "pages/filter/filter",
     "pages/detail/detail",
+    "pages/item-detail/item-detail",
     "pages/tally/tally",
     "pages/about/about",
     "pages/set-category/set-category",
@@ -15,17 +17,26 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTextStyle": "black"
+    "navigationBarBackgroundColor": "#116cc5",
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
+    "color": "#999",
     "selectedColor": "#116cc5",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
     "list": [
       {
         "pagePath": "pages/index/index",
         "text": "账单",
         "iconPath": "images/list.png",
         "selectedIconPath": "images/list_h.png"
+      },
+      {
+        "pagePath": "pages/items/items",
+        "text": "物品",
+        "iconPath": "images/items.png",
+        "selectedIconPath": "images/items_h.png"
       },
       {
         "pagePath": "pages/personal/personal",

@@ -30,11 +30,11 @@ Page({
 
     //获取类别数据
     var categoryUrl = app.globalData.baseUrl + 'category';
-    utils.http_get(categoryUrl, this.getCategorys);
+    utils.http_get(categoryUrl, this.getCategorys.bind(this));
 
     //获取账户
     var accountUrl = app.globalData.baseUrl + 'account';
-    utils.http_get(accountUrl, this.getAccounts);
+    utils.http_get(accountUrl, this.getAccounts.bind(this));
 
     this.setData({
       toDayDate: toDayDate,
@@ -78,6 +78,13 @@ Page({
       })
       return;
     }
+    if (!this.data.selectedAccount || !this.data.selectedAccount.accountId) {
+      wx.showToast({
+        icon: 'none',
+        title: '请选择账户'
+      })
+      return;
+    }
     var url = app.globalData.baseUrl + 'transaction';
     utils.http_post(url, {
       accountId: this.data.selectedAccount.accountId,
@@ -85,7 +92,7 @@ Page({
       createdAt: this.data.date,
       money: this.data.money,
       memo: this.data.note
-    } , this.goToIndex,"阿偶！服务器打了个盹");
+    } , this.goToIndex.bind(this),"阿偶！服务器打了个盹");
   },
   goToIndex: function(res) {
     wx.switchTab({
@@ -117,11 +124,9 @@ Page({
   },
 
   onSelectIconFontTap: function(event) {
-    utils.SelectIconFont(event, this.SelectIconFontId);
-  },
-  SelectIconFontId: function(res) {
-    this.setData({
-      currentCategoryId: res
+    var that = this;
+    utils.SelectIconFont(event, function(id) {
+      that.setData({ currentCategoryId: id });
     });
   },
 
@@ -141,17 +146,17 @@ Page({
     //设置收入支出的默认选择账户
     var selectedAccount = wx.getStorageSync('selectedAccount');
     if (!selectedAccount) {
-      selectedAccount = accounts[2]; //没有缓存，默认微信账户
+      selectedAccount = accounts[2] || accounts[0] || {}; //默认微信账户，不足则取第一个
     };
     //设置转出的默认选择账户
     var accountOut = wx.getStorageSync('accountOut');
     if (!accountOut) {
-      accountOut = accounts[4]; //没有缓存，默认银行
+      accountOut = accounts[4] || accounts[1] || accounts[0] || {}; //默认银行，不足则回退
     };
-    //设置转出的默认选择账户
+    //设置转入的默认选择账户
     var accountIn = wx.getStorageSync('accountIn');
     if (!accountIn) {
-      accountIn = accounts[2]; //没有缓存，默认支付宝账户
+      accountIn = accounts[2] || accounts[0] || {}; //默认支付宝账户，不足则回退
     };
 
     this.setData({

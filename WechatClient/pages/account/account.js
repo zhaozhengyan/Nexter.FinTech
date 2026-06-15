@@ -15,20 +15,21 @@ Page({
 	 */
 	onLoad: function (options) {
 		var url = app.globalData.baseUrl + 'account';
-		utils.http_get(url, this.showPageData);
+		utils.http_get(url, this.showPageData.bind(this));
 	},
 
 	showPageData: function (res) {
-		var accountLen = res.account.length;
+		var accountList = res.account || [];
+		var accountLen = accountList.length;
 		var accountSum = 0;
-		for (let p in res.account) {
-			accountSum += res.account[p]['money'];
+		for (let p in accountList) {
+			accountSum += accountList[p]['money'];
 		}
 		var account = {
 			accountSum: accountSum,
 			totalIncome: res.totalIncome,
 			totalSpending: res.totalSpending,
-			accountList: res.account,
+			accountList: accountList,
 			accountLen: accountLen
 		}
 		this.setData({

@@ -26,19 +26,32 @@ function getToken() {
 
 function checkToken(url) {
   var token = getToken();
-  if (isNull(token) && url.search('/transaction') == -1) {
-    wx.navigateTo({
+  // 公开接口白名单：不需要 token 就能访问
+  var publicPaths = ['/login', '/register'];
+  var isPublic = publicPaths.some(function(path) {
+    return url.indexOf(path) !== -1;
+  });
+
+  if (isNull(token) && !isPublic) {
+    wx.reLaunch({
       url: '../login/login',
-    })
+    });
     return false;
   }
   return true;
 }
 
-function request(url, method, data, callback, text) {
+function request(url, method, data, callback, text, silent) {
   if (!checkToken(url)) return;
 
   var token = getToken();
+  var loadingActive = false;
+
+  if (!silent) {
+    wx.showLoading({ title: '加载中...', mask: true });
+    loadingActive = true;
+  }
+
   wx.request({
     url: url,
     data: data,
@@ -56,22 +69,26 @@ function request(url, method, data, callback, text) {
           } else if (callback != null) {
             callback();
           } else {
+            loadingActive = false;
             wx.showToast({
               title: '提交成功'
             })
           }
         } else {
+          loadingActive = false;
           wx.showToast({
             icon: 'none',
             title: res.data.message || '请求失败'
           })
         }
       } else if (res.statusCode === 401) {
+        loadingActive = false;
         wx.removeStorageSync('token');
-        wx.navigateTo({
+        wx.reLaunch({
           url: '../login/login',
         })
       } else {
+        loadingActive = false;
         wx.showToast({
           icon: 'none',
           title: '服务器错误: ' + res.statusCode
@@ -80,27 +97,34 @@ function request(url, method, data, callback, text) {
     },
     fail: function (err) {
       console.error('[HTTP Error]', method, url, err);
+      loadingActive = false;
       wx.showToast({
+        icon: 'none',
         title: text || '网络请求失败'
       })
+    },
+    complete: function () {
+      if (loadingActive) {
+        wx.hideLoading();
+      }
     }
   })
 }
 
-function http_get(url, callback, text) {
-  request(url, 'GET', null, callback, text);
+function http_get(url, callback, text, silent) {
+  request(url, 'GET', null, callback, text, silent);
 }
 
-function http_post(url, data, callback, text) {
-  request(url, 'POST', data, callback, text);
+function http_post(url, data, callback, text, silent) {
+  request(url, 'POST', data, callback, text, silent);
 }
 
-function http_put(url, data, callback, text) {
-  request(url, 'PUT', data, callback, text);
+function http_put(url, data, callback, text, silent) {
+  request(url, 'PUT', data, callback, text, silent);
 }
 
-function http_delete(url, data, callback, text) {
-  request(url, 'DELETE', data, callback, text);
+function http_delete(url, data, callback, text, silent) {
+  request(url, 'DELETE', data, callback, text, silent);
 }
 
 module.exports = {

@@ -1,15 +1,22 @@
 <template name='tabBarTemplate'>
 	<view class='tabBar_container'>
 		<view class='tabBar'>
-			<navigator url='/pages/index/index' class='tabBar_item' hover-class="none" open-type='switchTab'>
-				<image src='{{tabBarIndexSelected?"/images/list_h.png":"/images/list.png"}}' class='tabBar_icon'></image>
-				<view class='tabBar_title {{tabBarIndexSelected?"tabBar_title_selected":""}}'>账单</view>
-			</navigator>
-			<navigator url='/pages/tally/tally' hover-class="none" class='tabBar_item'>
+			<!-- 合并的账单/物品按钮，点击导航，长按1秒切换 -->
+			<view class='tabBar_item' bindtap='onCombinedTabTap' bindlongpress='onCombinedTabLongPress'>
+				<block wx:if="{{combinedTab === 'items'}}">
+					<image src='{{tabBarItemsSelected?"/images/items_h.png":"/images/items.png"}}' class='tabBar_icon'></image>
+					<view class='tabBar_title {{tabBarItemsSelected?"tabBar_title_selected":""}}'>物品</view>
+				</block>
+				<block wx:else>
+					<image src='{{tabBarIndexSelected?"/images/list_h.png":"/images/list.png"}}' class='tabBar_icon'></image>
+					<view class='tabBar_title {{tabBarIndexSelected?"tabBar_title_selected":""}}'>账单</view>
+				</block>
+			</view>
+			<view class='tabBar_item' bindtap='onAddTap'>
 				<view class='tabBar_add'>
 					<image src='/images/add.png' class='tabBar_icon_add'></image>
 				</view>
-			</navigator>
+			</view>
 			<navigator url='/pages/personal/personal' class='tabBar_item' hover-class="none" open-type='switchTab'>
 				<image src='{{tabBarPersonalSelected?"/images/personal_h.png":"/images/personal.png"}}' class='tabBar_icon'></image>
 				<view class='tabBar_title {{tabBarPersonalSelected?"tabBar_title_selected":""}}'>我的</view>

@@ -3,75 +3,102 @@
 page {
 	background-color: #f5f5f5;
 }
+
+/* 用户信息头部 */
 .personal_header {
 	background-color: #fff;
 	padding: 0 28rpx;
 }
 .personal_info {
-	padding: 40rpx 0 44rpx 0;
-	border-bottom: 1px solid #ebebeb;
+	padding: 40rpx 0;
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 }
 .personal_info .avatar {
 	width: 120rpx;
 	height: 120rpx;
 	border-radius: 50%;
 	margin-right: 24rpx;
+	background: #e8f4fd;
 }
 .personal_info .nickName {
 	font-size: 40rpx;
 	font-weight: bold;
 	color: #000;
-	height: 72rpx;
 	line-height: 72rpx;
 }
 .personal_info .time {
-	font-size: 25rpx;
+	font-size: 24rpx;
 	color: #b1b1b1;
-	font-weight: lighter;
-	height: 42rpx;
 	line-height: 42rpx;
 }
-.personal_count {
+
+/* 统计卡片 */
+.stats_row {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-around;
-	padding: 22rpx 0 15rpx 0;
+	align-items: center;
+	background: #fff;
+	margin: 20rpx 24rpx 0;
+	border-radius: 16rpx;
+	padding: 32rpx 0;
+	box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
 }
-.personal_count_item {
+.stats_cell {
+	flex: 1;
 	display: flex;
 	flex-direction: column;
-	text-align: center;
+	align-items: center;
 }
-.personal_count_item .number {
-	font-size: 30rpx;
-	color: #000;
-	line-height: 48rpx;
+.stats_num {
+	font-size: 44rpx;
+	color: #116cc5;
+	font-weight: bold;
+	line-height: 56rpx;
 }
-.personal_count_item .text {
-	font-size: 24rpx;
+.stats_label {
+	font-size: 22rpx;
 	color: #b7b7b7;
-	font-weight: lighter;
-	line-height: 42rpx;
+	line-height: 36rpx;
+	margin-top: 4rpx;
 }
-.personal_list {
-	background-color: #fff;
+.stats_divider {
+	width: 1rpx;
+	height: 60rpx;
+	background: #eee;
+}
+
+/* 分组卡片 */
+.section_card {
+	background: #fff;
+	margin: 20rpx 24rpx 0;
+	border-radius: 16rpx;
 	padding: 0 28rpx;
-	margin-top: 22rpx;
+	box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
 }
+.section_card:last-child {
+	margin-bottom: 140rpx;
+}
+.section_label {
+	font-size: 24rpx;
+	color: #999;
+	padding: 24rpx 0 0 0;
+}
+
+/* 菜单项 */
 .personal_item {
-	border-bottom: 1px solid #ebebeb;
-	padding: 28rpx 0;
+	border-bottom: 1px solid #f0f0f0;
+	padding: 32rpx 0;
 	position: relative;
 }
-.personal_list .personal_item:last-child {
-	border-bottom: none;	
+.section_card .personal_item:last-child {
+	border-bottom: none;
 }
 .personal_item text {
 	font-size: 30rpx;
-	color: #000;
-	font-weight: bold;
+	color: #333;
+	font-weight: 500;
 }
 .personal_item .right_arrow {
 	width: 14rpx;
@@ -80,4 +107,44 @@ page {
 	right: 10rpx;
 	top: 50%;
 	margin-top: -12rpx;
+}
+
+/* Radio 单选 */
+.radio_group {
+	display: flex;
+	flex-direction: row;
+	padding: 20rpx 0 32rpx 0;
+	gap: 56rpx;
+}
+.radio_option {
+	display: flex;
+	align-items: center;
+	gap: 14rpx;
+}
+.radio_option text {
+	font-size: 28rpx !important;
+	color: #666 !important;
+	font-weight: normal !important;
+}
+.radio_selected text {
+	color: #116cc5 !important;
+	font-weight: 500 !important;
+}
+.radio_circle {
+	width: 36rpx;
+	height: 36rpx;
+	border-radius: 50%;
+	border: 3rpx solid #ccc;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.radio_circle_active {
+	border-color: #116cc5;
+}
+.radio_dot {
+	width: 20rpx;
+	height: 20rpx;
+	border-radius: 50%;
+	background: #116cc5;
 }

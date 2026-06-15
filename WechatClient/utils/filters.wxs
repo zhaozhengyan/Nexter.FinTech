@@ -1,8 +1,9 @@
 var toFix = function (num){
 	num = parseFloat(num);
-	if (typeof num === 'number'){
+	if (typeof num === 'number' && !isNaN(num)){
 		return num.toFixed(2); //保留两位小数
 	}
+	return '0.00';
 }
 
 module.exports = {

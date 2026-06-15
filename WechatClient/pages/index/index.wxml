@@ -22,12 +22,12 @@
     </view>
   </view>
   <scroll-view class='tally_book_list' scroll-y='true' bindscrolltolower="tallyScrollLower">
-    <block wx:for='{{tallyData.lists}}' wx:for-index='index' wx:for-item='items' wx:key=''>
+    <block wx:for='{{tallyData.lists}}' wx:for-index='index' wx:for-item='items' wx:key='date'>
       <view class='tally_book_date'>
         <text>{{items.date}}</text>
         <text>收入:{{filters.toFix(items.totalMoney[0])}} 支出:{{filters.toFix(items.totalMoney[1])}}</text>
       </view>
-      <block wx:for='{{items.list}}' wx:for-index='idx' wx:for-item='item' wx:key=''>
+      <block wx:for='{{items.list}}' wx:for-index='idx' wx:for-item='item' wx:key='id'>
         <view class='tally_book_item' data-idx='{{index + "," + idx}}' data-id='{{item.id}}' catchtap='onOpenTallyDetailTap'>
           <view class='iconfont_container'>
             <i class="iconfont {{item.categoryIcon}}"></i>

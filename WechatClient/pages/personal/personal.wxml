@@ -1,6 +1,7 @@
 <!--pages/personal/personal.wxml-->
 <import src='../tabBar-template/tabBar-template.wxml' />
 <view class='personal_container'>
+  <!-- 用户信息 -->
   <view class='personal_header'>
     <view class='personal_info'>
       <image src='{{userInfos.avatarUrl}}' class='avatar'></image>
@@ -9,34 +10,44 @@
         <view class='time'>{{userInfos.joinTime}} 加入</view>
       </view>
     </view>
-    <view class='personal_count'>
-      <view class='personal_count_item'>
-        <text class='number'>{{userInfos.totalMoney}}</text>
-        <text class='text'>账户总余额(元)</text>
-      </view>
-      <view class='personal_count_item'>
-        <text class='number'>{{userInfos.totalDays}}</text>
-        <text class='text'>记账总天数</text>
-      </view>
-      <view class='personal_count_item'>
-        <text class='number'>{{userInfos.count}}</text>
-        <text class='text'>记账总笔数</text>
-      </view>
+  </view>
+
+  <!-- 统计卡片 -->
+  <view class='stats_row'>
+    <view class='stats_cell'>
+      <text class='stats_num'>{{userInfos.totalMoney}}</text>
+      <text class='stats_label'>账户总余额(元)</text>
+    </view>
+    <view class='stats_divider'></view>
+    <view class='stats_cell'>
+      <text class='stats_num'>{{userInfos.totalDays}}</text>
+      <text class='stats_label'>记账总天数</text>
+    </view>
+    <view class='stats_divider'></view>
+    <view class='stats_cell'>
+      <text class='stats_num'>{{userInfos.count}}</text>
+      <text class='stats_label'>记账总笔数</text>
     </view>
   </view>
-  <view class='personal_list'>
+
+  <!-- 功能设置 -->
+  <view class='section_card'>
     <view class='personal_item' data-page-url='../account/account' catchtap='onOpenPageTap'>
       <text>资产账户</text>
       <image class='right_arrow' src='../../images/right_arrow.png'></image>
     </view>
     <view class='personal_item' data-page-url='../timing/timing' catchtap='onOpenPageTap'>
-			<text>定时提醒</text>
-			<image class='right_arrow' src='../../images/right_arrow.png'></image>
-		</view>
+      <text>定时提醒</text>
+      <image class='right_arrow' src='../../images/right_arrow.png'></image>
+    </view>
     <view class='personal_item' data-page-url='../set-category/set-category' catchtap='onOpenPageTap'>
-			<text>设置类别</text>
-			<image class='right_arrow' src='../../images/right_arrow.png'></image>
-		</view>
+      <text>设置类别</text>
+      <image class='right_arrow' src='../../images/right_arrow.png'></image>
+    </view>
+  </view>
+
+  <!-- 家庭 -->
+  <view class='section_card'>
     <view class='personal_item' wx:if="{{userInfos.groupId>0}}" data-page-url='../group/group' catchtap='onOpenPageTap'>
       <text>我的家庭</text>
       <image class='right_arrow' src='../../images/right_arrow.png'></image>
@@ -48,6 +59,28 @@
     <view class='personal_item' data-page-url='../about/about' catchtap='onOpenPageTap'>
       <text>关于</text>
       <image class='right_arrow' src='../../images/right_arrow.png'></image>
+    </view>
+  </view>
+
+  <!-- 应用设置 -->
+  <view class='section_card'>
+    <view class='section_label'>应用设置</view>
+    <view class='personal_item'>
+      <text>启动时默认页面</text>
+    </view>
+    <view class='radio_group'>
+      <view class='radio_option {{defaultTab === "index" ? "radio_selected" : ""}}' bindtap='onDefaultTabTap' data-tab='index'>
+        <view class='radio_circle {{defaultTab === "index" ? "radio_circle_active" : ""}}'>
+          <view class='radio_dot' wx:if="{{defaultTab === 'index'}}"></view>
+        </view>
+        <text>账单</text>
+      </view>
+      <view class='radio_option {{defaultTab === "items" ? "radio_selected" : ""}}' bindtap='onDefaultTabTap' data-tab='items'>
+        <view class='radio_circle {{defaultTab === "items" ? "radio_circle_active" : ""}}'>
+          <view class='radio_dot' wx:if="{{defaultTab === 'items'}}"></view>
+        </view>
+        <text>物品</text>
+      </view>
     </view>
   </view>
 </view>
