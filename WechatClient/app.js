@@ -7,8 +7,8 @@ App({
     token: null,
     defaultTab: 'index',
     combinedTab: 'index',
-    // baseUrl: 'https://fintech-api.zhaoblogs.com/'
-    baseUrl: 'http://localhost:5000/'
+    baseUrl: 'https://fintech-api.zhaoblogs.com/'
+    //baseUrl: 'http://localhost:5000/'
   },
   onLaunch: function() {
     // 检查登录状态并获取用户信息

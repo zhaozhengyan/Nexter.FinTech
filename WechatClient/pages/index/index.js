@@ -13,6 +13,7 @@ Page({
     filterModuleHide: true,
     categoryId: 0,
     categoryIdChange: 0,
+    loggedIn: false,
     tabBarSelected: {
       combinedTab: 'index',
       tabBarIndexSelected: true,
@@ -38,7 +39,8 @@ Page({
       date: date,
       dateValue: dateValue,
       month: month,
-      endDate: toDayDate
+      endDate: toDayDate,
+      loggedIn: utils.isLoggedIn()
     });
   },
 
@@ -55,6 +57,10 @@ Page({
   },
 
   onAddTap: function() {
+    if (!utils.isLoggedIn()) {
+      wx.navigateTo({ url: '../login/login' });
+      return;
+    }
     var tab = app.globalData.combinedTab || 'index';
     if (tab === 'items') {
       wx.navigateTo({ url: '../item-detail/item-detail' });
@@ -91,10 +97,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.queryTransaction(true);
+    var loggedIn = utils.isLoggedIn();
+    this.setData({ loggedIn: loggedIn });
+    if (loggedIn) {
+      this.queryTransaction(true);
+    }
   },
   // 下拉刷新
   onPullDownRefresh: function() {
+    if (!utils.isLoggedIn()) {
+      wx.stopPullDownRefresh();
+      return;
+    }
     this.clearCache();
     this.queryTransaction(true); //静默刷新，下拉动画本身就是loading
   },

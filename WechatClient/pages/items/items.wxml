@@ -1,6 +1,48 @@
 <!--pages/items/items.wxml-->
 <import src='../tabBar-template/tabBar-template.wxml' />
-<view class="container">
+
+<!-- 未登录：引导体验界面 -->
+<view class="container" wx:if="{{!loggedIn}}">
+  <view class="guest_banner">
+    <view class="guest_banner_icon">📦</view>
+    <view class="guest_banner_title">物品管理</view>
+    <view class="guest_banner_desc">记录你的每一件物品，计算日均使用成本，让消费更理性</view>
+  </view>
+
+  <view class="guest_feature_list">
+    <view class="guest_feature_item">
+      <view class="guest_feature_icon">💎</view>
+      <view class="guest_feature_text">
+        <view class="guest_feature_name">物品记录</view>
+        <view class="guest_feature_desc">添加物品信息，分类管理你的所有物品</view>
+      </view>
+    </view>
+    <view class="guest_feature_item">
+      <view class="guest_feature_icon">📈</view>
+      <view class="guest_feature_text">
+        <view class="guest_feature_name">成本分析</view>
+        <view class="guest_feature_desc">自动计算日均使用成本，了解物品性价比</view>
+      </view>
+    </view>
+    <view class="guest_feature_item">
+      <view class="guest_feature_icon">🔄</view>
+      <view class="guest_feature_text">
+        <view class="guest_feature_name">排序筛选</view>
+        <view class="guest_feature_desc">按时间、价格、名称灵活排列物品</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="guest_login_section">
+    <navigator url='/pages/login/login' class="guest_login_btn">
+      <text>立即登录，开始使用</text>
+    </navigator>
+    <text class="guest_skip_hint">登录后数据自动同步，不登录也可浏览体验</text>
+  </view>
+</view>
+
+<!-- 已登录：正常物品页面 -->
+<view class="container" wx:else>
   <!-- 顶部统计卡片 -->
   <view class="stats-card">
     <view class="stats-header">

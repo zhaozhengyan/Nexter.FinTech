@@ -148,3 +148,63 @@ page {
 	border-radius: 50%;
 	background: #116cc5;
 }
+
+/* 未登录引导样式 */
+.guest_personal_header {
+	background: #fff;
+	padding: 60rpx 28rpx;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.guest_avatar_wrap {
+	flex-shrink: 0;
+}
+.guest_avatar_placeholder {
+	width: 120rpx;
+	height: 120rpx;
+	border-radius: 50%;
+	background: #e8f4fd;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 3rpx dashed #116cc5;
+}
+.guest_avatar_icon {
+	font-size: 48rpx;
+}
+.guest_login_text {
+	margin-left: 24rpx;
+}
+.guest_login_title {
+	font-size: 36rpx;
+	font-weight: bold;
+	color: #333;
+	margin-bottom: 8rpx;
+}
+.guest_login_desc {
+	font-size: 24rpx;
+	color: #999;
+}
+.guest_login_section {
+	padding: 60rpx 24rpx 80rpx;
+	text-align: center;
+}
+.guest_login_btn {
+	display: block;
+	background: linear-gradient(135deg, #116cc5 0%, #4a9eff 100%);
+	color: #fff;
+	font-size: 32rpx;
+	font-weight: 500;
+	height: 88rpx;
+	line-height: 88rpx;
+	border-radius: 44rpx;
+	text-align: center;
+	box-shadow: 0 4rpx 16rpx rgba(17,108,197,0.3);
+}
+.guest_skip_hint {
+	display: block;
+	font-size: 22rpx;
+	color: #bbb;
+	margin-top: 20rpx;
+}

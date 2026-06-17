@@ -1,6 +1,37 @@
 <!--pages/personal/personal.wxml-->
 <import src='../tabBar-template/tabBar-template.wxml' />
-<view class='personal_container'>
+
+<!-- 未登录：引导登录 -->
+<view class='personal_container' wx:if="{{!loggedIn}}">
+  <view class='guest_personal_header'>
+    <view class='guest_avatar_wrap'>
+      <view class='guest_avatar_placeholder'>
+        <text class='guest_avatar_icon'>👤</text>
+      </view>
+    </view>
+    <view class='guest_login_text'>
+      <view class='guest_login_title'>你还未登录</view>
+      <view class='guest_login_desc'>登录后可查看个人信息和使用全部功能</view>
+    </view>
+  </view>
+
+  <view class='section_card'>
+    <view class='personal_item' data-page-url='../about/about' catchtap='onOpenPageTap'>
+      <text>关于</text>
+      <image class='right_arrow' src='../../images/right_arrow.png'></image>
+    </view>
+  </view>
+
+  <view class='guest_login_section'>
+    <navigator url='/pages/login/login' class='guest_login_btn'>
+      <text>立即登录</text>
+    </navigator>
+    <text class='guest_skip_hint'>登录后数据自动同步到云端</text>
+  </view>
+</view>
+
+<!-- 已登录：正常个人信息 -->
+<view class='personal_container' wx:else>
   <!-- 用户信息 -->
   <view class='personal_header'>
     <view class='personal_info'>

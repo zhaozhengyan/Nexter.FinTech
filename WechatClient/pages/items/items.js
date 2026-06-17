@@ -4,6 +4,7 @@ const app = getApp()
 
 Page({
   data: {
+    loggedIn: false,
     items: [],
     totalCount: 0,
     totalAsset: '0.00',
@@ -24,8 +25,6 @@ Page({
   onLoad: function () {
     wx.hideTabBar({ animation: false });
     this.setData({ 'tabBarSelected.combinedTab': app.globalData.combinedTab || 'index' });
-    this.loadCategories()
-    this.loadItems()
   },
 
   onCombinedTabTap: function() {
@@ -41,6 +40,10 @@ Page({
   },
 
   onAddTap: function() {
+    if (!utils.isLoggedIn()) {
+      wx.navigateTo({ url: '../login/login' });
+      return;
+    }
     var tab = app.globalData.combinedTab || 'items';
     if (tab === 'items') {
       wx.navigateTo({ url: '../item-detail/item-detail' });
@@ -50,12 +53,20 @@ Page({
   },
 
   onShow: function () {
-    this.loadCategories()
-    this.loadItems(true)
+    var loggedIn = utils.isLoggedIn();
+    this.setData({ loggedIn: loggedIn });
+    if (loggedIn) {
+      this.loadCategories()
+      this.loadItems(true)
+    }
   },
 
   onPullDownRefresh: function () {
-    this.loadItems(true) //静默刷新，下拉动画本身就是loading
+    if (!utils.isLoggedIn()) {
+      wx.stopPullDownRefresh();
+      return;
+    }
+    this.loadItems(true)
   },
 
   loadCategories: function () {

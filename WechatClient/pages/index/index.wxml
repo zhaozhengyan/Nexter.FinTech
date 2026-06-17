@@ -10,18 +10,32 @@
           <image class='date_arrow' src='../../images/index/date_arrow.png'></image>
         </view>
       </picker>
-      <image src='../../images/index/filter_icon.png' class='filter_btn' data-category-id='{{categoryId}}' catchtap='onOpenFilterTap'></image>
+      <image src='../../images/index/filter_icon.png' class='filter_btn' data-category-id='{{categoryId}}' catchtap='onOpenFilterTap' wx:if="{{loggedIn}}"></image>
     </view>
-    <view class='text'>
-      <text>{{month}}月结余：</text>
-      <text class='large'>{{filters.toFix(tallyData.monthTotalMoneys[1] - tallyData.monthTotalMoneys[0])}}</text>
-    </view>
-    <view class='text'>
-      <text class='margin_right'>{{month}}月收入：{{filters.toFix(tallyData.monthTotalMoneys[1])}}</text>
-      <text>{{month}}月支出：{{filters.toFix(tallyData.monthTotalMoneys[0])}}</text>
-    </view>
+    <block wx:if="{{loggedIn}}">
+      <view class='text'>
+        <text>{{month}}月结余：</text>
+        <text class='large'>{{filters.toFix(tallyData.monthTotalMoneys[1] - tallyData.monthTotalMoneys[0])}}</text>
+      </view>
+      <view class='text'>
+        <text class='margin_right'>{{month}}月收入：{{filters.toFix(tallyData.monthTotalMoneys[1])}}</text>
+        <text>{{month}}月支出：{{filters.toFix(tallyData.monthTotalMoneys[0])}}</text>
+      </view>
+    </block>
+    <block wx:else>
+      <view class='text'>
+        <text>{{month}}月结余：</text>
+        <text class='large'>0.00</text>
+      </view>
+      <view class='text'>
+        <text class='margin_right'>{{month}}月收入：0.00</text>
+        <text>{{month}}月支出：0.00</text>
+      </view>
+    </block>
   </view>
-  <scroll-view class='tally_book_list' scroll-y='true' bindscrolltolower="tallyScrollLower">
+
+  <!-- 已登录：正常账单列表 -->
+  <scroll-view class='tally_book_list' scroll-y='true' bindscrolltolower="tallyScrollLower" wx:if="{{loggedIn}}">
     <block wx:for='{{tallyData.lists}}' wx:for-index='index' wx:for-item='items' wx:key='date'>
       <view class='tally_book_date'>
         <text>{{items.date}}</text>
@@ -41,5 +55,52 @@
       </block>
     </block>
   </scroll-view>
+
+  <!-- 未登录：引导体验界面 -->
+  <view class='guest_tally_book' wx:else>
+    <view class='guest_banner'>
+      <view class='guest_banner_icon'>💰</view>
+      <view class='guest_banner_title'>欢迎使用记账本</view>
+      <view class='guest_banner_desc'>登录后即可开始记录每一笔收支，轻松管理个人财务</view>
+    </view>
+
+    <view class='guest_feature_list'>
+      <view class='guest_feature_item'>
+        <view class='guest_feature_icon'>📊</view>
+        <view class='guest_feature_text'>
+          <view class='guest_feature_name'>账单管理</view>
+          <view class='guest_feature_desc'>记录收支，按月查看结余统计</view>
+        </view>
+      </view>
+      <view class='guest_feature_item'>
+        <view class='guest_feature_icon'>📦</view>
+        <view class='guest_feature_text'>
+          <view class='guest_feature_name'>物品管理</view>
+          <view class='guest_feature_desc'>管理物品，计算日均使用成本</view>
+        </view>
+      </view>
+      <view class='guest_feature_item'>
+        <view class='guest_feature_icon'>⏰</view>
+        <view class='guest_feature_text'>
+          <view class='guest_feature_name'>定时提醒</view>
+          <view class='guest_feature_desc'>设置提醒，养成记账好习惯</view>
+        </view>
+      </view>
+      <view class='guest_feature_item'>
+        <view class='guest_feature_icon'>👨‍👩‍👧‍👦</view>
+        <view class='guest_feature_text'>
+          <view class='guest_feature_name'>家庭共享</view>
+          <view class='guest_feature_desc'>创建家庭，与家人共同管理账目</view>
+        </view>
+      </view>
+    </view>
+
+    <view class='guest_login_section'>
+      <navigator url='/pages/login/login' class='guest_login_btn'>
+        <text>立即登录，开始使用</text>
+      </navigator>
+      <text class='guest_skip_hint'>登录后数据自动同步，不登录也可浏览体验</text>
+    </view>
+  </view>
 </view>
 <template is='tabBarTemplate' data='{{...tabBarSelected}}' />

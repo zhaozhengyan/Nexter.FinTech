@@ -157,3 +157,90 @@ page {
 	background-color: #fff;
 	margin-top: 14rpx;
 }
+
+/* 未登录引导样式 */
+.guest_tally_book {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 324rpx;
+	bottom: 98rpx;
+	width: 100%;
+	background-color: #f5f5f5;
+	overflow-y: auto;
+}
+.guest_banner {
+	background: linear-gradient(135deg, #116cc5 0%, #4a9eff 100%);
+	margin: 24rpx;
+	border-radius: 20rpx;
+	padding: 48rpx 36rpx;
+	text-align: center;
+}
+.guest_banner_icon {
+	font-size: 72rpx;
+	margin-bottom: 16rpx;
+}
+.guest_banner_title {
+	font-size: 36rpx;
+	font-weight: bold;
+	color: #fff;
+	margin-bottom: 12rpx;
+}
+.guest_banner_desc {
+	font-size: 26rpx;
+	color: rgba(255,255,255,0.85);
+	line-height: 40rpx;
+}
+.guest_feature_list {
+	margin: 0 24rpx;
+}
+.guest_feature_item {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	background: #fff;
+	padding: 30rpx 28rpx;
+	margin-bottom: 16rpx;
+	border-radius: 16rpx;
+	box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
+}
+.guest_feature_icon {
+	font-size: 44rpx;
+	margin-right: 24rpx;
+	flex-shrink: 0;
+}
+.guest_feature_text {
+	flex: 1;
+}
+.guest_feature_name {
+	font-size: 30rpx;
+	font-weight: 500;
+	color: #333;
+	margin-bottom: 6rpx;
+}
+.guest_feature_desc {
+	font-size: 24rpx;
+	color: #999;
+}
+.guest_login_section {
+	padding: 40rpx 24rpx 60rpx;
+	text-align: center;
+}
+.guest_login_btn {
+	display: block;
+	background: linear-gradient(135deg, #116cc5 0%, #4a9eff 100%);
+	color: #fff;
+	font-size: 32rpx;
+	font-weight: 500;
+	height: 88rpx;
+	line-height: 88rpx;
+	border-radius: 44rpx;
+	text-align: center;
+	box-shadow: 0 4rpx 16rpx rgba(17,108,197,0.3);
+}
+.guest_skip_hint {
+	display: block;
+	font-size: 22rpx;
+	color: #bbb;
+	margin-top: 20rpx;
+}

@@ -55,9 +55,14 @@ Page({
                 if (resp.statusCode === 200 && resp.data && resp.data.statusCode === 'Ok' && resp.data.data) {
                 wx.setStorageSync('token', resp.data.data.token)
                 app.globalData.token = resp.data.data.token
-                // 先跳转到默认页，避免 /me 接口慢时用户在登录页干等
-                var targetTab = app.globalData.defaultTab || 'index'
-                wx.switchTab({ url: '../' + targetTab + '/' + targetTab })
+                // 登录成功后返回上一页，让用户继续浏览
+                var pages = getCurrentPages();
+                if (pages.length > 1) {
+                  wx.navigateBack();
+                } else {
+                  // 如果没有上一页（直接打开登录页），跳转到首页
+                  wx.switchTab({ url: '/pages/index/index' });
+                }
                 // 异步加载用户信息（含 defaultTab）
                 app.loadUserInfo()
               } else {

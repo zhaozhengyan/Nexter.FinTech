@@ -24,6 +24,21 @@ function getToken() {
   return wx.getStorageSync('token') || '';
 }
 
+function isLoggedIn() {
+  return !isNull(getToken());
+}
+
+function requireLogin(callback) {
+  if (isLoggedIn()) {
+    callback && callback();
+    return true;
+  }
+  wx.navigateTo({
+    url: '/pages/login/login'
+  });
+  return false;
+}
+
 function checkToken(url) {
   var token = getToken();
   // 公开接口白名单：不需要 token 就能访问
@@ -33,9 +48,7 @@ function checkToken(url) {
   });
 
   if (isNull(token) && !isPublic) {
-    wx.reLaunch({
-      url: '../login/login',
-    });
+    // 不再强制跳转登录页，仅静默中止请求，让页面正常展示
     return false;
   }
   return true;
@@ -84,8 +97,9 @@ function request(url, method, data, callback, text, silent) {
       } else if (res.statusCode === 401) {
         loadingActive = false;
         wx.removeStorageSync('token');
-        wx.reLaunch({
-          url: '../login/login',
+        wx.showToast({
+          icon: 'none',
+          title: '登录已过期，请重新登录'
         })
       } else {
         loadingActive = false;
@@ -130,6 +144,8 @@ function http_delete(url, data, callback, text, silent) {
 module.exports = {
   formatDate: formatDate,
   isNull: isNull,
+  isLoggedIn: isLoggedIn,
+  requireLogin: requireLogin,
   SelectIconFont: SelectIconFont,
   http_get: http_get,
   http_post: http_post,

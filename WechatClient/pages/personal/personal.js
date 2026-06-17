@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    loggedIn: false,
     userInfos: null,
     tabBarSelected: {
       combinedTab: 'index',
@@ -37,6 +38,7 @@ Page({
     };
 
     this.setData({
+      loggedIn: true,
       userInfos: userInfos,
       defaultTab: defaultTab,
       defaultTabText: tabMap[defaultTab] || '账单'
@@ -44,6 +46,10 @@ Page({
   },
 
   onOpenPageTap: function(event) {
+    if (!utils.isLoggedIn()) {
+      wx.navigateTo({ url: '../login/login' });
+      return;
+    }
     var url = event.currentTarget.dataset.pageUrl;
     if (url) {
       wx.navigateTo({
@@ -74,14 +80,18 @@ Page({
     this.setData({ 'tabBarSelected.combinedTab': app.globalData.combinedTab || 'index' });
     // 首次加载时如果有缓存数据先展示
     if (app.globalData.userInfos) {
-      this.setData({ userInfos: app.globalData.userInfos });
+      this.setData({ loggedIn: true, userInfos: app.globalData.userInfos });
     }
   },
 
   onShow: function() {
     this.setData({ 'tabBarSelected.combinedTab': app.globalData.combinedTab || 'index' });
-    var url = app.globalData.baseUrl + 'me';
-    utils.http_get(url, this.showPageData.bind(this), null, true);
+    var loggedIn = utils.isLoggedIn();
+    this.setData({ loggedIn: loggedIn });
+    if (loggedIn) {
+      var url = app.globalData.baseUrl + 'me';
+      utils.http_get(url, this.showPageData.bind(this), null, true);
+    }
   },
 
   onCombinedTabTap: function() {
@@ -97,6 +107,10 @@ Page({
   },
 
   onAddTap: function() {
+    if (!utils.isLoggedIn()) {
+      wx.navigateTo({ url: '../login/login' });
+      return;
+    }
     var tab = app.globalData.combinedTab || 'index';
     if (tab === 'items') {
       wx.navigateTo({ url: '../item-detail/item-detail' });
