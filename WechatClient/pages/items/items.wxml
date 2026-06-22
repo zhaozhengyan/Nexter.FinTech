@@ -50,8 +50,8 @@
         <text class="stats-count">共 {{totalCount}} 件物品</text>
       </view>
       <view class="stats-actions">
-        <view class="action-btn" bindtap="onFilterTap">{{categoryName || '筛选'}}</view>
-        <view class="action-btn" bindtap="onSortTap">排序</view>
+        <view class="action-btn {{hasFilter ? 'active' : ''}}" bindtap="onFilterTap">筛选</view>
+        <view class="action-btn {{sortBy === 'custom' ? 'active' : ''}}" bindtap="onSortTap">排序</view>
       </view>
     </view>
     <view class="stats-content">
@@ -70,26 +70,46 @@
     </view>
   </view>
 
+  <!-- 拖拽排序提示 -->
+  <view class="sort-hint" wx:if="{{sortBy === 'custom'}}">
+    <text>长按拖拽手柄可调整顺序</text>
+  </view>
+
   <!-- 物品列表 -->
-  <view class="item-list">
-    <view class="item-card" wx:for="{{items}}" wx:key="id" bindtap="onItemTap" data-id="{{item.id}}">
-      <view class="item-icon">
-        <text class="ri {{item.icon}}" wx:if="{{item.icon}}"></text>
-        <text class="item-icon-text" wx:else>{{item.name[0] || '?'}}</text>
-      </view>
-      <view class="item-info">
-        <text class="item-name">{{item.name}}</text>
-        <view class="item-price-row">
-          <text class="item-price">¥{{item.price}}</text>
-          <text class="item-daily">¥{{item.dailyCost}}/天</text>
+  <scroll-view scroll-y="{{!isDragging}}" class="item-list-scroll" enhanced="{{true}}" show-scrollbar="{{false}}">
+    <view class="item-list">
+      <view class="item-card {{item.retireDate ? 'retired' : ''}} {{sortBy === 'custom' ? 'sortable' : ''}} {{dragCurrentIndex === index ? 'dragging' : ''}} {{isDragging && dragCurrentIndex !== index && dragTargetIndex !== dragCurrentIndex && ((dragCurrentIndex > dragTargetIndex && index >= dragTargetIndex && index < dragCurrentIndex) || (dragCurrentIndex < dragTargetIndex && index > dragCurrentIndex && index <= dragTargetIndex)) ? (dragCurrentIndex > dragTargetIndex ? 'shifted-down' : 'shifted-up') : ''}}"
+            wx:for="{{items}}" wx:key="id"
+            bindtap="onItemTap" data-id="{{item.id}}"
+            bindtouchstart="onTouchStart">
+        <view class="drag-handle" wx:if="{{sortBy === 'custom'}}" data-drag="1" data-id="{{item.id}}" catchtouchstart="onTouchStart">
+          <view class="drag-dots">
+            <view class="drag-dot-row"><view class="drag-dot"></view><view class="drag-dot"></view></view>
+            <view class="drag-dot-row"><view class="drag-dot"></view><view class="drag-dot"></view></view>
+            <view class="drag-dot-row"><view class="drag-dot"></view><view class="drag-dot"></view></view>
+          </view>
+        </view>
+        <view class="item-icon">
+          <text class="ri {{item.icon}}" wx:if="{{item.icon}}"></text>
+          <text class="item-icon-text" wx:else>{{item.name[0] || '?'}}</text>
+        </view>
+        <view class="item-info">
+          <view class="item-name-row">
+            <text class="item-name">{{item.name}}</text>
+            <text class="retired-badge" wx:if="{{item.retireDate}}">已退役</text>
+          </view>
+          <view class="item-price-row">
+            <text class="item-price">¥{{item.price}}</text>
+            <text class="item-daily">¥{{item.dailyCost}}/天</text>
+          </view>
+        </view>
+        <view class="item-days">
+          <text class="days-number">{{item.days}}</text>
+          <text class="days-unit">天</text>
         </view>
       </view>
-      <view class="item-days">
-        <text class="days-number">{{item.days}}</text>
-        <text class="days-unit">天</text>
-      </view>
     </view>
-  </view>
+  </scroll-view>
 
   <!-- 空状态 -->
   <view class="empty-state" wx:if="{{items.length === 0 && !loading}}">
@@ -101,6 +121,69 @@
   <!-- 加载状态 -->
   <view class="loading" wx:if="{{loading}}">
     <text>加载中...</text>
+  </view>
+
+  <!-- 拖拽浮层 -->
+  <view class="drag-overlay" wx:if="{{isDragging}}" catchtouchmove="onTouchMove" catchtouchend="onTouchEnd">
+    <view class="drag-clone item-card" style="position:fixed;left:24rpx;right:24rpx;top:{{dragCloneY}}px;z-index:999;box-shadow:0 8rpx 32rpx rgba(0,0,0,0.15);">
+      <view class="item-icon">
+        <text class="ri {{items[dragCurrentIndex].icon}}" wx:if="{{items[dragCurrentIndex].icon}}"></text>
+        <text class="item-icon-text" wx:else>{{items[dragCurrentIndex].name[0] || '?'}}</text>
+      </view>
+      <view class="item-info">
+        <view class="item-name-row">
+          <text class="item-name">{{items[dragCurrentIndex].name}}</text>
+          <text class="retired-badge" wx:if="{{items[dragCurrentIndex].retireDate}}">已退役</text>
+        </view>
+        <view class="item-price-row">
+          <text class="item-price">¥{{items[dragCurrentIndex].price}}</text>
+          <text class="item-daily">¥{{items[dragCurrentIndex].dailyCost}}/天</text>
+        </view>
+      </view>
+      <view class="item-days">
+        <text class="days-number">{{items[dragCurrentIndex].days}}</text>
+        <text class="days-unit">天</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 筛选遮罩 -->
+  <view class="filter-mask" wx:if="{{showFilter}}" bindtap="onCloseFilter"></view>
+
+  <!-- 筛选面板 -->
+  <view class="filter-panel {{showFilter ? 'show' : ''}}">
+    <view class="filter-header">
+      <text class="filter-title">筛选条件</text>
+      <text class="filter-clear" bindtap="onClearFilter">清空</text>
+    </view>
+
+    <!-- 物品名称搜索 -->
+    <view class="filter-section">
+      <text class="filter-label">物品名称</text>
+      <input class="filter-search-input" placeholder="搜索物品名称" value="{{filterName}}" bindinput="onFilterNameInput"/>
+    </view>
+
+    <!-- 物品状态 -->
+    <view class="filter-section">
+      <text class="filter-label">物品状态</text>
+      <view class="filter-tags">
+        <view class="filter-tag {{filterStatus === 'active' ? 'active' : ''}}" bindtap="onFilterStatusTap" data-status="active">现役物品</view>
+        <view class="filter-tag {{filterStatus === 'retired' ? 'active' : ''}}" bindtap="onFilterStatusTap" data-status="retired">退役物品</view>
+      </view>
+    </view>
+
+    <!-- 物品分类 -->
+    <view class="filter-section">
+      <text class="filter-label">物品分类</text>
+      <view class="filter-tags">
+        <view class="filter-tag {{filterCategoryId == item.id ? 'active' : ''}}" 
+              wx:for="{{categories}}" wx:key="id" 
+              bindtap="onFilterCategoryTap" data-id="{{item.id}}">{{item.name}}</view>
+      </view>
+    </view>
+
+    <!-- 确定按钮 -->
+    <view class="filter-confirm-btn" bindtap="onConfirmFilter">确定</view>
   </view>
 </view>
 

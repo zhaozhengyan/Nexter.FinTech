@@ -1,18 +1,22 @@
-## PigPig 记账
+## PigPig Finance
 
- `PigPig`项目致力于打造一个完整开源的理财微信小程序，采用现阶段流行技术实现。
- 
-### 扫码体验
+`PigPig` is an open-source personal finance WeChat Mini Program, built with modern technologies for a complete bookkeeping experience.
 
-<img src="https://github.com/zhaozhengyan/Notebook/raw/master/img/gh_7b0b4751951e_1280.jpg" width="200px">
+### Features
 
- ### 代码结构
+- **Transaction Tracking** — Record income/expenses with categories, filtering, and sorting on the home page
+- **Item Management** — Track purchases with price, usage days, and auto-calculated daily cost; supports additional items (income/expense) as JSON list for effective cost calculation; retired items with distinct gray styling; custom drag-to-sort ordering
+- **Asset Accounts** — Multi-account asset management
+- **Family Group** — Create a family group for shared bookkeeping across members
+- **Timed Reminders** — Bookkeeping reminders (pending subscription message migration)
+
+### Project Structure
 
 ``` lua
 ├─Nexter.FinTech
 │  ├─Nexter.Fintech.Application
-│  │  ├─DTO --数据传输
-│  │  ├─Job --自动任务
+│  │  ├─DTO --Data transfer objects
+│  │  ├─Job --Background jobs
 │  │  └─Wechat
 │  │      ├─DTO
 │  │      └─Options
@@ -22,43 +26,63 @@
 │  ├─Nexter.Fintech.Web.Core
 │  └─Nexter.Fintech.Web.Entry
 └─WechatClient
-    ├─data -- Mock Json数据
-    ├─iconfont 
+    ├─iconfont --Icon fonts (Remix Icon + iconfont)
     ├─images
-    │  ├─account
-    │  └─index
     ├─pages
-    │  ├─about --关于
-    │  ├─account --资产帐户
-    │  ├─detail --账单详情
-    │  ├─filter --首页筛选
-    │  ├─group --家庭组
-    │  ├─icons-template --共用类别
-    │  ├─index --首页
-    │  ├─login --登录页
-    │  ├─personal --个人中心
-    │  ├─set-category --设置类别
-    │  ├─set-group --创建家庭组
-    │  ├─tabBar-template --底部导航栏
-    │  ├─tally --记账
-    │  └─timing --预约提醒
-    └─utils --工具类
+    │  ├─about --About page
+    │  ├─account --Asset accounts
+    │  ├─detail --Transaction detail
+    │  ├─filter --Transaction filter
+    │  ├─group --Family group
+    │  ├─index --Home (transactions)
+    │  ├─item-detail --Item detail/edit
+    │  ├─items --Item list
+    │  ├─login --Login page
+    │  ├─personal --Profile center
+    │  ├─set-category --Category settings
+    │  ├─set-group --Create family group
+    │  ├─tabBar-template --Custom tab bar template
+    │  ├─tally --Add transaction
+    │  └─timing --Reminder settings
+    └─utils --Utilities (HTTP requests, auth, etc.)
 ```
 
-### 技术选型
+### Tech Stack
 
-#### 后端技术
-技术 | 说明 | 官网
+#### Backend
+
+Technology | Description | Version
 ----|----|----
-ASP.NET Web API | .Net API框架 | [https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api](https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api)
-WebApiClientCore | REST库 | [https://github.com/dotnetcore/WebApiClient](https://github.com/dotnetcore/WebApiClient)
-EntityFrameworkCore | Orm框架 | [https://www.nuget.org/packages/Microsoft.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore)
+Furion | Enterprise-grade .NET application framework | 4.9.8.96
+ASP.NET Core | Web API framework | .NET 10
+EntityFrameworkCore | ORM | 10.x
+Oracle MySql.EntityFrameworkCore | MySQL database provider | 10.x
+WebApiClientCore | Declarative REST API client | —
 
-#### 前端技术
+#### Frontend
 
-技术 | 说明 | 官网
-----|----|----
-js | 页面逻辑 | [https://developers.weixin.qq.com/miniprogram/dev/framework/structure.html](https://developers.weixin.qq.com/miniprogram/dev/framework/structure.html)
-wxml | 	页面结构 | [https://developers.weixin.qq.com/miniprogram/dev/framework/structure.html](https://developers.weixin.qq.com/miniprogram/dev/framework/structure.html)
-json | 页面配置 | [https://developers.weixin.qq.com/miniprogram/dev/framework/structure.html](https://developers.weixin.qq.com/miniprogram/dev/framework/structure.html)
-wxss | 页面样式表 | [https://developers.weixin.qq.com/miniprogram/dev/framework/structure.html](https://developers.weixin.qq.com/miniprogram/dev/framework/structure.html)
+Technology | Description
+----|----
+WeChat Mini Program (native) | WXML + WXSS + JS
+Remix Icon | Icon font for items (subsetted, base64 embedded)
+iconfont | Icon font for transactions
+
+### Deployment
+
+#### Database Migration
+
+```bash
+# Generate SQL script
+dotnet ef migrations script -o migration.sql
+
+# Or apply migrations directly
+dotnet ef database update
+```
+
+#### Configuration
+
+Edit `appsettings.json`:
+
+- `ConnectionStrings.Fintech` — MySQL connection string
+- `Wechat.BaseUrl` — WeChat API base URL (`https://api.weixin.qq.com`)
+- `Wechat.Appid` / `Wechat.Secret` — Mini Program credentials

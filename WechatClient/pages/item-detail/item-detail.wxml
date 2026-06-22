@@ -46,6 +46,21 @@
           <text class="info-value">{{item.note || '-'}}</text>
         </view>
       </view>
+
+      <!-- 附加项列表（详情模式） -->
+      <view class="detail-additionals" wx:if="{{item.additionalItems && item.additionalItems.length > 0}}">
+        <view class="detail-additionals-title">附加项明细</view>
+        <view class="detail-additional-row" wx:for="{{item.additionalItems}}" wx:key="index">
+          <view class="detail-additional-left">
+            <text class="detail-additional-name">{{item.name}}</text>
+            <text class="detail-additional-type {{item.type === 'income' ? 'type-income' : 'type-expense'}}">{{item.type === 'income' ? '收入' : '支出'}}</text>
+          </view>
+          <text class="detail-additional-amount {{item.type === 'income' ? 'amount-income' : 'amount-expense'}}">{{item.type === 'income' ? '-' : '+'}}¥{{item.amount}}</text>
+        </view>
+        <view class="detail-additional-summary">
+          <text>实际花费：¥{{item.effectiveCost || item.price}}</text>
+        </view>
+      </view>
     </view>
 
     <view class="action-bar">
@@ -89,16 +104,30 @@
 
       <!-- 价格和附加项 -->
       <view class="form-section">
-        <view class="form-row">
-          <view class="form-item half">
-            <text class="form-label">购买价格</text>
-            <input class="form-input" type="digit" placeholder="0" value="{{form.price}}" bindinput="onInputPrice"/>
-          </view>
-          <view class="form-item half">
+        <view class="form-item full">
+          <text class="form-label">购买价格</text>
+          <input class="form-input" type="digit" placeholder="0" value="{{form.price}}" bindinput="onInputPrice"/>
+        </view>
+      </view>
+
+      <!-- 附加项列表 -->
+      <view class="form-section">
+        <view class="form-item full">
+          <view class="additional-header">
             <text class="form-label">附加项(选填)</text>
-            <view class="form-input-row">
-              <input class="form-input small" type="digit" placeholder="0" value="{{form.additionalCost}}" bindinput="onInputAdditional"/>
-              <view class="add-btn" bindtap="onAddAdditional">添加</view>
+            <view class="additional-add-btn" bindtap="onShowAddAdditional">+ 添加</view>
+          </view>
+          <view class="additional-list" wx:if="{{additionals.length > 0}}">
+            <view class="additional-item" wx:for="{{additionals}}" wx:key="index" bindtap="onEditAdditional" data-index="{{index}}">
+              <view class="additional-item-left">
+                <text class="additional-name">{{item.name}}</text>
+                <text class="additional-type {{item.type === 'income' ? 'type-income' : 'type-expense'}}">{{item.type === 'income' ? '收入' : '支出'}}</text>
+              </view>
+              <view class="additional-item-right">
+                <text class="additional-amount {{item.type === 'income' ? 'amount-income' : 'amount-expense'}}">{{item.type === 'income' ? '-' : '+'}}{{item.amount}}</text>
+                <text class="additional-date">{{item.date}}</text>
+                <text class="additional-delete" catchtap="onDeleteAdditional" data-index="{{index}}">✕</text>
+              </view>
             </view>
           </view>
         </view>
@@ -185,6 +214,48 @@
         <text class="ri {{item.name}}"></text>
         <text class="icon-label">{{item.label}}</text>
       </view>
+    </view>
+  </view>
+</view>
+
+<!-- 附加项编辑弹窗 -->
+<view class="additional-modal" wx:if="{{showAdditionalModal}}" catchtap="onCloseAdditionalModal">
+  <view class="additional-modal-content" catchtap="preventClose">
+    <view class="additional-modal-title">{{editAdditionalIndex >= 0 ? '编辑附加项' : '添加附加项'}}</view>
+
+    <view class="additional-form">
+      <view class="additional-form-item">
+        <text class="additional-form-label">名称</text>
+        <input class="additional-form-input" placeholder="如：以旧换新、配件" value="{{editAdditionalForm.name}}" bindinput="onAdditionalFormInput" data-field="name"/>
+      </view>
+
+      <view class="additional-form-item">
+        <text class="additional-form-label">类型</text>
+        <view class="additional-type-toggle">
+          <view class="additional-type-btn {{editAdditionalForm.type === 'expense' ? 'type-active-expense' : ''}}" bindtap="onAdditionalTypeTap" data-type="expense">支出</view>
+          <view class="additional-type-btn {{editAdditionalForm.type === 'income' ? 'type-active-income' : ''}}" bindtap="onAdditionalTypeTap" data-type="income">收入</view>
+        </view>
+      </view>
+
+      <view class="additional-form-item">
+        <text class="additional-form-label">金额</text>
+        <input class="additional-form-input" type="digit" placeholder="0" value="{{editAdditionalForm.amount}}" bindinput="onAdditionalFormInput" data-field="amount"/>
+      </view>
+
+      <view class="additional-form-item">
+        <text class="additional-form-label">日期</text>
+        <picker mode="date" value="{{editAdditionalForm.date}}" bindchange="onAdditionalDateChange">
+          <view class="additional-form-picker">
+            <text>{{editAdditionalForm.date || '请选择日期'}}</text>
+            <text class="arrow">›</text>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="additional-modal-footer">
+      <view class="additional-modal-btn cancel" bindtap="onCloseAdditionalModal">取消</view>
+      <view class="additional-modal-btn confirm" bindtap="onConfirmAdditional">确定</view>
     </view>
   </view>
 </view>

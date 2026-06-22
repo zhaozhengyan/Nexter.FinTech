@@ -67,7 +67,8 @@
       <text>资产账户</text>
       <image class='right_arrow' src='../../images/right_arrow.png'></image>
     </view>
-    <view class='personal_item' data-page-url='../timing/timing' catchtap='onOpenPageTap'>
+    <!-- 定时提醒暂时关闭，待迁移到订阅消息后重新启用 -->
+    <view class='personal_item' data-page-url='../timing/timing' catchtap='onOpenPageTap' wx:if="{{false}}">
       <text>定时提醒</text>
       <image class='right_arrow' src='../../images/right_arrow.png'></image>
     </view>

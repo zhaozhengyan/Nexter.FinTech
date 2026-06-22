@@ -29,10 +29,11 @@ public class Startup : AppStartup
 
         services.AddCorsAccessor();
 
-        if (!App.HostEnvironment.IsDevelopment())
-        {
-            services.AddHostedService<TimedReminderBackgroundService>();
-        }
+        // 定时提醒暂时关闭：微信旧模板消息API已下线，待迁移到订阅消息后重新启用
+        // if (!App.HostEnvironment.IsDevelopment())
+        // {
+        //     services.AddHostedService<TimedReminderBackgroundService>();
+        // }
 
         services.AddControllers()
                 .AddInjectWithUnifyResult();

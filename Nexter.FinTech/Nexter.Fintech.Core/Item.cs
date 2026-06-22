@@ -34,10 +34,16 @@ namespace FinTech.Domain
         public decimal Price { get; set; }
 
         /// <summary>
-        /// 附加费用
+        /// 附加费用（已弃用，改用 AdditionalItemsJson）
         /// </summary>
         [Column(TypeName = "decimal(18,2)")]
         public decimal AdditionalCost { get; set; }
+
+        /// <summary>
+        /// 附加项 JSON 数组: [{"name":"以旧换新","type":"income","amount":1105,"date":"2024-04-07"}]
+        /// </summary>
+        [MaxLength(2048)]
+        public string AdditionalItemsJson { get; set; }
 
         /// <summary>
         /// 购买日期
@@ -81,6 +87,11 @@ namespace FinTech.Domain
         /// </summary>
         [MaxLength(256)]
         public string Note { get; set; }
+
+        /// <summary>
+        /// 自定义排序序号
+        /// </summary>
+        public int SortOrder { get; set; }
 
         public DateTime CreatedAt { get; set; }
         public DateTime LastModifiedAt { get; set; }

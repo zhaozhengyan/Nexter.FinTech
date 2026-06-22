@@ -19,7 +19,6 @@ Page({
     form: {
       name: '',
       price: '',
-      additionalCost: '',
       purchaseDate: '',
       retireDate: '',
       warrantyEndDate: '',
@@ -31,6 +30,11 @@ Page({
       calcMethodName: '按时间',
       note: ''
     },
+    // 附加项
+    additionals: [],
+    showAdditionalModal: false,
+    editAdditionalIndex: -1,
+    editAdditionalForm: { name: '', type: 'expense', amount: '', date: '' },
     categories: defaultCategories,
     categoryIndex: 0,
     calcMethods: [
@@ -119,10 +123,10 @@ Page({
     this.setData({
       isEdit: true,
       categoryIndex: categoryIndex,
+      additionals: item.additionalItems || [],
       form: {
         name: item.name || '',
         price: item.price || '',
-        additionalCost: item.additionalCost || '',
         purchaseDate: item.purchaseDate ? item.purchaseDate.substring(0, 10) : '',
         retireDate: item.retireDate ? item.retireDate.substring(0, 10) : '',
         warrantyEndDate: item.warrantyEndDate ? item.warrantyEndDate.substring(0, 10) : '',
@@ -171,16 +175,88 @@ Page({
     this.setData({ 'form.price': e.detail.value })
   },
 
-  onInputAdditional: function (e) {
-    this.setData({ 'form.additionalCost': e.detail.value })
+  // 附加项管理
+  onShowAddAdditional: function () {
+    var today = utils.formatDate(new Date())
+    this.setData({
+      showAdditionalModal: true,
+      editAdditionalIndex: -1,
+      editAdditionalForm: { name: '', type: 'expense', amount: '', date: today }
+    })
+  },
+
+  onEditAdditional: function (e) {
+    var index = e.currentTarget.dataset.index
+    var item = this.data.additionals[index]
+    this.setData({
+      showAdditionalModal: true,
+      editAdditionalIndex: index,
+      editAdditionalForm: {
+        name: item.name || '',
+        type: item.type || 'expense',
+        amount: String(item.amount || ''),
+        date: item.date || ''
+      }
+    })
+  },
+
+  onDeleteAdditional: function (e) {
+    var index = e.currentTarget.dataset.index
+    var additionals = this.data.additionals.slice()
+    additionals.splice(index, 1)
+    this.setData({ additionals: additionals })
+  },
+
+  onAdditionalFormInput: function (e) {
+    var field = e.currentTarget.dataset.field
+    this.setData({ ['editAdditionalForm.' + field]: e.detail.value })
+  },
+
+  onAdditionalTypeTap: function (e) {
+    this.setData({ 'editAdditionalForm.type': e.currentTarget.dataset.type })
+  },
+
+  onAdditionalDateChange: function (e) {
+    this.setData({ 'editAdditionalForm.date': e.detail.value })
+  },
+
+  onCloseAdditionalModal: function () {
+    this.setData({ showAdditionalModal: false })
+  },
+
+  onConfirmAdditional: function () {
+    var form = this.data.editAdditionalForm
+    if (!form.name) {
+      wx.showToast({ icon: 'none', title: '请输入名称' })
+      return
+    }
+    if (!form.amount) {
+      wx.showToast({ icon: 'none', title: '请输入金额' })
+      return
+    }
+
+    var newItem = {
+      name: form.name,
+      type: form.type,
+      amount: parseFloat(form.amount),
+      date: form.date
+    }
+
+    var additionals = this.data.additionals.slice()
+    if (this.data.editAdditionalIndex >= 0) {
+      additionals[this.data.editAdditionalIndex] = newItem
+    } else {
+      additionals.push(newItem)
+    }
+
+    this.setData({
+      additionals: additionals,
+      showAdditionalModal: false
+    })
   },
 
   onInputNote: function (e) {
     this.setData({ 'form.note': e.detail.value })
-  },
-
-  onAddAdditional: function () {
-    wx.showToast({ icon: 'none', title: '附加项已添加' })
   },
 
   // 日期选择
@@ -260,7 +336,7 @@ Page({
     var data = {
       name: form.name,
       price: parseFloat(form.price),
-      additionalCost: parseFloat(form.additionalCost) || 0,
+      additionalItemsJson: this.data.additionals.length > 0 ? JSON.stringify(this.data.additionals) : null,
       purchaseDate: form.purchaseDate,
       retireDate: form.retireDate || null,
       warrantyEndDate: form.warrantyEndDate || null,

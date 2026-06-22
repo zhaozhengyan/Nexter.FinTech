@@ -10,10 +10,24 @@ Page({
     totalAsset: '0.00',
     dailyCost: '0.00',
     loading: false,
-    sortBy: 'days', // days, price, name
+    sortBy: 'days', // days, daysAsc, price, priceAsc, name
     categoryId: null,
     categoryName: '全部',
     categories: [],
+    // 筛选面板
+    showFilter: false,
+    filterName: '',
+    filterStatus: null, // null, 'active', 'retired'
+    filterCategoryId: null,
+    hasFilter: false,
+    // 拖拽排序
+    isDragging: false,
+    dragCurrentIndex: -1,
+    dragTargetIndex: -1,
+    dragStartY: 0,
+    dragCloneY: 0,
+    dragItemHeight: 0,
+    dragTimer: null,
     tabBarSelected: {
       combinedTab: 'items',
       tabBarIndexSelected: false,
@@ -85,6 +99,12 @@ Page({
     if (this.data.categoryId) {
       url += '&categoryId=' + this.data.categoryId
     }
+    if (this.data.filterStatus) {
+      url += '&status=' + this.data.filterStatus
+    }
+    if (this.data.filterName) {
+      url += '&name=' + encodeURIComponent(this.data.filterName)
+    }
     utils.http_get(url, this.onItemsLoaded.bind(this), null, silent)
   },
 
@@ -114,6 +134,7 @@ Page({
   },
 
   onItemTap: function (e) {
+    if (this.data.sortBy === 'custom' || this.data.isDragging) return
     var id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: '../item-detail/item-detail?id=' + id
@@ -121,36 +142,172 @@ Page({
   },
 
   onFilterTap: function () {
-    var that = this
-    var categories = this.data.categories
-    var names = ['全部']
-    for (var i = 0; i < categories.length; i++) {
-      names.push(categories[i].name)
-    }
+    this.setData({ showFilter: true })
+  },
 
-    wx.showActionSheet({
-      itemList: names,
-      success: function (res) {
-        if (res.tapIndex === 0) {
-          that.setData({ categoryId: null, categoryName: '全部' })
-        } else {
-          var cat = categories[res.tapIndex - 1]
-          that.setData({ categoryId: cat.id, categoryName: cat.name })
-        }
-        that.loadItems(true)
-      }
+  onCloseFilter: function () {
+    this.setData({ showFilter: false })
+  },
+
+  onClearFilter: function () {
+    this.setData({
+      filterName: '',
+      filterStatus: null,
+      filterCategoryId: null,
+      categoryId: null,
+      categoryName: '全部',
+      hasFilter: false
     })
+  },
+
+  onFilterNameInput: function (e) {
+    this.setData({ filterName: e.detail.value })
+  },
+
+  onFilterStatusTap: function (e) {
+    var status = e.currentTarget.dataset.status
+    // 再次点击同一个状态则取消选择
+    if (this.data.filterStatus === status) {
+      this.setData({ filterStatus: null })
+    } else {
+      this.setData({ filterStatus: status })
+    }
+  },
+
+  onFilterCategoryTap: function (e) {
+    var id = e.currentTarget.dataset.id
+    // 再次点击同一个分类则取消选择
+    if (this.data.filterCategoryId == id) {
+      this.setData({ filterCategoryId: null })
+    } else {
+      this.setData({ filterCategoryId: id })
+    }
+  },
+
+  onConfirmFilter: function () {
+    var hasFilter = !!(this.data.filterName || this.data.filterStatus || this.data.filterCategoryId)
+    this.setData({
+      showFilter: false,
+      hasFilter: hasFilter,
+      categoryId: this.data.filterCategoryId,
+      categoryName: this.data.filterCategoryId ? this._findCategoryName(this.data.filterCategoryId) : '全部'
+    })
+    this.loadItems(true)
+  },
+
+  _findCategoryName: function (id) {
+    var categories = this.data.categories
+    for (var i = 0; i < categories.length; i++) {
+      if (categories[i].id == id) return categories[i].name
+    }
+    return '全部'
   },
 
   onSortTap: function () {
     var that = this
     wx.showActionSheet({
-      itemList: ['按购买时间', '按价格', '按名称'],
+      itemList: ['最近购买', '最早购买', '价格从高到低', '价格从低到高', '按名称', '自定义排序'],
       success: function (res) {
-        var sorts = ['days', 'price', 'name']
+        var sorts = ['days', 'daysAsc', 'price', 'priceAsc', 'name', 'custom']
         that.setData({ sortBy: sorts[res.tapIndex] })
-        that.loadItems()
+        that.loadItems(true)
       }
     })
+  },
+
+  // === 拖拽排序 ===
+  onTouchStart: function (e) {
+    if (this.data.sortBy !== 'custom') return
+
+    var id = e.currentTarget.dataset.id
+    if (!id) return
+
+    var index = -1
+    var items = this.data.items
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].id == id) {
+        index = i
+        break
+      }
+    }
+    if (index < 0) return
+
+    var touch = e.touches[0]
+    var that = this
+    var startY = touch.clientY
+
+    var timer = setTimeout(function () {
+      wx.vibrateShort({ type: 'medium' })
+      that.setData({
+        isDragging: true,
+        dragCurrentIndex: index,
+        dragTargetIndex: index,
+        dragStartY: startY,
+        dragCloneY: startY - 50,
+        dragItemHeight: 68
+      })
+    }, 300)
+
+    this.setData({ dragTimer: timer })
+  },
+
+  onTouchMove: function (e) {
+    if (!this.data.isDragging) {
+      // Cancel long press if finger moved
+      if (this.data.dragTimer) {
+        clearTimeout(this.data.dragTimer)
+        this.setData({ dragTimer: null })
+      }
+      return
+    }
+
+    var touch = e.touches[0]
+    var offsetY = touch.clientY - this.data.dragStartY
+    var newIndex = this.data.dragCurrentIndex + Math.round(offsetY / this.data.dragItemHeight)
+    newIndex = Math.max(0, Math.min(this.data.items.length - 1, newIndex))
+
+    this.setData({
+      dragCloneY: touch.clientY - 50
+    })
+
+    if (newIndex !== this.data.dragTargetIndex) {
+      wx.vibrateShort({ type: 'light' })
+      this.setData({ dragTargetIndex: newIndex })
+    }
+  },
+
+  onTouchEnd: function (e) {
+    if (this.data.dragTimer) {
+      clearTimeout(this.data.dragTimer)
+    }
+    if (!this.data.isDragging) {
+      this.setData({ dragTimer: null })
+      return
+    }
+
+    var fromIndex = this.data.dragCurrentIndex
+    var toIndex = this.data.dragTargetIndex
+
+    this.setData({
+      isDragging: false,
+      dragCurrentIndex: -1,
+      dragTargetIndex: -1,
+      dragTimer: null
+    })
+
+    // Reorder array if position changed
+    if (fromIndex !== toIndex) {
+      var items = this.data.items.slice()
+      var movedItem = items.splice(fromIndex, 1)[0]
+      items.splice(toIndex, 0, movedItem)
+      this.setData({ items: items })
+      this.saveOrder()
+    }
+  },
+
+  saveOrder: function () {
+    var ids = this.data.items.map(function (item) { return item.id })
+    var url = app.globalData.baseUrl + 'item/reorder'
+    utils.http_put(url, { ids: ids }, function () {}, null, true)
   }
 })

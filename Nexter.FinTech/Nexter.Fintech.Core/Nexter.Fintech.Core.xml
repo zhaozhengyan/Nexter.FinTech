@@ -26,7 +26,12 @@
         </member>
         <member name="P:FinTech.Domain.Item.AdditionalCost">
             <summary>
-            附加费用
+            附加费用（已弃用，改用 AdditionalItemsJson）
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Item.AdditionalItemsJson">
+            <summary>
+            附加项 JSON 数组: [{"name":"以旧换新","type":"income","amount":1105,"date":"2024-04-07"}]
             </summary>
         </member>
         <member name="P:FinTech.Domain.Item.PurchaseDate">
@@ -67,6 +72,11 @@
         <member name="P:FinTech.Domain.Item.Note">
             <summary>
             备注
+            </summary>
+        </member>
+        <member name="P:FinTech.Domain.Item.SortOrder">
+            <summary>
+            自定义排序序号
             </summary>
         </member>
         <member name="P:FinTech.Domain.ItemCategory.Name">
