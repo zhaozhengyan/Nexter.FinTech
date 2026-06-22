@@ -77,8 +77,10 @@ namespace Nexter.Fintech.Application
                 "name" => queryable.OrderBy(e => e.Name),
                 "days" => queryable.OrderByDescending(e => e.PurchaseDate),
                 "daysAsc" => queryable.OrderBy(e => e.PurchaseDate),
-                "custom" => queryable.OrderBy(e => e.SortOrder),
-                _ => queryable.OrderByDescending(e => e.PurchaseDate)
+                _ => queryable
+                    .OrderByDescending(e => e.SortOrder > 0 ? 1 : 0)
+                    .ThenBy(e => e.SortOrder == 0 ? int.MaxValue : e.SortOrder)
+                    .ThenByDescending(e => e.PurchaseDate)
             };
 
             var items = await queryable.ToListAsync();

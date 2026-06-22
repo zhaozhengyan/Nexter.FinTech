@@ -70,11 +70,6 @@
     </view>
   </view>
 
-  <!-- 拖拽排序提示 -->
-  <view class="sort-hint" wx:if="{{sortBy === 'custom'}}">
-    <text>长按拖拽手柄可调整顺序</text>
-  </view>
-
   <!-- 物品列表 -->
   <scroll-view scroll-y="{{!isDragging}}" class="item-list-scroll" enhanced="{{true}}" show-scrollbar="{{false}}">
     <view class="item-list">
@@ -82,13 +77,6 @@
             wx:for="{{items}}" wx:key="id"
             bindtap="onItemTap" data-id="{{item.id}}"
             bindtouchstart="onTouchStart">
-        <view class="drag-handle" wx:if="{{sortBy === 'custom'}}" data-drag="1" data-id="{{item.id}}" catchtouchstart="onTouchStart">
-          <view class="drag-dots">
-            <view class="drag-dot-row"><view class="drag-dot"></view><view class="drag-dot"></view></view>
-            <view class="drag-dot-row"><view class="drag-dot"></view><view class="drag-dot"></view></view>
-            <view class="drag-dot-row"><view class="drag-dot"></view><view class="drag-dot"></view></view>
-          </view>
-        </view>
         <view class="item-icon">
           <text class="ri {{item.icon}}" wx:if="{{item.icon}}"></text>
           <text class="item-icon-text" wx:else>{{item.name[0] || '?'}}</text>
@@ -99,7 +87,7 @@
             <text class="retired-badge" wx:if="{{item.retireDate}}">已退役</text>
           </view>
           <view class="item-price-row">
-            <text class="item-price">¥{{item.price}}</text>
+            <text class="item-price">¥{{item.effectiveCost}}</text>
             <text class="item-daily">¥{{item.dailyCost}}/天</text>
           </view>
         </view>
@@ -136,7 +124,7 @@
           <text class="retired-badge" wx:if="{{items[dragCurrentIndex].retireDate}}">已退役</text>
         </view>
         <view class="item-price-row">
-          <text class="item-price">¥{{items[dragCurrentIndex].price}}</text>
+          <text class="item-price">¥{{items[dragCurrentIndex].effectiveCost}}</text>
           <text class="item-daily">¥{{items[dragCurrentIndex].dailyCost}}/天</text>
         </view>
       </view>

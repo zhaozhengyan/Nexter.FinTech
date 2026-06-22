@@ -2,6 +2,15 @@
 const utils = require('../../utils/util.js')
 const app = getApp()
 
+// 默认分类（后端获取失败时的 fallback）
+var defaultCategories = [
+  { id: 1, name: '数码产品' },
+  { id: 2, name: '日用品' },
+  { id: 3, name: '服饰' },
+  { id: 4, name: '家具' },
+  { id: 5, name: '其他' }
+]
+
 Page({
   data: {
     loggedIn: false,
@@ -10,10 +19,10 @@ Page({
     totalAsset: '0.00',
     dailyCost: '0.00',
     loading: false,
-    sortBy: 'days', // days, daysAsc, price, priceAsc, name
+    sortBy: 'custom', // custom, days, daysAsc, price, priceAsc, name
     categoryId: null,
     categoryName: '全部',
-    categories: [],
+    categories: defaultCategories,
     // 筛选面板
     showFilter: false,
     filterName: '',
@@ -28,6 +37,7 @@ Page({
     dragCloneY: 0,
     dragItemHeight: 0,
     dragTimer: null,
+    dragJustEnded: false,
     tabBarSelected: {
       combinedTab: 'items',
       tabBarIndexSelected: false,
@@ -134,7 +144,12 @@ Page({
   },
 
   onItemTap: function (e) {
-    if (this.data.sortBy === 'custom' || this.data.isDragging) return
+    if (this.data.isDragging || this.data.dragJustEnded) return
+    // Clear pending drag timer
+    if (this.data.dragTimer) {
+      clearTimeout(this.data.dragTimer)
+      this.setData({ dragTimer: null })
+    }
     var id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: '../item-detail/item-detail?id=' + id
@@ -292,7 +307,8 @@ Page({
       isDragging: false,
       dragCurrentIndex: -1,
       dragTargetIndex: -1,
-      dragTimer: null
+      dragTimer: null,
+      dragJustEnded: true
     })
 
     // Reorder array if position changed
@@ -303,6 +319,12 @@ Page({
       this.setData({ items: items })
       this.saveOrder()
     }
+
+    // Clear dragJustEnded after tap event has had a chance to fire
+    var that = this
+    setTimeout(function () {
+      that.setData({ dragJustEnded: false })
+    }, 100)
   },
 
   saveOrder: function () {

@@ -109,11 +109,11 @@ page {
 .item-card {
   display: flex;
   align-items: center;
-  background: #fff;
+  background: #6ec185;
   border-radius: 16rpx;
   padding: 28rpx;
   margin-bottom: 16rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2rpx 12rpx rgba(45, 138, 78, 0.08);
 }
 
 .item-card:active {
@@ -122,7 +122,7 @@ page {
 
 /* 退役物品灰色样式 */
 .item-card.retired {
-  background: #ededed;
+  background: #bebebe;
 }
 
 .item-card.retired .item-icon {
@@ -136,22 +136,18 @@ page {
 }
 
 .item-card.retired .item-name {
-  color: #999;
+  color: #fbfbfb;
 }
 
 .item-card.retired .item-price,
 .item-card.retired .item-daily {
-  color: #b5b5b5;
-}
-
-.item-card.retired .item-days {
-  opacity: 0.4;
+  color: #fbfbfb;
 }
 
 .retired-badge {
   display: inline-block;
   font-size: 20rpx;
-  color: #bbb;
+  color: #b5b5b5;
   background: #dcdcdc;
   border-radius: 6rpx;
   padding: 2rpx 12rpx;
@@ -164,7 +160,7 @@ page {
   width: 88rpx;
   height: 88rpx;
   border-radius: 18rpx;
-  background: #e8f4fd;
+  background: #5aad73;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,12 +171,12 @@ page {
 .item-icon-text {
   font-size: 36rpx;
   font-weight: bold;
-  color: #116cc5;
+  color: #ffffff;
 }
 
 .item-icon .ri {
   font-size: 40rpx;
-  color: #116cc5;
+  color: #ffffff;
 }
 
 .item-info {
@@ -192,7 +188,7 @@ page {
 
 .item-name {
   font-size: 30rpx;
-  color: #333;
+  color: #ffffff;
   font-weight: 500;
   margin-bottom: 10rpx;
   overflow: hidden;
@@ -208,12 +204,12 @@ page {
 
 .item-price {
   font-size: 26rpx;
-  color: #333;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .item-daily {
   font-size: 24rpx;
-  color: #999;
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .item-days {
@@ -227,13 +223,13 @@ page {
 .days-number {
   font-size: 44rpx;
   font-weight: bold;
-  color: #116cc5;
+  color: #ffffff;
   line-height: 1;
 }
 
 .days-unit {
   font-size: 24rpx;
-  color: #999;
+  color: rgba(255, 255, 255, 0.75);
   margin-top: 6rpx;
 }
 
@@ -468,36 +464,7 @@ page {
 }
 
 .item-card.sortable {
-  padding-left: 16rpx;
   transition: transform 0.15s ease;
-}
-
-.drag-handle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48rpx;
-  margin-right: 12rpx;
-  flex-shrink: 0;
-  padding: 8rpx 0;
-}
-
-.drag-dots {
-  display: flex;
-  flex-direction: column;
-  gap: 6rpx;
-}
-
-.drag-dot-row {
-  display: flex;
-  gap: 6rpx;
-}
-
-.drag-dot {
-  width: 6rpx;
-  height: 6rpx;
-  border-radius: 50%;
-  background: #ccc;
 }
 
 .item-card.dragging {
@@ -525,7 +492,7 @@ page {
 
 .drag-clone {
   pointer-events: none;
-  background: #fff;
+  background: #6ec185;
   border-radius: 16rpx;
   padding: 28rpx;
   margin-bottom: 0;

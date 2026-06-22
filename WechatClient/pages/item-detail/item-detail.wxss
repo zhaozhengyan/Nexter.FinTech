@@ -224,7 +224,7 @@
 
 .icon-select .ri {
   font-size: 36rpx;
-  color: #1a9fe0;
+  color: #116cc5;
 }
 
 .icon-name {
